@@ -1,0 +1,27 @@
+12:39:00.790 INFO  [main][DiscardServer] start to listen
+12:43:06.894 INFO  [main][DiscardServer] ======info
+12:43:06.897 WARN  [main][DiscardServer] ======warn
+12:43:06.897 ERROR [main][DiscardServer] ======error
+2015-10-04 16:53:25,331 DEBUG [Test worker] i.n.u.i.l.InternalLoggerFactory [Slf4JLogger.java:71] Using SLF4J as the default logging framework
+2015-10-04 16:53:25,344 DEBUG [Test worker] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:76] java.nio.Buffer.address: available
+2015-10-04 16:53:25,345 DEBUG [Test worker] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:76] sun.misc.Unsafe.theUnsafe: available
+2015-10-04 16:53:25,346 DEBUG [Test worker] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:71] sun.misc.Unsafe.copyMemory: available
+2015-10-04 16:53:25,348 DEBUG [Test worker] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:76] java.nio.Bits.unaligned: true
+2015-10-04 16:53:25,351 DEBUG [Test worker] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] Java version: 7
+2015-10-04 16:53:25,352 DEBUG [Test worker] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.noUnsafe: false
+2015-10-04 16:53:25,353 DEBUG [Test worker] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] sun.misc.Unsafe: available
+2015-10-04 16:53:25,354 DEBUG [Test worker] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.noJavassist: false
+2015-10-04 16:53:25,782 DEBUG [Test worker] i.n.u.i.PlatformDependent [Slf4JLogger.java:71] Javassist: available
+2015-10-04 16:53:25,784 DEBUG [Test worker] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+2015-10-04 16:53:25,796 DEBUG [Test worker] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2015-10-04 16:53:25,797 DEBUG [Test worker] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.noPreferDirect: false
+2015-10-04 16:53:25,831 DEBUG [Test worker] i.n.u.ResourceLeakDetector [Slf4JLogger.java:81] -Dio.netty.leakDetection.level: simple
+2015-10-04 16:53:25,832 DEBUG [Test worker] i.n.u.ResourceLeakDetector [Slf4JLogger.java:81] -Dio.netty.leakDetection.maxRecords: 4
+2015-10-04 16:53:25,981 DEBUG [Test worker] i.n.u.i.ThreadLocalRandom [Slf4JLogger.java:71] -Dio.netty.initialSeedUniquifier: 0x0559b04b652a164d (took 30 ms)
+2015-10-04 16:53:26,140 DEBUG [Test worker] i.n.b.ByteBufUtil [Slf4JLogger.java:76] -Dio.netty.allocator.type: unpooled
+2015-10-04 16:53:26,141 DEBUG [Test worker] i.n.b.ByteBufUtil [Slf4JLogger.java:76] -Dio.netty.threadLocalDirectBufferSize: 65536
+2015-10-04 16:53:26,171 DEBUG [Test worker] i.n.u.Recycler [Slf4JLogger.java:76] -Dio.netty.recycler.maxCapacity.default: 262144
+2015-10-04 16:53:26,230 DEBUG [Test worker] c.e.p.Calculator [Calculator.java:13] add
+2015-10-04 16:53:26,233 DEBUG [Test worker] c.e.p.Calculator [Calculator.java:13] add
+2015-10-04 16:53:26,236 DEBUG [Test worker] c.e.p.Calculator [Calculator.java:13] add
+2015-10-04 16:53:26,241 DEBUG [Test worker] c.e.p.Calculator [Calculator.java:13] add

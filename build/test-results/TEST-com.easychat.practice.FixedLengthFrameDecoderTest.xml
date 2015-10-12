@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.easychat.practice.FixedLengthFrameDecoderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2015-10-04T08:53:24" hostname="Yonah-Lap" time="1.24">
+  <properties/>
+  <testcase name="testFramesDecoded" classname="com.easychat.practice.FixedLengthFrameDecoderTest" time="1.24"/>
+  <system-out><![CDATA[16:53:25,039 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+16:53:25,039 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+16:53:25,040 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [file:/home/yonah/EasyChat/build/resources/test/logback.xml]
+16:53:25,040 |-WARN in ch.qos.logback.classic.LoggerContext[default] - Resource [logback.xml] occurs multiple times on the classpath.
+16:53:25,040 |-WARN in ch.qos.logback.classic.LoggerContext[default] - Resource [logback.xml] occurs at [file:/home/yonah/EasyChat/build/resources/test/logback.xml]
+16:53:25,040 |-WARN in ch.qos.logback.classic.LoggerContext[default] - Resource [logback.xml] occurs at [file:/home/yonah/EasyChat/build/resources/main/logback.xml]
+16:53:25,164 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - debug attribute not set
+16:53:25,168 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.FileAppender]
+16:53:25,184 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [FILE]
+16:53:25,213 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+16:53:25,287 |-INFO in ch.qos.logback.core.FileAppender[FILE] - File property is set to [easychat.log]
+16:53:25,290 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+16:53:25,292 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+16:53:25,296 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+16:53:25,296 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to DEBUG
+16:53:25,297 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [FILE] to Logger[ROOT]
+16:53:25,298 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+16:53:25,298 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+16:53:25,299 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@44eecf68 - Registering current configuration as safe fallback point
+
+Using SLF4J as the default logging framework
+java.nio.Buffer.address: available
+sun.misc.Unsafe.theUnsafe: available
+sun.misc.Unsafe.copyMemory: available
+java.nio.Bits.unaligned: true
+Java version: 7
+-Dio.netty.noUnsafe: false
+sun.misc.Unsafe: available
+-Dio.netty.noJavassist: false
+Javassist: available
+-Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+-Dio.netty.bitMode: 64 (sun.arch.data.model)
+-Dio.netty.noPreferDirect: false
+-Dio.netty.leakDetection.level: simple
+-Dio.netty.leakDetection.maxRecords: 4
+-Dio.netty.initialSeedUniquifier: 0x0559b04b652a164d (took 30 ms)
+-Dio.netty.allocator.type: unpooled
+-Dio.netty.threadLocalDirectBufferSize: 65536
+-Dio.netty.recycler.maxCapacity.default: 262144
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

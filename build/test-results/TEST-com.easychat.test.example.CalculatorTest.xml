@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.easychat.test.example.CalculatorTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2015-09-18T02:19:14" hostname="Yonah-Lap" time="0.023">
+  <properties/>
+  <testcase name="testAdd" classname="com.easychat.test.example.CalculatorTest" time="0.021"/>
+  <testcase name="testSubstract" classname="com.easychat.test.example.CalculatorTest" time="0.0"/>
+  <testcase name="testDivide" classname="com.easychat.test.example.CalculatorTest" time="0.0"/>
+  <testcase name="testMultiply" classname="com.easychat.test.example.CalculatorTest" time="0.0"/>
+  <system-out><![CDATA[add
+add
+add
+add
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
