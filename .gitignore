@@ -55,4 +55,3 @@ fabric.properties
 
 # gradle files
 gradlew*
-settings.gradle

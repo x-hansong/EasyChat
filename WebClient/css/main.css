@@ -1,0 +1,255 @@
+body{
+	background:url(first.jpg);
+	background-size: 100%;
+	}
+.main{
+	position:absolute;
+	top:0;
+	left:177px;
+	width:1000px;
+	height:100%;
+	background:#FFF;
+	}
+.main-left{
+	position:relative;
+	height:100%;
+	width:280px;
+	float:left;
+	background:#2e3238;
+	}
+.main-left-nav{
+	width:244px;
+	height:40px;
+	padding:18px;
+	position: relative
+	}
+.main-left-nav-image{
+	width:50px;
+	height:40px;
+	float:left;
+	}
+.main-left-nav-info{
+	float:left;
+	width:194px;
+	height:40px;
+	line-height:40px;
+	}
+.main-left-nav-info>h3{
+	display:block;
+	height:40px;
+	width:80px;
+	margin:0;
+	float:left;
+	color:#FFF;
+	}
+.main-left-nav-info>a{
+	display:block;
+	width:40px;
+	height:40px;
+	float:right;
+	}
+.main-left-nav-info-1 {
+background:url(sprite27fe59.png) 0 -400px;
+width: 30px;
+height: 30px;
+vertical-align: middle;
+display: inline-block;
+}
+
+.main-left-button{
+	width:280px;
+	height:40p;
+	background:#E0F3FC
+	}
+.search_bar {
+	position: relative;
+	width: 244px;
+	height:32px;
+	margin: 0 auto 6px;
+	background-color: #26292E;
+}
+.web_wechat_search {
+	background: url(sprite27fe59.png) 0 -1946px;
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+	display:inline-block;
+}
+.search_bar .frm_search {
+	width: 214px;
+	height: 32px;
+	line-height: 32px;
+	border: 0;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	color: #fff;
+	padding-left: 30px;
+	font-size: 12px;
+	-webkit-transform:translateY(-30px);
+	-moz-transform:translateY(-30px);
+	-ms-transform:translateY(-30px);
+	-o-transform:translateY(-30px);
+	transform:translateY(-30px);
+	background-color:transparent
+}
+.tab {
+	overflow: hidden;
+	position: relative;
+	padding-bottom: 4px;
+	border-bottom:1px solid #24272C;
+}
+.tab_item {
+	width: 130px;
+	height:35px;
+	display:inline-block;
+}
+.web_wechat_tab_chat {
+	background: url(sprite27fe59.png) 0 -2048px;
+	width: 35px;
+	height: 35px;
+	display: inline-block;
+}
+.web_wechat_tab_friends {
+	background: url(sprite27fe59.png) 0 -2140px;
+	width:35px;
+	height:35px;
+	display:inline-block;
+}
+.chat{
+	margin-right:50%;
+	margin-left:40%;
+	display:inline-block;
+}
+.allchatmessage{
+	overflow:auto;
+	height:500px;
+	
+	}
+.chatmessage{
+	height:40px;
+	padding:10px;
+	border-bottom:1px solid #24272C;
+	}
+.chatmessage-1{
+	height:40px;
+	width:250px;	
+	}
+
+.chatmessage-1-image{
+	width:50px;
+	height:40px;
+	float:left;
+	}
+.chatmessage-1-info{	
+	float:left;
+	width:194px;
+	height:40px;
+	}
+.chatmessage-1 .chatmessage-1-info>h4{
+	display:block;
+	height:40px;
+	width:80px;
+	margin:0;
+	float:left;
+	color:#FFF;
+	}
+.main-right{
+	background:#FFF;
+	height:700px;
+	width:680px;
+	margin-left:300px;
+	display:none;
+	margin-top:-20px;
+	}
+.main-right-nav{
+	height:60px;
+	line-height:60px;
+	text-align:center;
+	border-bottom:1px solid #CCC;
+	}
+.main-right-chatmessage{
+	height:350px;
+	border-bottom:1px solid #CCC;
+	overflow:auto;
+	}
+.main-right-sendmessage{
+	height:170px;
+	}
+.main-right-writemessage{
+	display:block;
+	height:125px;
+	width:675px;
+	overflow-y:hidden;
+	border:0;
+	}
+.main-right-sendmessagebutton{
+	position:relative;
+	float:right;
+	height:35px;
+	width:100px;
+	border-radius:5px;
+	background-color:transparent;
+	}
+.main-right-chatmessage-1{
+	width:400px;
+	height:auto;
+	background:#3FF;
+	float:right;
+	margin-bottom:10px;
+	}
+.main-right-chatmessage-1-my{
+	display:inline-block;
+	border:1px solid #000;
+	height:auto;
+	line-height:40px;
+	width:335px;
+	padding-left:10px;
+	}
+.content{
+	margin-top:5px;
+	width:675px;
+	clear:both;
+	}
+.bubble {
+	float:right;
+	max-width: 500px;
+	min-height: 1em;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	text-align: left;
+	font-size: 14px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 5px 10px;
+	
+}
+.bubble:before,.bubble:after {
+	position:absolute;
+	top: 14px;
+	right:-2px;;
+	border: 6px solid transparent;
+	content: " ";
+	background:#b2e281;
+	-webkit-transform:rotate(45deg);
+	transform:rotate(45deg);
+}
+.bubble_cont {
+	word-wrap: break-word;
+	word-break: break-all;
+	min-height: 25px;
+	background:#b2e281;
+	display:inline-block;
+}
+.bubble_cont .plain {
+	padding: 9px 13px;
+}
+pre {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	white-space: pre-wrap;
+	word-break: initial;
+}
