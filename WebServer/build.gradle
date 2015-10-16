@@ -12,7 +12,9 @@ dependencies {
 // add spring boot gradle plugin
 buildscript {
     repositories {
-        mavenCentral()
+//            使用开源中国的maven仓库
+         maven { url 'http://maven.oschina.net/content/groups/public/' }
+//        mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE")
