@@ -1,5 +1,5 @@
 body{
-	background:url(first.jpg);
+	background: url(../image/first.jpg);
 	background-size: 100%;
 	}
 .main{
@@ -49,7 +49,7 @@ body{
 	float:right;
 	}
 .main-left-nav-info-1 {
-background:url(sprite27fe59.png) 0 -400px;
+background:url(../image/sprite27fe59.png) 0 -400px;
 width: 30px;
 height: 30px;
 vertical-align: middle;
@@ -58,7 +58,7 @@ display: inline-block;
 
 .main-left-button{
 	width:280px;
-	height:40p;
+	height:40px;
 	background:#E0F3FC
 	}
 .search_bar {
@@ -69,7 +69,7 @@ display: inline-block;
 	background-color: #26292E;
 }
 .web_wechat_search {
-	background: url(sprite27fe59.png) 0 -1946px;
+	background: url(../image/sprite27fe59.png) 0 -1946px;
 	width: 30px;
 	height: 30px;
 	vertical-align: middle;
@@ -105,13 +105,13 @@ display: inline-block;
 	display:inline-block;
 }
 .web_wechat_tab_chat {
-	background: url(sprite27fe59.png) 0 -2048px;
+	background: url(../image/sprite27fe59.png) 0 -2048px;
 	width: 35px;
 	height: 35px;
 	display: inline-block;
 }
 .web_wechat_tab_friends {
-	background: url(sprite27fe59.png) 0 -2140px;
+	background: url(../image/sprite27fe59.png) 0 -2140px;
 	width:35px;
 	height:35px;
 	display:inline-block;
@@ -252,4 +252,28 @@ pre {
 	font-size: inherit;
 	white-space: pre-wrap;
 	word-break: initial;
+}
+.bubble_1 {
+	float:left;
+	max-width: 500px;
+	min-height: 1em;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	text-align: left;
+	font-size: 14px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 5px 10px;
+}
+.bubble_1:before,.bubble_2:after {
+	position:absolute;
+	top: 14px;
+	left:-2px;;
+	border: 6px solid transparent;
+	content: " ";
+	background:#b2e281;
+	-webkit-transform:rotate(45deg);/*旋转函数*/
+	transform:rotate(45deg);
 }
