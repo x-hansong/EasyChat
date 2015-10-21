@@ -1,14 +1,14 @@
-package com.easychat.practice.rest;
+package com.easychat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Created by yonah on 15-10-14.
+ * Created by yonah on 15-10-18.
  */
 @SpringBootApplication
-public class Application {
+public class EasyChat {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(EasyChat.class, args);
     }
 }
