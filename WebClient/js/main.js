@@ -12,6 +12,7 @@ function sendto(){
   +"<div class='main-right-chatmessage-1-my' id=" + testid + "></div>"
   +"<div class='chatmessage-1-image' style='float:right;'>"
   +"<img src='cong.jpg' width='40px' height='40px'/>"
+
   +"</div>"
   +"</div>");
   **/

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -7,6 +7,7 @@
 <link href="weChat.ico" rel="shortcut icon" title="微信网页版"/>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <script language="javascript" type="text/javascript" src="js/main.js"></script>
+    <script language="javascript" type="text/javascript" src="js/weChat.js"></script>
 <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.js"></script>
 </head>
 <body style="overflow:hidden;">
@@ -17,7 +18,7 @@
           <img src="image/cong.jpg" width="40px" height="40px"/>
         </div>
         <div class="main-left-nav-info"> 
-          <h3>张文聪</h3>
+          <h3 class="my-name">张文聪</h3>
           <a href="#" >
             <i class="main-left-nav-info-1"></i>
           </a>
@@ -215,7 +216,7 @@
     </div>
     <div class="main-right">
       <div  class="main-right-nav">
-      <h2></h2>
+      <h2 class="you-name"></h2>
       </div>
       <div class="main-right-chatmessage">
       
@@ -238,7 +239,7 @@
       </div>
       <div class="main-right-sendmessage">
       <textarea type="text" class="main-right-writemessage" ></textarea>
-      <input type="submit"  class="main-right-sendmessagebutton" onclick="sendto()" value="发送"/>
+      <input type="submit"  class="main-right-sendmessagebutton" onclick="sendMessage()" value="发送"/>
       </div>
     </div>
 </div>

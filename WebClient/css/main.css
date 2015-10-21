@@ -23,7 +23,7 @@ body{
 	width:244px;
 	height:40px;
 	padding:18px;
-	position: relative
+	position: relative;
 	}
 .main-left-nav-image{
 	width:50px;
@@ -159,7 +159,7 @@ display: inline-block;
 	}
 .main-right{
 	background:#FFF;
-	height:700px;
+	height:600px;
 	width:680px;
 	margin-left:300px;
 	display:none;
