@@ -36,5 +36,15 @@ function sendto(){
 };
 function change_web_wechat_tab_chat(e){
 	$(e).children("i").css("background","url(./image/sprite27fe59.png) 0 -2083px");
+	$(".web_wechat_tab_friends").css("background","url(./image/sprite27fe59.png) 0 -2140px");
+	$(".allchatmessage").css("display","");
+	$(".myfriends").css("display","none");
+	
+	};
+function change_web_wechat_tab_friends(e){
+	$(e).children("i").css("background","url(./image/sprite27fe59.png) 0 -2175px");
+	$(".web_wechat_tab_chat").css("background","url(./image/sprite27fe59.png) 0 -2048px");
+	$(".allchatmessage").css("display","none");
+	$(".myfriends").css("display","");
 	};
   
