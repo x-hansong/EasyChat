@@ -32,7 +32,7 @@
             <a class="chat" ui-sref="chat"  href="#" onclick="change_web_wechat_tab_chat(this)"><i class="web_wechat_tab_chat" ></i></a>
         </div>
         <div class="tab_item">
-            <a class="chat" ui-sref="contact"  href="#"><i class="web_wechat_tab_friends"></i></a>
+            <a class="chat" ui-sref="contact"  href="#" onclick="change_web_wechat_tab_friends(this)"><i class="web_wechat_tab_friends"></i></a>
         </div>
     </div>
       <div class="allchatmessage" >
@@ -43,7 +43,7 @@
                 <img src="image/cong.jpg" width="40px" height="40px"/>
                 </div>
                 <div class="chatmessage-1-info"> 
-                <h4>1</h4>
+                <h4>张文聪</h4>
                 </div>
             </div>
           </a>
@@ -55,7 +55,7 @@
                 <img src="image/cong.jpg" width="40px" height="40px"/>
                 </div>
                 <div class="chatmessage-1-info"> 
-                <h4>2</h4>
+                <h4>文聪张</h4>
                 </div>
             </div>
           </a>
@@ -67,7 +67,7 @@
                 <img src="image/cong.jpg" width="40px" height="40px"/>
                 </div>
                 <div class="chatmessage-1-info"> 
-                <h4>3</h4>
+                <h4>文张聪</h4>
                 </div>
             </div>
           </a>
@@ -79,7 +79,7 @@
                 <img src="image/cong.jpg" width="40px" height="40px"/>
                 </div>
                 <div class="chatmessage-1-info"> 
-                <h4>3</h4>
+                <h4>张聪文</h4>
                 </div>
             </div>
           </a>
@@ -181,6 +181,36 @@
           </a>
           </div>
       </div>
+      
+      <div class="myfriends" style="display:none">
+      	  <div class="bianhao">
+          <h4>A</h4>
+          </div>
+          <div class="chatmessage" >
+          <a href="#" onclick="chatwith(this)">
+            <div class="chatmessage-1">
+                <div class="chatmessage-1-image">
+                <img src="image/cong.jpg" width="40px" height="40px"/>
+                </div>
+                <div class="chatmessage-1-info"> 
+                <h4>AAA</h4>
+                </div>
+            </div>
+          </a>
+          </div>
+          <div class="chatmessage" >
+          <a href="#" onclick="chatwith(this)">
+            <div class="chatmessage-1">
+                <div class="chatmessage-1-image">
+                <img src="image/cong.jpg" width="40px" height="40px"/>
+                </div>
+                <div class="chatmessage-1-info"> 
+                <h4>BBBB</h4>
+                </div>
+            </div>
+          </a>
+          </div>
+      </div>
     
     </div>
     <div class="main-right">
@@ -189,14 +219,14 @@
       </div>
       <div class="main-right-chatmessage">
       
-    <div class="content">     
+    <div class="content" >     
         <div class="chatmessage-1-image" style="float:left;">
             <img src="image/cong.jpg" width="40px" height="40px"/>
         </div>
         <div class="bubble_1">
             <div class="bubble_cont">
                 <div class="plain">
-                    <pre class="js_message_plain ng-binding" >张文聪不是刷币</pre>
+                    <pre class="js_message_plain ng-binding" >张力是刷币</pre>
                 </div>
             </div>
         </div>
@@ -208,7 +238,7 @@
       </div>
       <div class="main-right-sendmessage">
       <textarea type="text" class="main-right-writemessage" ></textarea>
-      <input type="submit"  class="main-right-sendmessagebutton" onclick="sendto()"/>
+      <input type="submit"  class="main-right-sendmessagebutton" onclick="sendto()" value="发送"/>
       </div>
     </div>
 </div>
