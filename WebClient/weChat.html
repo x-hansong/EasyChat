@@ -11,31 +11,41 @@
 <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.js"></script>
 </head>
 <body style="overflow:hidden;">
+<!-- 整体框架 -->
 <div class="main">
+    <!-- 左部框架 -->
     <div class="main-left"> 
       <div class="main-left-nav">
+          <!-- 个人图片 -->
         <div class="main-left-nav-image">
           <img src="image/cong.jpg" width="40px" height="40px"/>
         </div>
-        <div class="main-left-nav-info"> 
+        <div class="main-left-nav-info">
+            <!-- 个人名字 -->
           <h3 class="my-name">张文聪</h3>
+            <!-- 菜单标签 -->
           <a href="#" >
             <i class="main-left-nav-info-1"></i>
           </a>
         </div>
       </div>
+        <!-- 搜索框 -->
       <div class="search_bar" id="search_bar">
         <i class="web_wechat_search"></i>
         <input class="frm_search" type="text" placeholder="搜索">
       </div>
+        <!-- tab标签栏 -->
       <div class="tab">
         <div class="tab_item" style="border-right:1px solid #24272C;">
+            <!-- 聊天列表 -->
             <a class="chat" ui-sref="chat"  href="#" onclick="change_web_wechat_tab_chat(this)"><i class="web_wechat_tab_chat" ></i></a>
         </div>
         <div class="tab_item">
+            <!-- 朋友列表 -->
             <a class="chat" ui-sref="contact"  href="#" onclick="change_web_wechat_tab_friends(this)"><i class="web_wechat_tab_friends"></i></a>
         </div>
     </div>
+        <!-- 聊天/好友标签 -->
       <div class="allchatmessage" >
           <div class="chatmessage" >
           <a href="#" onclick="chatwith(this)">
@@ -214,12 +224,16 @@
       </div>
     
     </div>
+    <!-- 右部框架 -->
     <div class="main-right">
+        <!-- 聊天人名字 -->
       <div  class="main-right-nav">
       <h2 class="you-name"></h2>
       </div>
+        <!-- 显示信息区域 -->
       <div class="main-right-chatmessage">
-      
+
+          <!-- 信息显示样式 -->
     <div class="content" >     
         <div class="chatmessage-1-image" style="float:left;">
             <img src="image/cong.jpg" width="40px" height="40px"/>
@@ -237,8 +251,11 @@
        
         
       </div>
+        <!-- 发送信息区域 -->
       <div class="main-right-sendmessage">
+          <!-- 书写信息区域 -->
       <textarea type="text" class="main-right-writemessage" ></textarea>
+          <!-- 发送按钮 -->
       <input type="submit"  class="main-right-sendmessagebutton" onclick="sendMessage()" value="发送"/>
       </div>
     </div>
