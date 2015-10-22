@@ -1,28 +1,49 @@
+﻿//浏览器兼容
 if (!window.WebSocket && window.MozWebSocket)
     window.WebSocket=window.MozWebSocket;
 if (!window.WebSocket)
     alert("No Support ");
+
+//webSocket对象
 var ws;
+
+//开启websocket连接，连接服务器
 startWebSocket();
 
+//发送消息函数
 function sendMessage()
 {
-    var msg={"from":$(".my-name").text(),"message":$(".main-right-writemessage").val(),"to":$(".you-name").text()};
-    var msg_str=JSON.stringify(msg);
-    send(msg_str);
-    $(".main-right-writemessage").val("");
+    if($(".main-right-writemessage").val()==""){
+        alert("内容不能为空！");
+    }
+    else {
+        var msg = {
+            "from": $(".my-name").text(),
+            "message": $(".main-right-writemessage").val(),
+            "to": $(".you-name").text()
+        };
+        var msg_str = JSON.stringify(msg);
+        send(msg_str);
+        $(".main-right-writemessage").val("");
+    }
 }
+
+//子发送消息函数
 function send(data)
 {
     console.log("Send:"+data);
     ws.send(data);
 }
+
+//开启websocket连接函数
 function startWebSocket()
 {
     ws = new WebSocket("ws://localhost:8080/ws");
+    //连接开启触发函数
     ws.onopen = function(event){
         console.log("success open");
     };
+    //收到消息触发函数
     ws.onmessage = function(event)
     {
         console.log("RECEIVE:"+event.data);
@@ -40,6 +61,7 @@ function startWebSocket()
             +"</div>");
         $(".main-right-chatmessage").append($html);
     };
+    //连接关闭触发函数
     ws.onclose = function(event) {
         console.log("Client notified socket has closed",event);
     };
