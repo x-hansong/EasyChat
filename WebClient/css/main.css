@@ -127,7 +127,7 @@ display: inline-block;
 }
 .allchatmessage{
 	overflow:auto;
-	height:500px;
+	height:443px;
 	}
 .chatmessage{
 	height:40px;
@@ -291,3 +291,57 @@ pre {
 	height:20px;
 	border-bottom:1px solid #24272C;
 	}
+.dropdown_memu{
+	position: absolute;
+	background: #FFF;
+	width:170px;
+	height:150px;
+	margin-left: -190px;
+	margin-top:60px;
+	display:none;
+	z-index: 1000;
+	border: 1px solid #a4a4a4;
+	border-radius: 5px;
+}
+.dropdown_memu ul{
+	display:block;
+	list-style-type: none;
+	padding:0;
+	margin:0;
+}
+.dropdown_memu ul li{
+	display:list-item;
+	height:50px;
+	line-height: 50px;
+	border-bottom:1px solid #24272C;
+}
+.dropdown_memu ul li a{
+	display:block;
+	height:50px;
+	width:170px;
+	text-decoration:none;
+}
+.menuicon_friend{
+	background: url(../image/sprite27fe59.png) 0 -170px;
+	width: 34px;
+	height: 34px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left:10px;
+}
+.menuicon_chat{
+	background: url(../image/sprite27fe59.png) 0 -66px;
+	width: 34px;
+	height: 34px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left:10px;
+}
+.menuicon_quit{
+	background: url(../image/sprite27fe59.png) 0 -270px;
+	width: 34px;
+	height: 34px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left:10px;
+}

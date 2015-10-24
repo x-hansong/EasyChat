@@ -48,4 +48,6 @@ function change_web_wechat_tab_friends(e){
 	$(".allchatmessage").css("display","none");
 	$(".myfriends").css("display","");
 	};
-  
+function dropdown(){
+	$(".dropdown_memu").css("display","inline-block");
+}
