@@ -1,10 +1,10 @@
 var number = 1;
 var test = "id";
 function chatwith(e){
-  $(".main-right").show();
-  var name = $(e).children(".chatmessage-1").children(".chatmessage-1-info").children("h4").text();
-  $(".main-right .main-right-nav h2").text(name);
-  };
+	$(".main-right").show();
+	var name = $(e).children(".chatmessage-1").children(".chatmessage-1-info").children("h4").text();
+	$(".main-right .main-right-nav h2").text(name);
+};
 function sendto(){
   var testid = test + number ;
   /**
