@@ -1,4 +1,5 @@
-﻿//浏览器兼容
+﻿
+//浏览器兼容
 if (!window.WebSocket && window.MozWebSocket)
     window.WebSocket=window.MozWebSocket;
 if (!window.WebSocket)
@@ -65,5 +66,5 @@ function startWebSocket()
     ws.onclose = function(event) {
         console.log("Client notified socket has closed",event);
     };
-
 }
+
