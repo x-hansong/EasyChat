@@ -50,4 +50,8 @@ function change_web_wechat_tab_friends(e){
 	};
 function dropdown(){
 	$(".dropdown_memu").css("display","inline-block");
+	event.stopPropagation();
+}
+function dropup(){
+	$(".dropdown_memu").css("display","none");
 }
