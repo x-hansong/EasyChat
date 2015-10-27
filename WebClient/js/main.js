@@ -4,7 +4,7 @@ function chatwith(e){
 	$(".main-right").show();
 	var name = $(e).children(".chatmessage-1").children(".chatmessage-1-info").children("h4").text();
 	$(".main-right .main-right-nav h2").text(name);
-};
+}
 function sendto(){
   var testid = test + number ;
   /**
@@ -34,20 +34,20 @@ function sendto(){
   $(idtest).text(message);
   $(".main-right-writemessage").val("");
   number = number + 1;
-};
+}
 function change_web_wechat_tab_chat(e){
 	$(e).children("i").css("background","url(./image/sprite27fe59.png) 0 -2083px");
 	$(".web_wechat_tab_friends").css("background","url(./image/sprite27fe59.png) 0 -2140px");
 	$(".allchatmessage").css("display","");
 	$(".myfriends").css("display","none");
-	
-	};
+
+}
 function change_web_wechat_tab_friends(e){
 	$(e).children("i").css("background","url(./image/sprite27fe59.png) 0 -2175px");
 	$(".web_wechat_tab_chat").css("background","url(./image/sprite27fe59.png) 0 -2048px");
 	$(".allchatmessage").css("display","none");
 	$(".myfriends").css("display","");
-	};
+}
 function dropdown(){
 	$(".dropdown_memu").css("display","inline-block");
 	event.stopPropagation();
@@ -55,3 +55,4 @@ function dropdown(){
 function dropup(){
 	$(".dropdown_memu").css("display","none");
 }
+

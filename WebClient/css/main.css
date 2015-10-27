@@ -163,7 +163,7 @@ display: inline-block;
 	width:680px;
 	margin-left:300px;
 	display:none;
-	margin-top:-20px;
+	margin-top:-19px;
 	}
 .main-right-nav{
 	height:60px;
@@ -174,7 +174,8 @@ display: inline-block;
 .main-right-chatmessage{
 	height:350px;
 	border-bottom:1px solid #CCC;
-	overflow:auto;
+	overflow-y:auto;
+	overflow-x: hidden;
 	}
 .main-right-sendmessage{
 	height:170px;
