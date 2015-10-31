@@ -1,4 +1,4 @@
-package com.easychat.Service;
+package com.easychat.service;
 
 import com.easychat.model.User;
 

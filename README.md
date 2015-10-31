@@ -1,2 +1,2 @@
 # EasyChat
-基于netty的开源即时通讯系统
+基于netty和Spring的开源即时通讯系统

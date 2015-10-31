@@ -14,7 +14,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.easychat.practice" level="INFO" additivity="false">
+    <logger name="com.easychat" level="INFO" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>
     <root level="debug">

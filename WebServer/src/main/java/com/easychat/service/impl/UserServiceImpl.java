@@ -1,6 +1,6 @@
-package com.easychat.Service.impl;
+package com.easychat.service.impl;
 
-import com.easychat.Service.UserService;
+import com.easychat.service.UserService;
 import com.easychat.model.User;
 import com.easychat.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

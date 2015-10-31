@@ -1,6 +1,6 @@
 package com.easychat.controller;
 
-import com.easychat.Service.UserService;
+import com.easychat.service.UserService;
 import com.easychat.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

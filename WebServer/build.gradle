@@ -28,3 +28,7 @@ buildscript {
     }
 }
 apply plugin: 'spring-boot'
+
+bootRepackage {
+    classifier = 'exec'
+}
