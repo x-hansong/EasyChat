@@ -1,4 +1,4 @@
-package com.easychat.practice;
+package com.easychat;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,12 +8,12 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * Created by yonah on 15-10-4.
+ * Created by yonah on 15-11-2.
  */
-public class WebsocketChatServer {
+public class ChatServer {
     private int port;
 
-    public WebsocketChatServer(int port) {
+    public ChatServer(int port) {
         this.port = port;
     }
 
@@ -24,7 +24,7 @@ public class WebsocketChatServer {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(new WebsocketChatServerInitializer())
+                    .childHandler(new ChatServerInitializer())
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 
@@ -47,8 +47,8 @@ public class WebsocketChatServer {
         if (args.length > 0) {
             port = Integer.parseInt(args[0]);
         } else {
-            port = 8080;
+            port = 8000;
         }
-        new WebsocketChatServer(port).run();
+        new ChatServer(port).run();
     }
 }
