@@ -1,5 +1,6 @@
 package com.easychat.handler;
 
+import com.easychat.utils.RedisHelper;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -7,13 +8,21 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 /**
  * Created by yonah on 15-10-4.
  */
 public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
+    private JedisPool pool;
+
     public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+
+    public TextWebSocketFrameHandler() {
+        this.pool = RedisHelper.getPool();
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
@@ -32,6 +41,10 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
         Channel incoming = ctx.channel();
         for (Channel channel : channels) {
             channel.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " join "));
+        }
+
+        try (Jedis jedis = pool.getResource()){
+            jedis.rpush("userip", incoming.remoteAddress().toString());
         }
 
         channels.add(ctx.channel());

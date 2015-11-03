@@ -5,6 +5,8 @@ import com.easychat.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.util.Map;
@@ -18,11 +20,13 @@ import java.util.Map;
 public class UserController {
     private UserService userService;
     private ObjectMapper mapper;
+    private JedisPool pool;
 
     @Autowired
-    public UserController(UserService userService, ObjectMapper mapper) {
+    public UserController(UserService userService, ObjectMapper mapper, JedisPool pool) {
         this.userService = userService;
         this.mapper = mapper;
+        this.pool = pool;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -36,6 +40,9 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public User getUser(@PathVariable Long userId) {
+        try (Jedis jedis = pool.getResource()){
+            jedis.incr("visit");
+        }
         return userService.getUser(userId);
     }
 
