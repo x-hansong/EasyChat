@@ -1,0 +1,29 @@
+body{
+    background:url(../image/first.jpg);
+    background-size: 100%;
+}
+.mainbox{
+    position:absolute;
+    width:440px;
+    height:300px;
+    top:50%;
+    left:50%;
+    margin-top:-140px;;
+    margin-left:-220px;
+    background:#FFF;
+    padding:35px 55px;
+    border:1px #000 solid;
+    border-radius:10px;
+    background:rgba(254,254,254,0.7);
+}
+.nav-my{
+    margin-bottom:15px;
+}
+.btn-my{
+    position:absolute;
+    width:148px;
+    margin-left:90px;
+    margin-top:10px;
+    background:#2396EB;
+    color:#FFF;
+}

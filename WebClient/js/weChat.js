@@ -69,7 +69,7 @@ function startWebSocket()
 }
 function keysend(event){
     if (event.ctrlKey && event.keyCode == 13) {
-        sendMessage();
+        sendto();
         $('.main-right-chatmessage')[0].scrollTop = $('.main-right-chatmessage')[0].scrollHeight;
     }
 }
