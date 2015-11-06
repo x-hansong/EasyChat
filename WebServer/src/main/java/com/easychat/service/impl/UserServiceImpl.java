@@ -34,7 +34,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUser(Long id) {
-        return userRepository.findOne(id);
+    public User getUserByName(String name) {
+        User user = userRepository.findByName(name);
+        return user != null ? user:null;
     }
+
 }

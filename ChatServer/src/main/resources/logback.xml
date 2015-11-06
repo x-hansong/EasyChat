@@ -1,7 +1,7 @@
 <configuration>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>easychat.log</file>
+        <file>ChatServer.log</file>
 
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}] %m%n</pattern>
@@ -14,7 +14,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.easychat.practice" level="INFO" additivity="false">
+    <logger name="com.easychat" level="INFO" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>
     <root level="debug">
