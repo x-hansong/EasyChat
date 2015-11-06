@@ -10,5 +10,5 @@ import java.util.Map;
 public interface UserService {
     User addUser(Map data);
     boolean hasUser(Long id);
-    User getUser(Long id);
+    User getUserByName(String name);
 }
