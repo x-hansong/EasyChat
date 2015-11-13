@@ -42,7 +42,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public User addUser(@RequestBody String json) throws IOException {
-        Map<String, Object> data = mapper.readValue(json, Map.class);
+        Map<String, Object> data = JsonUtils.decode(json, Map.class);
 
         return userService.addUser(data);
     }
