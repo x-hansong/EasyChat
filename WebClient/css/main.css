@@ -296,7 +296,7 @@ pre {
 	position: absolute;
 	background: #FFF;
 	width:170px;
-	height:150px;
+	height:200px;
 	margin-left: -190px;
 	margin-top:60px;
 	display:none;
@@ -338,6 +338,14 @@ pre {
 	display: inline-block;
 	margin-left:10px;
 }
+.menuicon_setting{
+	background: url(../image/sprite27fe59.png) 0 -432px;
+	width: 34px;
+	height: 34px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left:10px;
+}
 .menuicon_quit{
 	background: url(../image/sprite27fe59.png) 0 -270px;
 	width: 34px;
@@ -346,3 +354,41 @@ pre {
 	display: inline-block;
 	margin-left:10px;
 }
+
+.main-right-change{
+	margin-top:50px;
+}
+
+.main-right-change ul{
+	display:block;
+	list-style-type: none;
+	padding:0;
+	margin:0;
+	border:1px solid #24272C;
+	border-radius: 5px
+}
+.main-right-change ul li{
+	display:list-item;
+	height:50px;
+	line-height: 50px;
+	border-bottom:1px solid #24272C;;
+	padding-left:30px;
+}
+.main-right-change ul li span{
+	float:right;
+	margin-right:20px;
+	height:50px;
+}
+.main-right-change ul li input{
+	height:30px;
+	font-size:14px;
+	float:right;
+	margin-top:9px;
+}
+.main-right-change button{
+	width:100px;
+	height:40px;
+	float:right;
+}
+
+

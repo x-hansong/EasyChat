@@ -94,6 +94,9 @@
             <li>
                 <a title="发起聊天" href="#"><i class="menuicon_chat"></i>发起聊天</a>
             </li>
+            <li>
+                <a title="发起聊天" href="#"><i class="menuicon_setting"></i>个人设置</a>
+            </li>
             <li class="last_child">
                 <a title="退出" href="#"><i class="menuicon_quit"></i>退出</a>
             </li>
@@ -102,7 +105,7 @@
 
 
     <!-- 右部框架 -->
-    <div class="main-right">
+    <div class="main-right"><!--暂时隐藏，以方便测试-->
         <!-- 聊天人名字 -->
       <div  class="main-right-nav">
       <h2 class="you-name"></h2>
@@ -111,17 +114,17 @@
       <div class="main-right-chatmessage">
 
           <!-- 信息显示样式 -->
-    <div class="content" >     
-        <div class="chatmessage-1-image" style="float:left;">
-            <img src="image/cong.jpg" width="40px" height="40px"/>
-        </div>
-        <div class="bubble_1">
+          <div class="content" >
+          <div class="chatmessage-1-image" style="float:left;">
+             <img src="image/cong.jpg" width="40px" height="40px"/>
+          </div>
+         <div class="bubble_1">
             <div class="bubble_cont">
                 <div class="plain">
                     <pre class="js_message_plain ng-binding" >张力是刷币</pre>
                 </div>
             </div>
-        </div>
+         </div>
     </div>
        
         
@@ -136,6 +139,25 @@
       <input type="submit"  class="main-right-sendmessagebutton" onclick="sendMessage()"  value="发送"/>
       </div>
     </div>
+
+    <!--右部测试框架-->
+    <div class="main-right" style="display:block">
+        <div  class="main-right-nav">
+            <h2 class="you-name">个人设置</h2>
+        </div>
+        <div class="main-right-change">
+          <ul>
+              <li>昵称<span>小聪明1</span></li>
+              <li>性别<span>小聪明2</span></li>
+              <li>电话<span>小聪明3</span></li>
+              <li>邮箱<span>小聪明4</span></li>
+              <li>头像路径<span>小聪明5</span></li>
+              <li>个性签名<span>小聪明6</span></li>
+          </ul>
+          <button onclick="information(this)" id="1">修改个人设置</button>
+        </div>
+    </div>
+
 </div>
 </body>
 <!-- 生成左侧列表 -->
