@@ -3,6 +3,7 @@ package com.easychat.service.impl;
 import com.easychat.service.UserService;
 import com.easychat.model.User;
 import com.easychat.repository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,13 @@ import java.util.Map;
  */
 @Service
 public class UserServiceImpl implements UserService{
-    @Autowired
     private UserRepository userRepository;
+
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User addUser(Map data) {

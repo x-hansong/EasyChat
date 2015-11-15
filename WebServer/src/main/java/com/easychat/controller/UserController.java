@@ -27,15 +27,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/v1/users")
 public class UserController {
     private UserService userService;
-    private ObjectMapper mapper;
     private JedisPool pool;
 
     static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public UserController(UserService userService, ObjectMapper mapper, JedisPool pool) {
+    public UserController(UserService userService, JedisPool pool) {
         this.userService = userService;
-        this.mapper = mapper;
         this.pool = pool;
     }
 
