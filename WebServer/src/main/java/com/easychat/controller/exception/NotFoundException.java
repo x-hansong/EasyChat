@@ -6,6 +6,7 @@ package com.easychat.controller.exception;
 public class NotFoundException extends BasicException{
 
     public NotFoundException(String error, String description) {
+
         super(error, description);
     }
 }

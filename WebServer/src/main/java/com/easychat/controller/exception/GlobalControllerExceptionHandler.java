@@ -26,4 +26,11 @@ public class GlobalControllerExceptionHandler {
         logger.info("{} not found", req.getRequestURI());
         return new ErrorInfo(ex.getError(), ex.getDescription());
     }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = BadRequestException.class)
+    @ResponseBody
+    public ErrorInfo handleBadRequest(HttpServletRequest req, BadRequestException ex) {
+        logger.info("{} bad request", req.getRequestURI());
+        return new ErrorInfo(ex.getError(), ex.getDescription());
+    }
 }

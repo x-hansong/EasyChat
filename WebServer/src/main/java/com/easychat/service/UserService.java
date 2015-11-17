@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by yonah on 15-10-18.
  */
 public interface UserService {
-    User addUser(Map data);
+    String addUser(String json);
     boolean hasUser(Long id);
     User getUserByName(String name);
 }

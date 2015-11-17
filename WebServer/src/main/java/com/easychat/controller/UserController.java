@@ -1,5 +1,6 @@
 package com.easychat.controller;
 
+import com.easychat.controller.exception.BadRequestException;
 import com.easychat.controller.exception.NotFoundException;
 import com.easychat.model.ErrorInfo;
 import com.easychat.service.UserService;
@@ -39,10 +40,14 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public User addUser(@RequestBody String json) throws IOException {
-        Map<String, Object> data = JsonUtils.decode(json, Map.class);
-
-        return userService.addUser(data);
+    public String addUser(@RequestBody String json) throws BadRequestException {
+        String resultData =null;
+        resultData=userService.addUser(json);
+        if (resultData.equals(ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS)) {
+            throw new BadRequestException(ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS, "duplicate_unique_property_exists");
+        } else if (resultData.equals(ErrorType.ILLEGAL_ARGUMENT)) {
+            throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "illegal_argument");
+        } else return json;
     }
 
     @ResponseBody
