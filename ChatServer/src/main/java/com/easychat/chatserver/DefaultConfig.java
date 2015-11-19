@@ -1,4 +1,4 @@
-package com.easychat;
+package com.easychat.chatserver;
 
 /**
  * Created by yonah on 15-11-4.
