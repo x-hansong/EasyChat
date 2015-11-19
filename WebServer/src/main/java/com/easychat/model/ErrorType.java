@@ -1,4 +1,4 @@
-package com.easychat.utils;
+package com.easychat.model;
 
 /**
  * Created by yonah on 15-11-6.

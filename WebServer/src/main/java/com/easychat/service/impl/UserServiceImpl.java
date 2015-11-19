@@ -1,14 +1,11 @@
 package com.easychat.service.impl;
 
-import com.easychat.controller.exception.BadRequestException;
-import com.easychat.controller.exception.NotFoundException;
 import com.easychat.service.UserService;
 import com.easychat.model.User;
 import com.easychat.repository.UserRepository;
 import com.easychat.utils.CommonUtils;
-import com.easychat.utils.ErrorType;
+import com.easychat.model.ErrorType;
 import com.easychat.utils.JsonUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

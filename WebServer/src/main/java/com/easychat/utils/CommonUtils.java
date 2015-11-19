@@ -15,8 +15,8 @@ public class CommonUtils {
      * @return 生成一个UUID并返回
      */
 
-    public static UUID getUUID(){
-        return UUID.randomUUID();
+    public static String getUUID(){
+        return UUID.randomUUID().toString();
     }
 
     /**

@@ -2,21 +2,15 @@ package com.easychat.controller;
 
 import com.easychat.controller.exception.BadRequestException;
 import com.easychat.controller.exception.NotFoundException;
-import com.easychat.model.ErrorInfo;
+import com.easychat.model.ErrorType;
 import com.easychat.service.UserService;
 import com.easychat.model.User;
-import com.easychat.utils.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
-import java.io.IOException;
-import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
