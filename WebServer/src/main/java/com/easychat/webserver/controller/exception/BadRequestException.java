@@ -1,4 +1,4 @@
-package com.easychat.controller.exception;
+package com.easychat.webserver.controller.exception;
 
 /**
  * Created by yonah on 15-11-6.

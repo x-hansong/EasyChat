@@ -1,4 +1,4 @@
-package com.easychat.session;
+package com.easychat.webserver.session;
 
 /**
  * Created by yonah on 15-11-19.

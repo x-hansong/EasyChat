@@ -1,23 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>ChatServer.log</file>
-
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}] %m%n</pattern>
-        </encoder>
-    </appender>
-
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}] %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] [%logger{36}] - %msg%n</pattern>
         </encoder>
     </appender>
-
-    <logger name="com.easychat" level="INFO" additivity="false">
-        <appender-ref ref="FILE"/>
-    </logger>
-    <root level="debug">
-        <appender-ref ref="STDOUT"/>
-    </root>
+    <root level="DEBUG"><appender-ref ref="STDOUT" /></root>
 </configuration>

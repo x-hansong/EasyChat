@@ -1,8 +1,6 @@
-package com.easychat.service;
+package com.easychat.webserver.service;
 
-import com.easychat.model.User;
-
-import java.util.Map;
+import com.easychat.webserver.model.User;
 
 /**
  * Created by yonah on 15-10-18.

@@ -1,9 +1,9 @@
-package com.easychat.controller.exception;
+package com.easychat.webserver.model;
 
 /**
  * Created by yonah on 15-11-6.
  */
-public class BasicException extends Exception{
+public class ErrorInfo {
     private String error;
     private String description;
 
@@ -23,7 +23,7 @@ public class BasicException extends Exception{
         this.description = description;
     }
 
-    public BasicException(String error, String description) {
+    public ErrorInfo(String error, String description) {
         this.error = error;
         this.description = description;
     }

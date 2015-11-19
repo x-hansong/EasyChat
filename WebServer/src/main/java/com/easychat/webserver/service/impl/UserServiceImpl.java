@@ -1,11 +1,11 @@
-package com.easychat.service.impl;
+package com.easychat.webserver.service.impl;
 
-import com.easychat.service.UserService;
-import com.easychat.model.User;
-import com.easychat.repository.UserRepository;
-import com.easychat.utils.CommonUtils;
-import com.easychat.model.ErrorType;
-import com.easychat.utils.JsonUtils;
+import com.easychat.webserver.model.User;
+import com.easychat.webserver.service.UserService;
+import com.easychat.webserver.repository.UserRepository;
+import com.easychat.webserver.utils.CommonUtils;
+import com.easychat.webserver.model.ErrorType;
+import com.easychat.webserver.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

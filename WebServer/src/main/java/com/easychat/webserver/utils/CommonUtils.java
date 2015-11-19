@@ -1,4 +1,4 @@
-package com.easychat.utils;
+package com.easychat.webserver.utils;
 
 import java.math.BigInteger;
 import java.util.UUID;

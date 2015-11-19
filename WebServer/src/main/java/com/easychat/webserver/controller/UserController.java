@@ -1,10 +1,10 @@
-package com.easychat.controller;
+package com.easychat.webserver.controller;
 
-import com.easychat.controller.exception.BadRequestException;
-import com.easychat.controller.exception.NotFoundException;
-import com.easychat.model.ErrorType;
-import com.easychat.service.UserService;
-import com.easychat.model.User;
+import com.easychat.webserver.controller.exception.BadRequestException;
+import com.easychat.webserver.controller.exception.NotFoundException;
+import com.easychat.webserver.model.ErrorType;
+import com.easychat.webserver.service.UserService;
+import com.easychat.webserver.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

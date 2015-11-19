@@ -1,4 +1,4 @@
-package com.easychat.utils;
+package com.easychat.webserver.utils;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;

@@ -1,6 +1,6 @@
-package com.easychat.session;
+package com.easychat.webserver.session;
 
-import com.easychat.utils.CommonUtils;
+import com.easychat.webserver.utils.CommonUtils;
 
 /**
  * Created by yonah on 15-11-19.

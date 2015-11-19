@@ -1,15 +1,17 @@
-package com.easychat.session;
+package com.easychat.webserver.session;
 
+
+import com.easychat.webserver.repository.SessionRepository;
 
 /**
  * Created by yonah on 15-11-19.
  */
 public class SessionManager {
 
-    private SessionPool sessionPool;
+    private SessionRepository sessionRepository;
 
-    public SessionManager(SessionPool sessionPool) {
-        this.sessionPool = sessionPool;
+    public SessionManager(SessionRepository sessionRepository) {
+        this.sessionRepository = sessionRepository;
     }
 
     public Session createSession(String userName){

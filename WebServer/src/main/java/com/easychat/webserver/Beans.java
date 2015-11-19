@@ -1,7 +1,7 @@
-package com.easychat;
+package com.easychat.webserver;
 
-import com.easychat.session.RedisSessionPool;
-import com.easychat.session.SessionManager;
+import com.easychat.webserver.repository.RedisSessionRepository;
+import com.easychat.webserver.session.SessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPool;
@@ -18,6 +18,6 @@ public class Beans {
 
     @Bean
     public SessionManager sessionManager(){
-        return new SessionManager(new RedisSessionPool());
+        return new SessionManager(new RedisSessionRepository());
     }
 }

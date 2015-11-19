@@ -1,6 +1,6 @@
-package com.easychat.controller.exception;
+package com.easychat.webserver.controller.exception;
 
-import com.easychat.model.ErrorInfo;
+import com.easychat.webserver.model.ErrorInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
