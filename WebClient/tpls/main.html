@@ -1,0 +1,128 @@
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script language="javascript" type="text/javascript" src="js/main.js"></script>
+<script language="javascript" type="text/javascript" src="js/createlist.js"></script>
+<script charset="UTF-8" language="javascript" type="text/javascript" src="js/weChat.js"></script>
+<div class="main">
+    <!-- 左部框架 -->
+    <div class="main-left">
+        <div class="main-left-nav">
+            <!-- 个人图片 -->
+            <div class="main-left-nav-image">
+                <img src="image/cong.jpg" width="40px" height="40px"/>
+            </div>
+            <div class="main-left-nav-info">
+                <!-- 个人名字 -->
+                <h3 class="my-name">张文聪</h3>
+                <!-- 菜单标签 -->
+                <a ui-sref="main" onclick="dropdown()" href="#/main">
+                    <i class="main-left-nav-info-1" ></i>
+                </a>
+            </div>
+        </div>
+        <!-- 搜索框 -->
+        <div class="search_bar" id="search_bar">
+            <i class="web_wechat_search"></i>
+            <input class="frm_search" type="text" placeholder="搜索">
+        </div>
+        <!-- tab标签栏 -->
+        <div class="tab">
+            <div class="tab_item" style="border-right:1px solid #24272C;">
+                <!-- 聊天列表 -->
+                <a class="chat" ui-sref="main" onclick="change_web_wechat_tab_chat(this)" href="#/main"><i class="web_wechat_tab_chat" ></i></a>
+            </div>
+            <div class="tab_item">
+                <!-- 朋友列表 -->
+                <a class="chat" ui-sref="main" onclick="change_web_wechat_tab_friends(this)" href="#/main"><i class="web_wechat_tab_friends"></i></a>
+            </div>
+        </div>
+        <!-- 聊天标签 -->
+        <div class="allchatmessage" >
+        </div>
+
+        <!-- 好友标签 -->
+        <div class="myfriends" style="display:none">
+            <div class="bianhao">
+                <h4>A</h4>
+            </div>
+            <div class="chatmessage" >
+                <a ui-sref="main" onclick="chatwith(this)" href="#/main">
+                    <div class="chatmessage-1">
+                        <div class="chatmessage-1-image">
+                            <img src="image/cong.jpg" width="40px" height="40px"/>
+                        </div>
+                        <div class="chatmessage-1-info">
+                            <h4>AAA</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="chatmessage" >
+                <a href=ui-sref="main" onclick="chatwith(this)" href="#/main">
+                    <div class="chatmessage-1">
+                        <div class="chatmessage-1-image">
+                            <img src="image/cong.jpg" width="40px" height="40px"/>
+                        </div>
+                        <div class="chatmessage-1-info">
+                            <h4>BBBB</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!--下拉菜单-->
+    <div class="dropdown_memu">
+        <ul>
+            <li>
+                <a title="添加好友" href="#/main"><i class="menuicon_friend"></i>添加好友</a>
+            </li>
+            <li>
+                <a title="发起聊天" href="#/main"><i class="menuicon_chat"></i>发起聊天</a>
+            </li>
+            <li class="last_child">
+                <a title="退出" href="#/main"><i class="menuicon_quit"></i>退出</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- 右部框架 -->
+    <div class="main-right">
+        <!-- 聊天人名字 -->
+        <div  class="main-right-nav">
+            <h2 class="you-name"></h2>
+        </div>
+        <!-- 显示信息区域 -->
+        <div class="main-right-chatmessage">
+
+            <!-- 信息显示样式 -->
+            <div class="content" >
+                <div class="chatmessage-1-image" style="float:left;">
+                    <img src="image/cong.jpg" width="40px" height="40px"/>
+                </div>
+                <div class="bubble_1">
+                    <div class="bubble_cont">
+                        <div class="plain">
+                            <pre class="js_message_plain ng-binding" >张力是刷币</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <!-- 发送信息区域 -->
+        <div class="main-right-sendmessage">
+            <!-- 书写信息区域 -->
+            <textarea type="text" class="main-right-writemessage" onkeydown="keysend(event)"></textarea>
+            <!-- 发送按钮 -->
+            <input type="submit"  class="main-right-sendmessagebutton" onclick="sendMessage()"  value="发送"/>
+        </div>
+    </div>
+</div>
+<!-- 生成左侧列表 -->
+<script>createlist();</script>
