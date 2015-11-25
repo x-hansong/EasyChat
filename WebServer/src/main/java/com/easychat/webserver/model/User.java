@@ -14,7 +14,6 @@ public class User implements Serializable{
         this.name = "";
         this.nick = "";
         this.password = "";
-        this.salt = "";
         this.phone = "";
         this.email = "";
         this.avatar = "";
@@ -38,8 +37,6 @@ public class User implements Serializable{
     @Column(name="password")
     private String password;
 
-    @Column(name="salt")
-    private String salt;
 
     @Column(name="phone")
     private String phone;
@@ -94,13 +91,6 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
 
     public String getPhone() {
         return phone;
