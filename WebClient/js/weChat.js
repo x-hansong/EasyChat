@@ -39,7 +39,7 @@ function send(data)
 //开启websocket连接函数
 function startWebSocket()
 {
-    ws = new WebSocket("ws://localhost:8080/ws");
+    ws = new WebSocket("ws://119.29.26.47:8000/ws");
     //连接开启触发函数
     ws.onopen = function(event){
         console.log("success open");
