@@ -1,4 +1,4 @@
-package com.easychat.model;
+package com.easychat.model.error;
 
 /**
  * Created by yonah on 15-11-6.

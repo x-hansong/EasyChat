@@ -1,16 +1,19 @@
-package com.easychat.session;
+package com.easychat.service;
 
 
 import com.easychat.repository.SessionRepository;
+import com.easychat.model.session.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by yonah on 15-11-19.
  */
-public class SessionManager {
+public class SessionService {
 
     private SessionRepository sessionRepository;
 
-    public SessionManager(SessionRepository sessionRepository) {
+    @Autowired
+    public SessionService(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 
@@ -22,11 +25,9 @@ public class SessionManager {
         return false;
     }
 
-    public boolean refreshSession(Session session) {
-        return false;
+    public void refreshSession(Session session) {
     }
 
-    public boolean destroySession(Session session) {
-        return false;
+    public void destroySession(Session session) {
     }
 }

@@ -1,6 +1,6 @@
 package com.easychat.repository;
 
-import com.easychat.model.User;
+import com.easychat.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

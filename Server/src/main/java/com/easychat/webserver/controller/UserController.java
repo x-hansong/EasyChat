@@ -2,8 +2,8 @@ package com.easychat.webserver.controller;
 
 import com.easychat.exception.BadRequestException;
 import com.easychat.exception.NotFoundException;
-import com.easychat.model.ErrorType;
-import com.easychat.model.User;
+import com.easychat.model.error.ErrorType;
+import com.easychat.model.entity.User;
 import com.easychat.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.easychat.session;
+package com.easychat.model.session;
 
 import com.easychat.utils.CommonUtils;
 

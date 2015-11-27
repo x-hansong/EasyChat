@@ -1,5 +1,6 @@
-package com.easychat.model.Channel;
+package com.easychat.model.chat;
 
+import com.easychat.model.msg.text.TextMsg;
 import io.netty.channel.Channel;
 
 /**
@@ -14,6 +15,14 @@ public class ChatChannel {
         this.uid = uid;
         this.token = token;
         this.channel = channel;
+    }
+
+    public void send(TextMsg msg){
+
+    }
+
+    public void close() {
+
     }
 
     public String getToken() {

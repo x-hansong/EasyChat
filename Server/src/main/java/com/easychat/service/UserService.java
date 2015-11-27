@@ -1,6 +1,6 @@
 package com.easychat.service;
 
-import com.easychat.model.User;
+import com.easychat.model.entity.User;
 
 /**
  * Created by yonah on 15-10-18.

@@ -1,4 +1,4 @@
-package com.easychat.model;
+package com.easychat.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

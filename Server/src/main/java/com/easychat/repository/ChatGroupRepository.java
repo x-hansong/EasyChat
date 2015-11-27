@@ -1,22 +1,12 @@
 package com.easychat.repository;
 
-import com.easychat.model.Channel.ChatGroup;
-
-import java.util.concurrent.ConcurrentHashMap;
+import com.easychat.model.chat.ChatGroup;
 
 /**
  * Created by yonah on 15-11-19.
  */
-public class ChatGroupRepository {
-    private ConcurrentHashMap<Integer, ChatGroup> groups;
-
-    private static final ChatGroupRepository repository = new ChatGroupRepository();
-
-    private ChatGroupRepository() {
-        this.groups = new ConcurrentHashMap<>();
-    }
-
-    public static ChatGroupRepository getInstance() {
-        return repository;
-    }
+public interface ChatGroupRepository {
+    void add(ChatGroup group);
+    void remove(Long gid);
+    ChatGroup get(Long gid);
 }

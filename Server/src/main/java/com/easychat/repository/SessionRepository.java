@@ -1,13 +1,14 @@
 package com.easychat.repository;
 
-import com.easychat.session.Session;
+import com.easychat.model.session.Session;
+import com.easychat.model.session.Token;
 
 /**
  * Created by yonah on 15-11-19.
  */
 public interface SessionRepository {
-    boolean add(Session session);
-    boolean remove(Session session);
-    boolean refresh(Session session);
-    boolean has(Session session);
+    void add(Session session);
+    void remove(Token token);
+    void refresh(Token token);
+    Session get(Token token);
 }

@@ -1,10 +1,10 @@
 package com.easychat.service.impl;
 
-import com.easychat.model.User;
+import com.easychat.model.entity.User;
 import com.easychat.service.UserService;
 import com.easychat.repository.UserRepository;
 import com.easychat.utils.CommonUtils;
-import com.easychat.model.ErrorType;
+import com.easychat.model.error.ErrorType;
 import com.easychat.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
