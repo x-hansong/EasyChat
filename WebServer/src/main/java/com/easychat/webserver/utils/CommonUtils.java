@@ -23,9 +23,10 @@ public class CommonUtils {
      * 进行md5加密
      * @return 返回经过md5加密后的字符串
      */
-    public static MessageDigest MD5 = null;
+
     public static String md5(String password) {
         try {
+            MessageDigest MD5 = MessageDigest.getInstance("MD5");
             MD5.update(password.getBytes());
             String pwd = new BigInteger(1, MD5.digest()).toString(16);
             return pwd;
