@@ -1,4 +1,3 @@
 rootProject.name = 'EasyChat'
-include 'ChatServer'
-include 'WebServer'
+include 'Server'
 

@@ -16,8 +16,8 @@ subprojects {
 
     repositories {
 //            使用开源中国的maven仓库
-         maven { url 'http://maven.oschina.net/content/groups/public/' }
-//        mavenCentral()
+//         maven { url 'http://maven.oschina.net/content/groups/public/' }
+        mavenCentral()
     }
 //
 //    jar {
@@ -36,10 +36,7 @@ subprojects {
     dependencies {
         // 通用依赖
         compile(
-                "mysql:mysql-connector-java:5.1.26",
-                "ch.qos.logback:logback-classic:1.0.13",
-                "javassist:javassist:3.12.1.GA",
-                "redis.clients:jedis:2.7.2"
+
         )
 
 //        // 依赖maven中不存在的jar
