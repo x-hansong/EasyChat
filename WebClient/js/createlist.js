@@ -10,7 +10,7 @@ var listarray=[
 ];
 function createlist() {
     for (var i = 0;listarray[i].name!=null;i++) {
-        var $list = $(
+        var list = $(
             "<div class='chatmessage'>"
             + "<a href='#' onclick='chatwith(this)' >"
             + "<div class='chatmessage-1'>"
@@ -24,7 +24,7 @@ function createlist() {
             + "</a>"
             + "</div>"
         );
-        $(".allchatmessage").append($list);
+        $(".allchatmessage").append(list);
         $(".chat-1-image").attr("src",listarray[i].img_src);
     };
 }
