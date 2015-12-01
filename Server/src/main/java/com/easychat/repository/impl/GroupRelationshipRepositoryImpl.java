@@ -1,11 +1,13 @@
-package com.easychat.repository;
+package com.easychat.repository.impl;
+
+import com.easychat.repository.custom.GroupRelationshipRepositoryCustom;
 
 import java.util.Set;
 
 /**
  * Created by yonah on 15-12-1.
  */
-public class GroupRelationshipRepositoryImpl implements GroupRelationshipRepositoryCustom{
+public class GroupRelationshipRepositoryImpl implements GroupRelationshipRepositoryCustom {
     @Override
     public Set<Long> getGroupMemberSet(Long gid) {
         return null;

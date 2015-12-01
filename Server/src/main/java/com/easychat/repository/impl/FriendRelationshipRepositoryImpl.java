@@ -1,6 +1,6 @@
-package com.easychat.repository;
+package com.easychat.repository.impl;
 
-import com.easychat.repository.FriendRelationshipRepositoryCustom;
+import com.easychat.repository.custom.FriendRelationshipRepositoryCustom;
 
 import java.util.Set;
 
