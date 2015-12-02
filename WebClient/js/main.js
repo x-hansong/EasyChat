@@ -60,17 +60,16 @@ function information(e){
 	if($(e).text() == "修改个人设置"){
 		$(e).text("保存个人设置");
 		$('.main-right-change').find('li').each(function(){
-		var $html=$("<input value='"+ $(this).find('span').text() + "'>");
-		$(this).find('span').text("");
-		$(this).find('span').append($html);
-	    });
+			var $html=$("<input value='"+ $(this).find('span').text() + "'>");
+			$(this).find('span').text("");
+			$(this).find('span').append($html);
+		});
 	}
 	else
 	{
 		$(e).text("修改个人设置");
 		$('.main-right-change').find('li').each(function(){
-			var $value = $(this).find('span').find(input).value();
-			alert($value);
+			var $value = $(this).find('input').val();
 			$(this).find('span').text($value);
 		});
 	}

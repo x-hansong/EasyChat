@@ -296,7 +296,7 @@ pre {
 	position: absolute;
 	background: #FFF;
 	width:170px;
-	height:200px;
+	height:150px;
 	margin-left: -190px;
 	margin-top:60px;
 	display:none;
@@ -385,10 +385,27 @@ pre {
 	float:right;
 	margin-top:9px;
 }
-.main-right-change button{
-	width:100px;
-	height:40px;
-	float:right;
+.main-right-change button {
+	width: 140px;
+	height: 40px;
+	float: right;
 }
-
-
+.main-right-friend{
+	height: 200px;
+	width: 350px;
+	margin-top: 100px;
+	margin-left:200px;
+}
+.main-right-friend input{
+	border-radius: 5px;
+	height:30px;
+	width: 300px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 20px;
+}
+.main-right-friend button{
+	width: 140px;
+	height: 40px;
+	margin-left: 80px;
+}
