@@ -74,3 +74,14 @@ function information(e){
 		});
 	}
 }
+
+
+function  add_friend(){
+	$(".friend").css("display","block");
+	$(".setting").css("display","none");
+}
+
+function  add_setting(){
+	$(".setting").css("display","block");
+	$(".friend").css("display","none");
+}
