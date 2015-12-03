@@ -1,4 +1,4 @@
-package com.easychat.repository;
+package com.easychat.repository.custom;
 
 import java.util.Set;
 

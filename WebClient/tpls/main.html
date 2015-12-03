@@ -2,7 +2,7 @@
 <script language="javascript" type="text/javascript" src="js/main.js"></script>
 <script language="javascript" type="text/javascript" src="js/createlist.js"></script>
 <script charset="UTF-8" language="javascript" type="text/javascript" src="js/weChat.js"></script>
-<div class="main">
+<div class="main"  ng-controller="mainCtrl1" onclick="dropup()">
     <!-- 左部框架 -->
     <div class="main-left">
         <div class="main-left-nav">
@@ -12,7 +12,7 @@
             </div>
             <div class="main-left-nav-info">
                 <!-- 个人名字 -->
-                <h3 class="my-name">张文聪</h3>
+                <h3 class="my-name"><span ng-bind="userMessage.name"></span></h3>
                 <!-- 菜单标签 -->
                 <a ui-sref="main" onclick="dropdown()" href="#/main">
                     <i class="main-left-nav-info-1" ></i>
@@ -37,6 +37,19 @@
         </div>
         <!-- 聊天标签 -->
         <div class="allchatmessage" >
+            <!-- 生成左侧列表 -->
+            <div class="chatmessage" ng-repeat="chatList in chatLists">
+                <a href="#" onclick="chatwith(this)">
+                    <div class="chatmessage-1">
+                        <div class="chatmessage-1-image">
+                            <img src="{{chatList.img_src}}" alt="" class="chat-1-image" width="40px" height="40px">
+                        </div>
+                        <div class="chatmessage-1-info">
+                            <h4>{{chatList.name}}</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
 
         <!-- 好友标签 -->
@@ -79,7 +92,7 @@
                 <a title="添加好友" href="#/main"><i class="menuicon_friend"></i>添加好友</a>
             </li>
             <li>
-                <a title="发起聊天" href="#/main"><i class="menuicon_chat"></i>发起聊天</a>
+                <a title="个人设置" href="#/main"><i class="menuicon_setting"></i>个人设置</a>
             </li>
             <li class="last_child">
                 <a title="退出" href="#/main"><i class="menuicon_quit"></i>退出</a>
@@ -123,26 +136,11 @@
             <input type="submit"  class="main-right-sendmessagebutton" onclick="sendMessage()"  value="发送"/>
         </div>
     </div>
+    <!--右部测试框架-->
+    <friend></friend>
 </div>
 
-<!--右部测试框架-->
-<div class="main-right" style="display:block">
-    <div  class="main-right-nav">
-        <h2 class="you-name">个人设置</h2>
-    </div>
-    <div class="main-right-change">
-        <ul>
-            <li>昵称<span>小聪明1</span></li>
-            <li>性别<span>小聪明2</span></li>
-            <li>电话<span>小聪明3</span></li>
-            <li>邮箱<span>小聪明4</span></li>
-            <li>头像路径<span>小聪明5</span></li>
-            <li>个性签名<span>小聪明6</span></li>
-        </ul>
-        <button onclick="information(this)" id="1">修改个人设置</button>
-    </div>
-</div>
+
+
 
 </div>
-<!-- 生成左侧列表 -->
-<script>createlist();</script>
