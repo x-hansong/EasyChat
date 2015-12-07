@@ -53,12 +53,12 @@ public class UserController {
         return user;
     }
 
-  /*  @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value="/authorization", method = RequestMethod.POST)
     @ResponseBody
     public Token authenticate(@RequestBody String json) throws BadRequestException {
         Session session=userService.authenticate(json);
         return session.getToken();
 
     }
-*/
+
 }

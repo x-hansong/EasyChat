@@ -3,6 +3,8 @@ package com.easychat.service.impl;
 import com.easychat.exception.BadRequestException;
 import com.easychat.model.entity.User;
 import com.easychat.model.error.ErrorType;
+import com.easychat.model.session.Session;
+import com.easychat.model.session.Token;
 import com.easychat.repository.UserRepository;
 import com.easychat.service.SessionService;
 import com.easychat.service.UserService;
@@ -69,14 +71,24 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findByName(name);
         return user != null ? user:null;
     }
-/*
+
+    /**
+     * 用户登录
+     * @return 用户名或者密码不正确，返回ILLEGAL_ARGUMENT
+     * @return 用户名和密码正确，创建session并返回
+     */
     @Override
     public Session authenticate(String json) throws BadRequestException{
         Map<String, Object> data = JsonUtils.decode(json, Map.class);
         String name=(String) data.get("name");
         String password=CommonUtils.md5((String) data.get("password"));
         if(isValid(name, password)){
-            return sessionService.createSession(name);
+            //因为SessionService没有完善所以暂时使用一个这一点的session
+            User user=getUserByName(name);
+            Token token=new Token();
+            Session session=new Session(token,user.getId());
+            return session;
+            //return sessionService.createSession(name);
         }
         else{
             throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "illegal_argument");
@@ -92,5 +104,5 @@ public class UserServiceImpl implements UserService{
         }
         else return false;
     }
-*/
+
 }

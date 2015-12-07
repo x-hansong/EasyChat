@@ -11,6 +11,6 @@ public interface UserService {
     void addUser(String json)throws BadRequestException;
     boolean hasUser(Long id);
     User getUserByName(String name);
-   /* Session authenticate(String json)throws BadRequestException;
-    boolean isValid(String name,String password);*/
+    Session authenticate(String json)throws BadRequestException;
+    boolean isValid(String name,String password);
 }
