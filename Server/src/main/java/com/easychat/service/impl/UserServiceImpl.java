@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
     /**
      * 用户登录
      * @return 用户名或者密码不正确，返回ILLEGAL_ARGUMENT
-     * @return 用户名和密码正确，创建session并返回
+     * @return 用户名和密码正确，创建session并返回.
      */
     @Override
     public Session authenticate(String json) throws BadRequestException{

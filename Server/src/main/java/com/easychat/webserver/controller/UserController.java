@@ -53,6 +53,12 @@ public class UserController {
         return user;
     }
 
+    /**
+     * 用户登录接口
+     * @param json
+     * @return token
+     * @throws BadRequestException
+     */
     @RequestMapping(value="/authorization", method = RequestMethod.POST)
     @ResponseBody
     public Token authenticate(@RequestBody String json) throws BadRequestException {
