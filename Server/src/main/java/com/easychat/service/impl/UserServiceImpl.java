@@ -1,10 +1,14 @@
 package com.easychat.service.impl;
 
+import com.easychat.exception.BadRequestException;
 import com.easychat.model.entity.User;
-import com.easychat.service.UserService;
-import com.easychat.repository.UserRepository;
-import com.easychat.utils.CommonUtils;
 import com.easychat.model.error.ErrorType;
+import com.easychat.model.session.Session;
+import com.easychat.model.session.Token;
+import com.easychat.repository.UserRepository;
+import com.easychat.service.SessionService;
+import com.easychat.service.UserService;
+import com.easychat.utils.CommonUtils;
 import com.easychat.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,7 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
+    private SessionService sessionService;
 
 
     @Autowired
@@ -33,7 +38,7 @@ public class UserServiceImpl implements UserService{
      * @param json
      */
     @Override
-    public String addUser(String json) {
+    public void addUser(String json) throws BadRequestException {
         Map<String, Object> data = JsonUtils.decode(json, Map.class);
         String nameTest=(String) data.get("name");
         String passwordTest=(String) data.get("password");
@@ -46,17 +51,12 @@ public class UserServiceImpl implements UserService{
                 userTest.setName(nameTest);
                 userTest.setPassword(CommonUtils.md5(passwordTest));
                 userRepository.save(userTest);
-
-                String resultData =  ErrorType.NO_ERROR;
-                return resultData;
             } else {
-                String resultData = ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS;
-                return resultData;
+                throw new BadRequestException(ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS, "duplicate_unique_property_exists");
             }
         }
         else {
-            String resultData=ErrorType.ILLEGAL_ARGUMENT;
-            return resultData;
+            throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "illegal_argument");
         }
     }
 
@@ -70,6 +70,39 @@ public class UserServiceImpl implements UserService{
     public User getUserByName(String name) {
         User user = userRepository.findByName(name);
         return user != null ? user:null;
+    }
+
+    /**
+     * 用户登录
+     * @return 用户名或者密码不正确，返回ILLEGAL_ARGUMENT
+     * @return 用户名和密码正确，创建session并返回.
+     */
+    @Override
+    public Session authenticate(String json) throws BadRequestException{
+        Map<String, Object> data = JsonUtils.decode(json, Map.class);
+        String name=(String) data.get("name");
+        String password=CommonUtils.md5((String) data.get("password"));
+        if(isValid(name, password)){
+            //因为SessionService没有完善所以暂时使用一个这一点的session
+            User user=getUserByName(name);
+            Token token=new Token();
+            Session session=new Session(token,user.getId());
+            return session;
+            //return sessionService.createSession(name);
+        }
+        else{
+            throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "illegal_argument");
+        }
+
+    }
+
+    @Override
+    public boolean isValid(String name,String password){
+        User user=userRepository.findByName(name);
+        if(password.equals(user.getPassword())){
+            return true;
+        }
+        else return false;
     }
 
 }

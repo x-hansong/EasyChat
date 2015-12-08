@@ -4,6 +4,8 @@ import com.easychat.exception.BadRequestException;
 import com.easychat.exception.NotFoundException;
 import com.easychat.model.error.ErrorType;
 import com.easychat.model.entity.User;
+import com.easychat.model.session.Session;
+import com.easychat.model.session.Token;
 import com.easychat.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,12 +36,8 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public String addUser(@RequestBody String json) throws BadRequestException {
-        String resultData=userService.addUser(json);
-        if (resultData.equals(ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS)) {
-            throw new BadRequestException(ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS, "duplicate_unique_property_exists");
-        } else if (resultData.equals(ErrorType.ILLEGAL_ARGUMENT)) {
-            throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "illegal_argument");
-        } else return json;
+        userService.addUser(json);
+        return json;
     }
 
     @ResponseBody
@@ -53,6 +51,20 @@ public class UserController {
             throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "Service resource not found");
         }
         return user;
+    }
+
+    /**
+     * 用户登录接口
+     * @param json
+     * @return token
+     * @throws BadRequestException
+     */
+    @RequestMapping(value="/authorization", method = RequestMethod.POST)
+    @ResponseBody
+    public Token authenticate(@RequestBody String json) throws BadRequestException {
+        Session session=userService.authenticate(json);
+        return session.getToken();
+
     }
 
 }
