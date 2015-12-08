@@ -8,6 +8,7 @@ import com.easychat.repository.GroupRepository;
 import com.easychat.service.GroupService;
 import com.easychat.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.Map;
 /**
  * Created by king on 2015/12/7.
  */
+@Service
 public class GroupServiceImpl implements GroupService {
     private GroupRepository groupRepository;
     private GroupRelationshipRepository groupRelationshipRepository;
@@ -40,7 +42,7 @@ public class GroupServiceImpl implements GroupService {
         int creator = (Integer)data.get("creator");
         int userCnt = (Integer)data.get("userCnt");
         String annoucement = (String)data.get("annoucement");
-        //Èº³ÉÔ±µÄidÊý×é
+        //Èºï¿½ï¿½Ô±ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½
         long [] members = (long[])data.get("members");
 
         Group group = new Group();
@@ -64,21 +66,21 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public String deleteGroup(long gid, long uid) {
         Group group = groupRepository.findOne(gid);
-        //ÅÐ¶ÏuidÊÇ·ñÎªÈºµÄ´´½¨Õß£¬·ñÕßÃ»ÓÐÈ¨ÏÞ
+        //ï¿½Ð¶ï¿½uidï¿½Ç·ï¿½ÎªÈºï¿½Ä´ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½È¨ï¿½ï¿½
         if(uid != group.getCreator()){
             String resultData = ErrorType.INVALID_GRANT;
             return resultData;
         }
-        //É¾³ýgroup±íÖÐµÄÊý¾Ý
+        //É¾ï¿½ï¿½groupï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½
         groupRepository.delete(gid);
 
-        //É¾³ýgroupRelationship±íÖÐµÄÊý¾Ý
+        //É¾ï¿½ï¿½groupRelationshipï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½
         List<GroupRelationship> groupRelationshipList = groupRelationshipRepository.findByGid(gid);
         for (GroupRelationship groupRelationship : groupRelationshipList) {
             groupRelationshipRepository.delete(groupRelationship);
         }
         String resultData = "{" +
-                "¡°gid¡±:\""+gid+"\"," +
+                "ï¿½ï¿½gidï¿½ï¿½:\""+gid+"\"," +
                 "\"uid\":\""+uid+"\"," +
                 "}";
         return resultData;
