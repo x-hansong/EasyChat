@@ -1,7 +1,6 @@
 var number = 1;
 var test = "id";
 function chatwith(e){
-	$(".main-right").show();
 	var name = $(e).children(".chatmessage-1").children(".chatmessage-1-info").children("h4").text();
 	$(".main-right .main-right-nav h2").text(name);
 }
@@ -73,17 +72,4 @@ function information(e){
 			$(this).find('span').text($value);
 		});
 	}
-}
-
-
-function  add_friend(){
-	$(".friend").css("display","block");
-	$(".setting").css("display","none");
-	$("#chatpage").css("display","none");
-}
-
-function  add_setting(){
-	$(".setting").css("display","block");
-	$(".friend").css("display","none");
-	$("#chatpage").css("display","none");
 }
