@@ -8,10 +8,10 @@
         <li id="nav-register"><a ui-sref="login"  role="tab" data-toggle="tab" >注册</a></li>
     </ul>
     <!-- 中间主体 -->
-    <div class="tab-content">
+    <div class="tab-content" ng-controller="registerCtrl1">
         <!-- 登录界面 -->
-        <div  id="login" ng-controller="registerCtrl1" >
-            <form name="loginForm" ng-submit="loginSub()">
+        <div  id="login" >
+            <form name="loginForm" ng-submit="loginSub()"  novalidate>
                 <div class="form-group">
                     <label for="exampleInputEmail1">User name</label>
                     <input type="text" class="form-control"  placeholder="User name" ng-model="loginMessage.name" ng-minlength="6" ng-maxlength="11" ng-pattern="/^\w+$/" required >
@@ -24,7 +24,7 @@
             </form>
         </div>
         <!-- 注册界面 -->
-        <div id="register" style="display:none" ng-controller="registerCtrl1">
+        <div id="register" style="display:none">
             <form name="registerForm" ng-submit="registerSub()"  novalidate>
                 <div class="tab-login active" >
                     <div class="form-group">

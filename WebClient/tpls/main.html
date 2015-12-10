@@ -8,11 +8,11 @@
         <div class="main-left-nav">
             <!-- 个人图片 -->
             <div class="main-left-nav-image">
-                <img src="image/cong.jpg" width="40px" height="40px"/>
+                <img src="{{userMessage.user.avatar}}" width="40px" height="40px"/>
             </div>
             <div class="main-left-nav-info">
                 <!-- 个人名字 -->
-                <h3 class="my-name"><span ng-bind="userMessage.name"></span></h3>
+                <h3 class="my-name"><span ng-bind="userMessage.user.nick"></span></h3>
                 <!-- 菜单标签 -->
                 <a  onclick="dropdown()" href="#/main">
                     <i class="main-left-nav-info-1" ></i>
@@ -39,7 +39,7 @@
         <div class="allchatmessage" >
             <!-- 生成左侧列表 -->
             <div class="chatmessage" ng-repeat="chatList in chatLists">
-                <a href="#" ui-sref="main.chatpage" ng-click="chat(this)">
+                <a href="#" ui-sref="main.chatpage" onclick="chatwith(this)">
                     <div class="chatmessage-1">
                         <div class="chatmessage-1-image">
                             <img src="{{chatList.img_src}}" alt="" class="chat-1-image" width="40px" height="40px">
