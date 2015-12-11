@@ -19,7 +19,7 @@ weChat.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $u
             }
         })
         .state('main.setting',{
-            url:"/main",
+            url:"/setting",
             views: {
                 'rightview@main': {
                     templateUrl: 'tpls/setting.html'
@@ -27,7 +27,7 @@ weChat.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $u
             }
         })
         .state('main.chatpage',{
-            url:"/main",
+            url:"",
             views: {
                 'rightview@main': {
                     templateUrl: 'tpls/chatpage.html',
