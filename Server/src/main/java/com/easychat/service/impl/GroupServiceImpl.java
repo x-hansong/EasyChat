@@ -7,11 +7,13 @@ import com.easychat.repository.GroupRelationshipRepository;
 import com.easychat.repository.GroupRepository;
 import com.easychat.service.GroupService;
 import com.easychat.utils.JsonUtils;
+import io.netty.util.internal.chmv8.LongAdderV8;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +44,7 @@ public class GroupServiceImpl implements GroupService {
         int creator = (Integer)data.get("creator");
         int userCnt = (Integer)data.get("userCnt");
         String annoucement = (String)data.get("annoucement");
-        //Ⱥ��Ա��id����
+        //uid数组
         long [] members = (long[])data.get("members");
 
         Group group = new Group();
@@ -66,23 +68,25 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public String deleteGroup(long gid, long uid) {
         Group group = groupRepository.findOne(gid);
-        //�ж�uid�Ƿ�ΪȺ�Ĵ����ߣ�����û��Ȩ��
+        //判断uid是否问创建者
         if(uid != group.getCreator()){
             String resultData = ErrorType.INVALID_GRANT;
             return resultData;
         }
-        //ɾ��group���е����
+
         groupRepository.delete(gid);
 
-        //ɾ��groupRelationship���е����
+
         List<GroupRelationship> groupRelationshipList = groupRelationshipRepository.findByGid(gid);
         for (GroupRelationship groupRelationship : groupRelationshipList) {
             groupRelationshipRepository.delete(groupRelationship);
         }
-        String resultData = "{" +
-                "��gid��:\""+gid+"\"," +
-                "\"uid\":\""+uid+"\"," +
-                "}";
+
+        Map<String,Long> stringLongMap = new HashMap<>();
+        stringLongMap.put("gid",gid);
+        stringLongMap.put("uid",uid);
+        String resultData = JsonUtils.encode(stringLongMap);
+
         return resultData;
     }
 }
