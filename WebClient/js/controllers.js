@@ -60,7 +60,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 		"user":{
 			"id":"7f90f7ca-bb24-11e2-b2d0-6d8e359945e4",
 			"name":"hello123",
-			"nick":$scope.nameChange.name,  
+			"nick":"张文聪",  
 			"sex":"男",
 			"phone":"18812123456",
 			"email":"15666@qq.com",
@@ -118,4 +118,3 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			})
 	}
 })
-

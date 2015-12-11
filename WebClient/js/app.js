@@ -1,4 +1,8 @@
-var weChat = angular.module('weChat', ['ui.router', 'ngAnimate','registerCtrls','mainCtrls','weChatDirectives']);
+var weChat = angular.module('weChat', ['ui.router', 'ngAnimate','registerCtrls','mainCtrls']);
+weChat.run(function($rootScope, $state, $stateParams) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+});
 weChat.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/login");
     $stateProvider
