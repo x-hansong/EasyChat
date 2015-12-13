@@ -5,29 +5,12 @@ weChat.controller('weChatCtrl', function($scope){
 })
 //注册控制模块
 var registerCtrls=angular.module('registerCtrls', ['mainCtrls']);
-registerCtrls.controller('registerCtrl1',function($scope,$http,$state){
+registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope){
 	//注册信息
 	$scope.registerMessage={
 		name:"",
 		password:""
 	};
-	//注册提交处理
-	$scope.registerSub=function(){
-		 $http.post('http://119.29.26.47/v1/users',$scope.registerMessage)
-	        .success(function(data) {
-	            console.log(data);
-	            //$scope.userMessage=data;
-	            $state.go('main',{},{reload:true});
-				})
-	        .error(function(data){
-	     		if(data.error=="duplicate_unique_property_exists")
-	     			alert("用户名以存在！");
-	     		else
-	        		alert("an unexpected error ocurred!");
-	        	//console.log(data);
-    });
-	};
-	$scope.nameChange.name="张文翔";
 	//登陆信息
 	$scope.loginMessage={
 		name:"",
@@ -38,18 +21,36 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state){
 		 $http.post('http://119.29.26.47/v1/users/authorization',$scope.loginMessage)
 	        .success(function(data) {
 	            //console.log(data);
+	            $rootScope.returnMessage=data;
 	            $state.go('main',{},{reload:true});
 				})
 	        .error(function(data){
-	     		// if(data.error=="invalid_grant")
-	     		// 	alert("用户名或密码错误！");
-	     		// else
-	       //  		alert("an unexpected error ocurred!");
+	     		if(data.error=="invalid_grant")
+	     			alert("用户名或密码错误！");
+	     		else
+	        		alert("未知错误!");
 	        	//console.log(data);
-	        	$state.go('main',{},{reload:true});
     });
 
 	};
+	//注册提交处理
+	$scope.registerSub=function(){
+		 $http.post('http://119.29.26.47/v1/users',$scope.registerMessage)
+	        .success(function(data) {
+	            // console.log(data);
+	            // $state.go('main',{},{reload:true});
+	            $scope.loginMessage=data;
+	            $scope.loginSub();
+				})
+	        .error(function(data){
+	     		if(data.error=="duplicate_unique_property_exists")
+	     			alert("用户名以存在！");
+	     		else
+	        		alert("未知错误!");
+	        	//console.log(data);
+    });
+	};
+	$scope.nameChange.name="张文翔";
 })
 //主页控制模块
 var mainCtrls=angular.module('mainCtrls',[]);
@@ -59,7 +60,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 		"user":{
 			"id":"7f90f7ca-bb24-11e2-b2d0-6d8e359945e4",
 			"name":"hello123",
-			"nick":$scope.nameChange.name,  
+			"nick":"张文聪",  
 			"sex":"男",
 			"phone":"18812123456",
 			"email":"15666@qq.com",
@@ -75,9 +76,45 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	    {"name":"吴涛宇","id":"5","img_src":"image/cong.jpg"},
 	    {"name":"杨民浩","id":"6","img_src":"image/cong.jpg"}
 	];
-	$scope.chat = function($element) {
-		//var name = $($element).children(".chatmessage-1").children(".chatmessage-1-info").children("h4").text();
-		alert($element.getAttribute(id));
-		$(".main-right .main-right-nav h2").text(name);
-	};
+	// 注销处理
+	$scope.logoffSub=function(){
+		$http({
+			method:'delete',
+			url:'http://119.29.26.47/v1/users/authentication/'+$scope.userMessage.token,
+			headers:{
+				authorization:'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			$state.go('main',{},{reload:true});
+			})
+		.error(function(data){
+			if(data.error=="auth_bad_access_token")
+	     		alert("未授权！");
+	     	else
+	        	alert("未知错误!");
+			})
+	}
+	//修改用户信息处理
+	$scope.alterUserMessageSub=function(){
+		$http({
+			method:'put',
+			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.user.name,
+			headers:{
+				authorization:'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			alert("修改成功！");
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==413)
+				alert("请求过大！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
 })

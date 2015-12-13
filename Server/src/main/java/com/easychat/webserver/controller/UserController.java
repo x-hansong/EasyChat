@@ -54,7 +54,6 @@ public class UserController {
     }
 
     /**
-     * 用户登录接口
      * @param json
      * @return token
      * @throws BadRequestException

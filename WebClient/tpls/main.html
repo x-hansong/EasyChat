@@ -50,13 +50,12 @@
                 <a title="个人设置" ui-sref="main.setting" href="#"><i class="menuicon_setting"></i>个人设置</a>
             </li>
             <li class="last_child">
-                <a title="退出" href="#/login"><i class="menuicon_quit"></i>退出</a>
+                <a href="#" title="退出" ng-click="logoffSub()"><i class="menuicon_quit"></i>退出</a>
             </li>
         </ul>
     </div>
 
     <!--右部测试框架-->
     <div ui-view="rightview"></div>
-
 
 </div>
