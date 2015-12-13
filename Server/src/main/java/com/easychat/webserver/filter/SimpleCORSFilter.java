@@ -9,6 +9,9 @@ import java.io.IOException;
 /**
  * Created by xhans on 2015/12/13.
  */
+/*
+    跨域请求过滤器，添加CORS相关请求头
+ */
 @Component
 public class SimpleCORSFilter implements Filter {
 
@@ -19,8 +22,9 @@ public class SimpleCORSFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response=(HttpServletResponse) resp;
-
+        
         response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Headers", "origin, content-type, accept");
 
         chain.doFilter(req, resp);
     }
