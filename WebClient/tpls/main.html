@@ -14,7 +14,7 @@
                 <!-- 个人名字 -->
                 <h3 class="my-name"><span ng-bind="userMessage.user.nick"></span></h3>
                 <!-- 菜单标签 -->
-                <a  onclick="dropdown()" href="#/main">
+                <a  onclick="dropdown()" href="#">
                     <i class="main-left-nav-info-1" ></i>
                 </a>
             </div>
@@ -28,61 +28,15 @@
         <div class="tab">
             <div class="tab_item" style="border-right:1px solid #24272C;">
                 <!-- 聊天列表 -->
-                <a class="chat"  onclick="change_web_wechat_tab_chat(this)" href="#/main"><i class="web_wechat_tab_chat" ></i></a>
+                <a class="chat"  ui-sref="main.chatlist"  onclick="change_web_wechat_tab_chat(this)" href="#"><i class="web_wechat_tab_chat" ></i></a>
             </div>
             <div class="tab_item">
                 <!-- 朋友列表 -->
-                <a class="chat" onclick="change_web_wechat_tab_friends(this)" href="#/main"><i class="web_wechat_tab_friends"></i></a>
+                <a class="chat" ui-sref="main.friendlist" onclick="change_web_wechat_tab_friends(this)" href="#"><i class="web_wechat_tab_friends"></i></a>
             </div>
         </div>
         <!-- 聊天标签 -->
-        <div class="allchatmessage" >
-            <!-- 生成左侧列表 -->
-            <div class="chatmessage" ng-repeat="chatList in chatLists">
-                <a href="#" ui-sref="main.chatpage" onclick="chatwith(this)">
-                    <div class="chatmessage-1">
-                        <div class="chatmessage-1-image">
-                            <img src="{{chatList.img_src}}" alt="" class="chat-1-image" width="40px" height="40px">
-                        </div>
-                        <div class="chatmessage-1-info">
-                            <h4>{{chatList.name}}</h4>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-        <!-- 好友标签 -->
-        <div class="myfriends" style="display:none">
-            <div class="bianhao">
-                <h4>A</h4>
-            </div>
-            <div class="chatmessage" >
-                <a ui-sref="main" onclick="chatwith(this)" href="#/main">
-                    <div class="chatmessage-1">
-                        <div class="chatmessage-1-image">
-                            <img src="image/cong.jpg" width="40px" height="40px"/>
-                        </div>
-                        <div class="chatmessage-1-info">
-                            <h4>AAA</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="chatmessage" >
-                <a href=ui-sref="main" onclick="chatwith(this)" href="#/main">
-                    <div class="chatmessage-1">
-                        <div class="chatmessage-1-image">
-                            <img src="image/cong.jpg" width="40px" height="40px"/>
-                        </div>
-                        <div class="chatmessage-1-info">
-                            <h4>BBBB</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
+        <div ui-view="leftview"></div>
 
     </div>
 

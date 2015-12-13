@@ -75,4 +75,9 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	    {"name":"吴涛宇","id":"5","img_src":"image/cong.jpg"},
 	    {"name":"杨民浩","id":"6","img_src":"image/cong.jpg"}
 	];
+	$scope.chat = function($element) {
+		//var name = $($element).children(".chatmessage-1").children(".chatmessage-1-info").children("h4").text();
+		alert($element.getAttribute(id));
+		$(".main-right .main-right-nav h2").text(name);
+	};
 })
