@@ -19,7 +19,7 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	};
 	//登陆提交处理
 	$scope.loginSub=function(){
-		 $http.post('http://119.29.26.47/v1/users/authorization',$scope.loginMessage)
+		 $http.post('http://119.29.26.47:8080/v1/users/authorization',$scope.loginMessage)
 	        .success(function(data) {
 	            //console.log(data);
 	            $rootScope.returnMessage=data;
@@ -36,7 +36,7 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	};
 	//注册提交处理
 	$scope.registerSub=function(){
-		 $http.post('http://119.29.26.47/v1/users',$scope.registerMessage)
+		 $http.post('http://119.29.26.47:8080/v1/users',$scope.registerMessage)
 	        .success(function(data) {
 	            // console.log(data);
 	            // $state.go('main',{},{reload:true});
@@ -118,4 +118,138 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 				
 			})
 	}
+	// 添加好友处理
+	$scope.addFriendName="zl36192031";
+	$scope.addFriendSub=function(){
+		$http({
+			method:'post',
+			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.addFriendName,
+			headers:{
+				authorization:'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			alert("请求已发送！");
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==404)
+				alert("请求的用户不存在！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
+	// 删除好友处理
+	$scope.delFriendName="";
+	$scope.addFriendSub=function(){
+		$http({
+			method:'delete',
+			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.delFriendName,
+			headers:{
+				authorization:'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			alert("删除成功！");
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==404)
+				alert("请求的用户不存在！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
+	// 查看好友信息处理
+	$scope.searchFriendName="";
+	$scope.searchFriendSub=function(){
+		$http({
+			method:'get',
+			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchFriendName,
+			headers:{
+				authorization:'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			$scope.friendMessage=data;
+			$state.go('friendMsg',{},{reload:true});
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==404)
+				alert("请求的用户不存在！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
+	// 查看陌生人信息处理
+	$scope.searchStrangerName="";
+	$scope.searchStrangerSub=function(){
+		$http({
+			method:'get',
+			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchStrangerName,
+			headers:{
+				authorization:'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			$scope.strangerMessage=data;
+			$state.go('strangerMsg',{},{reload:true});
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==404)
+				alert("请求的用户不存在！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
+	// 创建群处理
+	$scope.createGroupMessage={
+		"name":"hellogroup",
+		"avatar":"image/cong.jpg",
+		"creater":$scope.userMessage.name,
+		"userCnt":"3",
+		"announcement":"this is king's group",
+		"members":["jma2","jam3"]
+	};
+	$scope.createGroupSub=function(){
+		$http({
+			method:'post',
+			url:'http://119.29.26.47/v1/groups',
+			data:$scope.createGroupMessage,
+			headers:{
+				authorization:'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			$scope.groupMessage=data;
+			// $state.go('strangerMsg',{},{reload:true});
+			alert("创建成功！");
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==404)
+				alert("请求的用户不存在！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
+	
+
 })

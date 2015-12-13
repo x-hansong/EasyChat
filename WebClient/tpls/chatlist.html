@@ -1,6 +1,6 @@
 <div class="allchatmessage" >
     <!-- 生成左侧列表 -->
-    <div class="chatmessage"   ng-repeat="chatList in chatLists">
+    <div class="chatmessage"   ng-repeat="chatList in chatLists|filter:searchText">
         <a id="1" href="#"  onclick="chatwith(this)" ui-sref="main.chatpage">
             <div class="chatmessage-1">
                 <div class="chatmessage-1-image">
