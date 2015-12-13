@@ -51,6 +51,7 @@ function dropup(){
 	$(".dropdown_memu").css("display","none");
 }
 
+
 function information(e){
 	if($(e).text() == "修改个人设置"){
 		$(e).text("保存个人设置");

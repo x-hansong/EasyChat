@@ -12,7 +12,14 @@ weChat.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $u
         })
         .state('main',{
             url:"/main",
-            templateUrl: 'tpls/main.html'
+            views: {
+                '': {
+                    templateUrl: 'tpls/main.html'
+                },
+                'leftview@main':{
+                    templateUrl:'tpls/chatlist.html'
+                }
+            }
         })
         .state('main.friend',{
             url:"/friend",
@@ -42,6 +49,22 @@ weChat.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $u
                             $(".main-right .main-right-nav h2").text(name);
                         }
                     }
+                }
+            }
+        })
+        .state('main.chatlist',{
+            url:"/chatlist",
+            views:{
+                'leftview@main':{
+                    templateUrl:'tpls/chatlist.html'
+                }
+            }
+        })
+        .state('main.friendlist',{
+            url:"/friendlist",
+            views:{
+                'leftview@main':{
+                    templateUrl:'tpls/friendlist.html'
                 }
             }
         });

@@ -2,6 +2,7 @@ weChat.controller('weChatCtrl', function($scope){
 	$scope.nameChange={
 		"name":""
 	};
+
 })
 //注册控制模块
 var registerCtrls=angular.module('registerCtrls', ['mainCtrls']);
