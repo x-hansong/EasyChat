@@ -409,3 +409,29 @@ pre {
 	height: 40px;
 	margin-left: 80px;
 }
+#rightmenu{
+	background: #FFF;
+	width:140px;
+	height:120px;
+	border: 1px solid #a4a4a4;
+	border-radius: 5px;
+}
+#rightmenu ul{
+	display:block;
+	list-style-type: none;
+	padding:0;
+	margin:0;
+}
+#rightmenu ul li{
+	display:list-item;
+	height:40px;
+	line-height: 40px;
+	border-bottom:1px solid #24272C;
+}
+#rightmenu ul li a{
+	display:block;
+	height:40px;
+	width:140px;
+	margin-left: 20px;
+	text-decoration:none;
+}

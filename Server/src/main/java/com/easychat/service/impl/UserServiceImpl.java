@@ -1,6 +1,7 @@
 package com.easychat.service.impl;
 
 import com.easychat.exception.BadRequestException;
+import com.easychat.exception.BasicException;
 import com.easychat.exception.NotFoundException;
 import com.easychat.model.entity.User;
 import com.easychat.model.error.ErrorType;
@@ -192,32 +193,23 @@ public class UserServiceImpl implements UserService{
     public String getUser(String name) throws NotFoundException{
 //        redisTemplate.opsForValue().increment("visit",1);
 
-        User user = getUserByName(name);
-        if(user!=null) {
-            Long id = user.getId();
-            String nick = user.getNick();
-            int sex = user.getSex();
-            String phone = user.getPhone();
-            String email = user.getEmail();
-            String avatar = user.getAvatar();
-            String signInfo = user.getSignInfo();
+            User user = getUserByName(name);
+            if (user != null) {
 
-            Map<String, Object> data = new HashMap<String, Object > ();
+                Map<String, Object> data = new HashMap<String, Object>();
 
-            data.put("id", id);
-            data.put("name", name);
-            data.put("nick", nick);
-            data.put("sex", sex);
-            data.put("phone", phone);
-            data.put("email", email);
-            data.put("avatar", avatar);
-            data.put("sign_info", signInfo);
+                data.put("id", user.getId());
+                data.put("name", name);
+                data.put("nick",user.getNick());
+                data.put("sex", user.getSex());
+                data.put("phone", user.getPhone());
+                data.put("email",user.getEmail());
+                data.put("avatar", user.getAvatar());
+                data.put("sign_info", user.getSignInfo());
 
-            String json=JsonUtils.encode(data);
-            return json;
-        }
-        else throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND,"the user is not exists");
-
+                String json = JsonUtils.encode(data);
+                return json;
+            } else throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
 
     }
 

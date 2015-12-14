@@ -1,6 +1,7 @@
 package com.easychat.service;
 
 import com.easychat.exception.BadRequestException;
+import com.easychat.exception.BasicException;
 import com.easychat.exception.NotFoundException;
 import com.easychat.model.entity.User;
 import com.easychat.model.session.Session;
