@@ -15,7 +15,7 @@ weChat.controller('weChatCtrl', function($scope){
 
 })
 //注册控制模块
-var registerCtrls=angular.module('registerCtrls', ['mainCtrls']);
+var registerCtrls=angular.module('registerCtrls', []);
 registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope){
 	//注册信息
 	$scope.registerMessage={
