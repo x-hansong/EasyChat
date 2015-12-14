@@ -33,6 +33,12 @@ public class UserController {
         this.redisTemplate = redisTemplate;
     }
 
+    /**
+     * 用户注册接口
+     * @param json
+     * @return
+     * @throws BadRequestException
+     */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public String addUser(@RequestBody String json) throws BadRequestException {
@@ -54,6 +60,7 @@ public class UserController {
     }
 
     /**
+     * 用户登录接口
      * @param json
      * @return token
      * @throws BadRequestException
@@ -66,4 +73,44 @@ public class UserController {
 
     }
 
+    /**
+     * 用户注销接口
+     * @param token
+     * @return
+     * @throws BadRequestException
+     */
+    @ResponseBody
+    @RequestMapping(value="/authorization",method=RequestMethod.DELETE)
+    public boolean logOff(@RequestHeader("Authorization") Token token) throws BadRequestException{
+        if(userService.logOff(token)){
+            return true;
+        }
+        else return false;
+    }
+
+    /**
+     * 修改用户信息接口
+     * @param token
+     * @param name
+     * @param json
+     * @return
+     * @throws BadRequestException
+     */
+    @ResponseBody
+    @RequestMapping(value="/{name}",method = RequestMethod.PUT)
+    public boolean modifyUserInfo(@RequestHeader("Authorization") Token token,
+                                  @PathVariable String name,
+                                  @RequestBody String json)throws BadRequestException{
+        if(userService.modifyUserInfo(token,name,json)){
+            return true;
+        }
+        else return false;
+    }
+
+   /* @ResponseBody
+    @RequestMapping(value="/{name}/contacts/users/{friend_username}",method = RequestMethod.POST)
+    public boolean addFriend(@RequestHeader ("Authorization") Token token,
+                             @PathVariable String name,
+                             @PathVariable String friend_username)throws
+                             */
 }

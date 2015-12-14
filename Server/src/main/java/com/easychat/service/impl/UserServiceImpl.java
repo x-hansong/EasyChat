@@ -52,11 +52,12 @@ public class UserServiceImpl implements UserService{
                 userTest.setPassword(CommonUtils.md5(passwordTest));
                 userRepository.save(userTest);
             } else {
-                throw new BadRequestException(ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS, "duplicate_unique_property_exists");
+                throw new BadRequestException(ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS,
+                        "Entity user requires that property named username be unique, value of dddd exists");
             }
         }
         else {
-            throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "illegal_argument");
+            throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "invalid username or password");
         }
     }
 
@@ -82,27 +83,95 @@ public class UserServiceImpl implements UserService{
         Map<String, Object> data = JsonUtils.decode(json, Map.class);
         String name=(String) data.get("name");
         String password=CommonUtils.md5((String) data.get("password"));
-        if(isValid(name, password)){
+        if(isUserValid(name, password)){
             //因为SessionService没有完善所以暂时使用一个这一点的session
             User user=getUserByName(name);
             Token token=new Token();
             Session session=new Session(token,user.getId());
             return session;
-            //return sessionService.createSession(name);
+            //User user=getUserByName(name);
+            //Long uid=user.getId();
+            // return sessionService.createSession(uid);
         }
         else{
-            throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "illegal_argument");
+            throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "invalid username or password");
         }
 
     }
 
+    /**
+     * 验证账号密码是否正确
+     * @param name
+     * @param password
+     * @return
+     */
     @Override
-    public boolean isValid(String name,String password){
+    public boolean isUserValid(String name,String password){
         User user=userRepository.findByName(name);
         if(password.equals(user.getPassword())){
             return true;
         }
         else return false;
+    }
+
+    /**
+     * 用户注销
+     * @param token
+     * @return true or false
+     * @throws BadRequestException
+     */
+    @Override
+    public boolean logOff(Token token) throws BadRequestException{
+        if(sessionService.isValid(token)){
+            sessionService.destroySession(token);
+            return true;
+        }
+
+        else throw new BadRequestException(ErrorType.AUTH_BAD_ACCESS_TOKEN,
+                "Unable to authenticate due to expired access token");
+    }
+
+    @Override
+    public boolean modifyUserInfo(Token token,String name,String json) throws BadRequestException {
+        //if (sessionService.isValid(token)) {
+        if(true){
+            Map<String, Object> data = JsonUtils.decode(json, Map.class);
+            int sex=Integer.parseInt((String)data.get("sex"));
+            String nick=(String)data.get("nick");
+            String phone=(String)data.get("phone");
+            String email=(String)data.get("phone");
+            String avatar=(String)data.get("avatar");
+            String signInfo=(String)data.get("sign_info");
+
+            if(CommonUtils.checkNick(nick)) {
+                if (CommonUtils.checkEmail(email)) {
+                    if (CommonUtils.checkSex(sex)) {
+                        if (CommonUtils.checkPhone(phone)) {
+                            if(CommonUtils.checkSignInfo(signInfo)) {
+
+                                User user = getUserByName(name);
+                                user.setSex(sex);
+                                user.setNick(nick);
+                                user.setPhone(phone);
+                                user.setEmail(email);
+                                user.setAvatar(avatar);
+                                user.setSignInfo(signInfo);
+                                userRepository.save(user);
+
+                                return true;
+                            }
+                            else throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "Wrong signInfo input");
+                        }
+                        else throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "Wrong phone input");
+                    }
+                    else throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "Wrong sex input");
+                }
+                else throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "Wrong email input");
+            }
+            else throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "Wrong nick input");
+        }
+        else throw new BadRequestException(ErrorType.AUTH_BAD_ACCESS_TOKEN,
+                "Unable to authenticate due to expired access token");
     }
 
 }
