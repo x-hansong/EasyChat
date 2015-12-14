@@ -1,6 +1,7 @@
 package com.easychat.service.impl;
 
 import com.easychat.exception.BadRequestException;
+import com.easychat.exception.NotFoundException;
 import com.easychat.model.entity.User;
 import com.easychat.model.error.ErrorType;
 import com.easychat.model.session.Session;
@@ -11,8 +12,10 @@ import com.easychat.service.UserService;
 import com.easychat.utils.CommonUtils;
 import com.easychat.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -23,6 +26,7 @@ import java.util.Map;
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     private SessionService sessionService;
+    private RedisTemplate redisTemplate;
 
 
     @Autowired
@@ -131,8 +135,15 @@ public class UserServiceImpl implements UserService{
                 "Unable to authenticate due to expired access token");
     }
 
+    /**
+     * 修改用户信息接口
+     * @param token
+     * @param name
+     * @param json
+     * @throws BadRequestException
+     */
     @Override
-    public boolean modifyUserInfo(Token token,String name,String json) throws BadRequestException {
+    public void modifyUserInfo(Token token,String name,String json) throws BadRequestException {
         //if (sessionService.isValid(token)) {
         if(true){
             Map<String, Object> data = JsonUtils.decode(json, Map.class);
@@ -157,8 +168,6 @@ public class UserServiceImpl implements UserService{
                                 user.setAvatar(avatar);
                                 user.setSignInfo(signInfo);
                                 userRepository.save(user);
-
-                                return true;
                             }
                             else throw new  BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "Wrong signInfo input");
                         }
@@ -172,6 +181,37 @@ public class UserServiceImpl implements UserService{
         }
         else throw new BadRequestException(ErrorType.AUTH_BAD_ACCESS_TOKEN,
                 "Unable to authenticate due to expired access token");
+    }
+    public String getUser(String name) throws NotFoundException{
+//        redisTemplate.opsForValue().increment("visit",1);
+
+        User user = getUserByName(name);
+        if(user!=null) {
+            Long id = user.getId();
+            String nick = user.getNick();
+            int sex = user.getSex();
+            String phone = user.getPhone();
+            String email = user.getEmail();
+            String avatar = user.getAvatar();
+            String signInfo = user.getSignInfo();
+
+            Map<String, Object> data = new HashMap<String, Object > ();
+
+            data.put("id", id);
+            data.put("name", name);
+            data.put("nick", nick);
+            data.put("sex", sex);
+            data.put("phone", phone);
+            data.put("email", email);
+            data.put("avatar", avatar);
+            data.put("sign_info", signInfo);
+
+            String json=JsonUtils.encode(data);
+            return json;
+        }
+        else throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND,"the user is not exists");
+
+
     }
 
 }

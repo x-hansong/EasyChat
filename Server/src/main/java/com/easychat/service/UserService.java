@@ -1,6 +1,7 @@
 package com.easychat.service;
 
 import com.easychat.exception.BadRequestException;
+import com.easychat.exception.NotFoundException;
 import com.easychat.model.entity.User;
 import com.easychat.model.session.Session;
 import com.easychat.model.session.Token;
@@ -15,5 +16,6 @@ public interface UserService {
     Session authenticate(String json)throws BadRequestException;
     boolean isUserValid(String name,String password);
     boolean logOff(Token token)throws BadRequestException;
-    boolean modifyUserInfo(Token token,String name,String json) throws BadRequestException;
+    void modifyUserInfo(Token token,String name,String json) throws BadRequestException;
+    String getUser(String name)throws NotFoundException;
 }

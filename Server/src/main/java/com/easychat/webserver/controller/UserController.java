@@ -46,17 +46,18 @@ public class UserController {
         return json;
     }
 
+    /**获取用户信息接口
+     *
+     * @param name
+     * @return
+     * @throws NotFoundException
+     */
     @ResponseBody
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public User getUser(@PathVariable String name) throws NotFoundException {
+    public String getUser(@PathVariable String name) throws NotFoundException {
 
-        redisTemplate.opsForValue().increment("visit",1);
+        return userService.getUser(name);
 
-        User user = userService.getUserByName(name);
-        if (user == null){
-            throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "Service resource not found");
-        }
-        return user;
     }
 
     /**
@@ -98,13 +99,11 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value="/{name}",method = RequestMethod.PUT)
-    public boolean modifyUserInfo(@RequestHeader("Authorization") Token token,
+    public String modifyUserInfo(@RequestHeader("Authorization") Token token,
                                   @PathVariable String name,
-                                  @RequestBody String json)throws BadRequestException{
-        if(userService.modifyUserInfo(token,name,json)){
-            return true;
-        }
-        else return false;
+                                  @RequestBody String json)throws BadRequestException {
+        userService.modifyUserInfo(token, name, json);
+        return json;
     }
 
    /* @ResponseBody
