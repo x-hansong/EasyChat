@@ -4,6 +4,7 @@ import com.easychat.Server;
 import com.easychat.model.entity.User;
 import com.easychat.model.error.ErrorType;
 import com.easychat.repository.UserRepository;
+import com.easychat.utils.CommonUtils;
 import com.easychat.utils.JsonUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +31,7 @@ import static org.junit.Assert.assertNotNull;
 public class UserControllerTest {
 
     private static final String URL = "http://localhost:8080/v1/users";
+    private static final String URL_testAuthenticateApi = "http://localhost:8080/v1/users/authorization";
 
     private RestTemplate restTemplate = new TestRestTemplate();
 
@@ -83,6 +85,39 @@ public class UserControllerTest {
         userRepository.delete(user);
     }
 
+    @Test
+    public void testAuthenticateApi(){
+        String name = "testuser";
+        String password = "123456";
+
+        //创建一个用户
+        User user = new User();
+        user.setName(name);
+        user.setPassword(CommonUtils.md5(password));
+        userRepository.save(user);
+
+        //设置 Request Body 和 HttpHeaders
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("name", name);
+        requestBody.put("password",CommonUtils.md5(password));
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        //创建http请求
+        HttpEntity<String> httpEntity = new HttpEntity<>(JsonUtils.encode(requestBody),requestHeaders);
+
+        //调用API
+        ResponseEntity<String> response = restTemplate.postForEntity(URL_testAuthenticateApi, httpEntity, String.class);
+
+        Map<String, String> responseBody = JsonUtils.decode(response.getBody(), Map.class);
+
+        assertNotNull(response);
+        //测试状态码
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+
+        //删除测试用户
+        userRepository.delete(user);
+    }
 
 
 }

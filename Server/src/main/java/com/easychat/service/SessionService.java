@@ -1,6 +1,7 @@
 package com.easychat.service;
 
 
+import com.easychat.model.session.Token;
 import com.easychat.repository.SessionRepository;
 import com.easychat.model.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,20 @@ public class SessionService {
         this.sessionRepository = sessionRepository;
     }
 
-    public Session createSession(String userName){
+    public Session createSession(Long uid){
         return null;
     }
 
-    public boolean isValid(Session session) {
+    public boolean isValid(Token token) {
         return false;
     }
 
-    public void refreshSession(Session session) {
+    public void refreshSession(Token token) {
     }
 
-    public void destroySession(Session session) {
+    public void destroySession(Token token) {
+    }
+    public boolean isOnline(Long uid){
+        return false;
     }
 }

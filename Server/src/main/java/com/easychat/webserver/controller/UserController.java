@@ -33,6 +33,12 @@ public class UserController {
         this.redisTemplate = redisTemplate;
     }
 
+    /**
+     * 用户注册接口
+     * @param json
+     * @return
+     * @throws BadRequestException
+     */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public String addUser(@RequestBody String json) throws BadRequestException {
@@ -40,20 +46,22 @@ public class UserController {
         return json;
     }
 
+    /**获取用户信息接口
+     *
+     * @param name
+     * @return
+     * @throws NotFoundException
+     */
     @ResponseBody
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public User getUser(@PathVariable String name) throws NotFoundException {
+    public String getUser(@PathVariable String name) throws NotFoundException {
 
-        redisTemplate.opsForValue().increment("visit",1);
+        return userService.getUser(name);
 
-        User user = userService.getUserByName(name);
-        if (user == null){
-            throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "Service resource not found");
-        }
-        return user;
     }
 
     /**
+     * 用户登录接口
      * @param json
      * @return token
      * @throws BadRequestException
@@ -66,4 +74,42 @@ public class UserController {
 
     }
 
+    /**
+     * 用户注销接口
+     * @param token
+     * @return
+     * @throws BadRequestException
+     */
+    @ResponseBody
+    @RequestMapping(value="/authorization",method=RequestMethod.DELETE)
+    public boolean logOff(@RequestHeader("Authorization") Token token) throws BadRequestException{
+        if(userService.logOff(token)){
+            return true;
+        }
+        else return false;
+    }
+
+    /**
+     * 修改用户信息接口
+     * @param token
+     * @param name
+     * @param json
+     * @return
+     * @throws BadRequestException
+     */
+    @ResponseBody
+    @RequestMapping(value="/{name}",method = RequestMethod.PUT)
+    public String modifyUserInfo(@RequestHeader("Authorization") Token token,
+                                  @PathVariable String name,
+                                  @RequestBody String json)throws BadRequestException {
+        userService.modifyUserInfo(token, name, json);
+        return json;
+    }
+
+   /* @ResponseBody
+    @RequestMapping(value="/{name}/contacts/users/{friend_username}",method = RequestMethod.POST)
+    public boolean addFriend(@RequestHeader ("Authorization") Token token,
+                             @PathVariable String name,
+                             @PathVariable String friend_username)throws
+                             */
 }
