@@ -100,7 +100,7 @@ public class CommonUtils {
             return true;
         }
         else {
-            String regex = "^[a-zA-Z0-9\\u4e00-\\u9fa5]{1,140}$";
+            String regex = "^[a-zA-Z0-9,.?!，。？！\\u4e00-\\u9fa5]{1,140}$";
             return Pattern.matches(regex, signInfo);
         }
     }
