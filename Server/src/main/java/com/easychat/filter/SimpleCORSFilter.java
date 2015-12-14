@@ -1,4 +1,4 @@
-package com.easychat.webserver.filter;
+package com.easychat.filter;
 
 import org.springframework.stereotype.Component;
 

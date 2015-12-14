@@ -7,14 +7,14 @@ import com.easychat.repository.GroupRelationshipRepository;
 import com.easychat.repository.GroupRepository;
 import com.easychat.service.GroupService;
 import com.easychat.utils.JsonUtils;
-import io.netty.util.internal.chmv8.LongAdderV8;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by king on 2015/12/7.

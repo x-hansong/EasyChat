@@ -1,4 +1,4 @@
-package com.easychat.webserver.controller;
+package com.easychat.controller;
 
 import com.easychat.exception.BadRequestException;
 import com.easychat.exception.NotFoundException;
