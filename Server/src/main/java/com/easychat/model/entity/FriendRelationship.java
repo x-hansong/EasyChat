@@ -42,4 +42,7 @@ public class FriendRelationship implements Serializable{
         this.aid = aid;
         this.bid = bid;
     }
+
+    public FriendRelationship() {
+    }
 }

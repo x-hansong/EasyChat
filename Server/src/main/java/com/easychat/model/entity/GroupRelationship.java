@@ -26,6 +26,9 @@ public class GroupRelationship implements Serializable{
         this.gid = gid;
     }
 
+    public GroupRelationship() {
+    }
+
     public Long getUid() {
         return uid;
     }

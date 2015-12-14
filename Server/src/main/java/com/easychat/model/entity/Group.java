@@ -36,7 +36,7 @@ public class Group implements Serializable{
     private long creator;
 
     @Column(name = "userCnt")
-    private int userCnt;
+    private long userCnt;
 
     @Column(name = "created")
     private Timestamp created;
@@ -79,11 +79,11 @@ public class Group implements Serializable{
         this.creator = creator;
     }
 
-    public int getUserCnt() {
+    public long getUserCnt() {
         return userCnt;
     }
 
-    public void setUserCnt(int userCnt) {
+    public void setUserCnt(long userCnt) {
         this.userCnt = userCnt;
     }
 

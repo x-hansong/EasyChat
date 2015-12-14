@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface GroupRelationshipRepository extends JpaRepository<GroupRelationship, Long>, GroupRelationshipRepositoryCustom {
     List<GroupRelationship> findByGid(Long gid);
+    GroupRelationship findByGidAndUid(Long gid, Long uid);
 }

@@ -1,6 +1,7 @@
 package com.easychat.webserver.controller;
 
 import com.easychat.exception.BadRequestException;
+import com.easychat.exception.NotFoundException;
 import com.easychat.model.error.ErrorType;
 import com.easychat.service.impl.GroupServiceImpl;
 import org.slf4j.Logger;
@@ -38,12 +39,56 @@ public class GroupController {
 
     @RequestMapping(value = "/{uid}/{gid}",method = RequestMethod.DELETE,produces = APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String deleteGroup(@PathVariable long uid,@PathVariable long gid) throws BadRequestException{
+    public String deleteGroup(@PathVariable long uid,@PathVariable long gid)
+            throws BadRequestException,NotFoundException{
+        //判断群是否存在
+        if(!groupServiceImpl.exists(gid)){
+            throw new NotFoundException(ErrorType.NO_ERROR,"群组不存在");
+        }
+
         String resultData = groupServiceImpl.deleteGroup(gid,uid);
         if (resultData.equals(ErrorType.INVALID_GRANT)){
             throw new BadRequestException(ErrorType.INVALID_GRANT,"invalid_grant");
         }else{
             return resultData;
         }
+    }
+
+    @RequestMapping(value = "/{uid}/{gid}",method = RequestMethod.PATCH ,produces = APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String updateAvatarAndAnnouncement(@PathVariable long uid,@PathVariable long gid, @RequestBody String json)
+            throws BadRequestException,NotFoundException{
+        //判断群是否存在
+        if(!groupServiceImpl.exists(gid)){
+            throw new NotFoundException(ErrorType.NO_ERROR,"群组不存在");
+        }
+        String resultData = groupServiceImpl.updateGroupAvatarAndAnnouncement(gid,uid,json);
+        if (resultData.equals(ErrorType.INVALID_GRANT)){
+            throw new BadRequestException(ErrorType.INVALID_GRANT,"invalid_grant");
+        }else{
+            return resultData;
+        }
+    }
+
+    @RequestMapping(value = "/{gid}/users/{uid}",method = RequestMethod.DELETE , produces = APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String quitGroup(@PathVariable long uid,@PathVariable long gid) throws NotFoundException{
+        //判断群是否存在
+        if(!groupServiceImpl.exists(gid)){
+            throw new NotFoundException(ErrorType.NO_ERROR,"群组不存在");
+        }
+        String resultData = groupServiceImpl.quitGroup(gid,uid);
+        return resultData;
+    }
+
+    @RequestMapping(value = "/{gid}/users" ,method = RequestMethod.POST , produces = APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String inviteIntoGroup(@PathVariable long gid,@RequestBody String json) throws NotFoundException{
+        //判断群是否存在
+        if(!groupServiceImpl.exists(gid)){
+            throw new NotFoundException(ErrorType.NO_ERROR,"群组不存在");
+        }
+        String resultData = groupServiceImpl.inviteIntoGroup(gid,json);
+        return resultData;
     }
 }
