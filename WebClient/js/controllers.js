@@ -1,6 +1,16 @@
 weChat.controller('weChatCtrl', function($scope){
-	$scope.nameChange={
-		"name":""
+	$scope.userMessage={
+		"token" : '4d7e4ba0-dc4a-11e3-90d5-e1ffbaacdaf5',
+		"user":{
+			"id":"7f90f7ca-bb24-11e2-b2d0-6d8e359945e4",
+			"name":"hello123",
+			"nick":"张文聪",  
+			"sex":"男",
+			"phone":"18812123456",
+			"email":"15666@qq.com",
+			"avatar":"image/cong.jpg",
+			"sigh_info":"我是说在座的各位" 
+		    }
 	};
 
 })
@@ -17,12 +27,21 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 		name:"",
 		password:""
 	};
+	//获取用户信息处理
+	$scope.getUserMessage=function(){
+		$http.get('http://119.29.26.47:8080/v1/users/'+$scope.loginMessage.name)
+			.success(function(data){
+				$scope.userMessage.user=data;
+			})
+	}
+
 	//登陆提交处理
 	$scope.loginSub=function(){
 		 $http.post('http://119.29.26.47:8080/v1/users/authorization',$scope.loginMessage)
 	        .success(function(data) {
 	            //console.log(data);
-	            $rootScope.returnMessage=data;
+	            $scope.userMessage.token=data.uuid;
+	            $scope.getUserMessage();
 	            $state.go('main',{},{reload:true});
 				})
 	        .error(function(data){
@@ -51,24 +70,10 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	        	//console.log(data);
     });
 	};
-	$scope.nameChange.name="张文翔";
 })
 //主页控制模块
 var mainCtrls=angular.module('mainCtrls',[]);
 mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
-	$scope.userMessage={
-		"token" : "4d7e4ba0-dc4a-11e3-90d5-e1ffbaacdaf5",
-		"user":{
-			"id":"7f90f7ca-bb24-11e2-b2d0-6d8e359945e4",
-			"name":"hello123",
-			"nick":"张文聪",  
-			"sex":"男",
-			"phone":"18812123456",
-			"email":"15666@qq.com",
-			"avatar":"image/cong.jpg",
-			"sigh_info":"我是说在座的各位" 
-		    }
-};
 	$scope.chatLists=[
 		{"name":"张力","id":"1","img_src":"image/cong.jpg"},
 	    {"name":"肖航","id":"2","img_src":"image/cong.jpg"},
@@ -77,6 +82,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	    {"name":"吴涛宇","id":"5","img_src":"image/cong.jpg"},
 	    {"name":"杨民浩","id":"6","img_src":"image/cong.jpg"}
 	];
+	// 获取用户
 	// 注销处理
 	$scope.logoffSub=function(){
 		$http({
@@ -250,7 +256,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 				
 			})
 	}
-	// 解散群
+	// 解散群处理
 	$scope.delGroupSub=function(){
 		$http({
 			method:'delete',
@@ -275,4 +281,87 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 				
 			})
 	}
+	// 修改群信息处理
+	$scope.alterGroupMessage={
+		'announcement':'this is new announcement',
+		'avatar':''
+	};
+	$scope.alterGroupMessageSub=function(){
+		$http({
+			method:'patch',
+			url:'http://119.29.26.47/v1/groups/'+$scope.userMessage.id+'/'+'group_id',
+			data:$scope.alterGroupMessage,
+			headers:{
+				'Authorization':'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			// $scope.groupMessage=data;
+			// $state.go('strangerMsg',{},{reload:true});
+			alert("修改成功！");
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==404)
+				alert("请求的用户不存在！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
+	// 退出群处理
+	$scope.quitGroupSub=function(){
+		$http({
+			method:'delete',
+			url:'http://119.29.26.47/v1/groups/'+'group_id'+'/users/'+$scope.userMessage.id,
+			headers:{
+				'Authorization':'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			// $scope.groupMessage=data;
+			// $state.go('strangerMsg',{},{reload:true});
+			alert("退出成功！");
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==404)
+				alert("请求的用户不存在！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
+	// 邀请入群处理
+
+	$scope.inviteGroupSub=function(){
+		$http({
+			method:'post',
+			url:'http://119.29.26.47/v1/groups/'+'group_id'+'/users',
+			data:{'user_ids':['uid1','uid2']},
+			headers:{
+				'Authorization':'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			$scope.groupMessage=data;
+			// $state.go('strangerMsg',{},{reload:true});
+			alert("创建成功！");
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==404)
+				alert("请求的用户不存在！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
+	// 
 })
