@@ -182,6 +182,13 @@ public class UserServiceImpl implements UserService{
         else throw new BadRequestException(ErrorType.AUTH_BAD_ACCESS_TOKEN,
                 "Unable to authenticate due to expired access token");
     }
+
+    /**
+     * 获取用户信息
+     * @param name
+     * @return
+     * @throws NotFoundException
+     */
     public String getUser(String name) throws NotFoundException{
 //        redisTemplate.opsForValue().increment("visit",1);
 
