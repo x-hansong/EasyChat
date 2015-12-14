@@ -424,13 +424,13 @@ pre {
 }
 #rightmenu ul li{
 	display:list-item;
-	height:40px;
-	line-height: 40px;
+	height:39px;
+	line-height: 39px;
 	border-bottom:1px solid #24272C;
 }
 #rightmenu ul li a{
 	display:block;
-	height:40px;
+	height:39px;
 	width:140px;
 	margin-left: 20px;
 	text-decoration:none;
