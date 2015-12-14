@@ -83,7 +83,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			method:'delete',
 			url:'http://119.29.26.47/v1/users/authentication/'+$scope.userMessage.token,
 			headers:{
-				authorization:'bearer'+$scope.userMessage.token
+				'Authorization':'bearer'+$scope.userMessage.token
 			}
 		}).success(function(data){
 			$state.go('main',{},{reload:true});
@@ -101,7 +101,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			method:'put',
 			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.user.name,
 			headers:{
-				authorization:'bearer'+$scope.userMessage.token
+				'Authorization':'bearer'+$scope.userMessage.token
 			}
 		}).success(function(data){
 			alert("修改成功！");
@@ -125,7 +125,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			method:'post',
 			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.addFriendName,
 			headers:{
-				authorization:'bearer'+$scope.userMessage.token
+				'Authorization':'bearer'+$scope.userMessage.token
 			}
 		}).success(function(data){
 			alert("请求已发送！");
@@ -149,7 +149,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			method:'delete',
 			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.delFriendName,
 			headers:{
-				authorization:'bearer'+$scope.userMessage.token
+				'Authorization':'bearer'+$scope.userMessage.token
 			}
 		}).success(function(data){
 			alert("删除成功！");
@@ -173,7 +173,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			method:'get',
 			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchFriendName,
 			headers:{
-				authorization:'bearer'+$scope.userMessage.token
+				'Authorization':'bearer'+$scope.userMessage.token
 			}
 		}).success(function(data){
 			$scope.friendMessage=data;
@@ -198,7 +198,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			method:'get',
 			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchStrangerName,
 			headers:{
-				authorization:'bearer'+$scope.userMessage.token
+				'Authorization':'bearer'+$scope.userMessage.token
 			}
 		}).success(function(data){
 			$scope.strangerMessage=data;
@@ -220,7 +220,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.createGroupMessage={
 		"name":"hellogroup",
 		"avatar":"image/cong.jpg",
-		"creater":$scope.userMessage.name,
+		"creater":$scope.userMessage.id,
 		"userCnt":"3",
 		"announcement":"this is king's group",
 		"members":["jma2","jam3"]
@@ -231,7 +231,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			url:'http://119.29.26.47/v1/groups',
 			data:$scope.createGroupMessage,
 			headers:{
-				authorization:'bearer'+$scope.userMessage.token
+				'Authorization':'bearer'+$scope.userMessage.token
 			}
 		}).success(function(data){
 			$scope.groupMessage=data;
@@ -250,6 +250,29 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 				
 			})
 	}
-	
-
+	// 解散群
+	$scope.delGroupSub=function(){
+		$http({
+			method:'delete',
+			url:'http://119.29.26.47/v1/groups/'+$scope.userMessage.id+'/'+'group_id',
+			headers:{
+				'Authorization':'bearer'+$scope.userMessage.token
+			}
+		}).success(function(data){
+			// $scope.groupMessage=data;
+			// $state.go('strangerMsg',{},{reload:true});
+			alert("解散成功！");
+			})
+		.error(function(status){
+			if(status==400)
+				alert("服务器无法解析！");
+			if(status==401)
+				alert("未授权！");
+			if(status==404)
+				alert("请求的用户不存在！");
+			if(status>=500)
+				alert("未知错误！");
+				
+			})
+	}
 })
