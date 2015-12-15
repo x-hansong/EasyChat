@@ -37,6 +37,14 @@ weChat.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $u
                 }
             }
         })
+        .state('main.friendSetting',{
+            url:"/friendSetting",
+            views: {
+                'rightview@main': {
+                    templateUrl: 'tpls/friendSetting.html'
+                }
+            }
+        })
         .state('main.chatpage',{
             url:"",
             views: {
