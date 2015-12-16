@@ -80,10 +80,7 @@ public class CommonUtils {
      * 验证性别
      */
     public static boolean checkSex(int sex){
-        if(sex!=1&&sex!=0){
-            return false;
-        }
-        else return true;
+        return !(sex != 1 && sex != 0);
     }
     /**
      * 验证昵称

@@ -2,14 +2,15 @@ package com.easychat.controller;
 
 import com.easychat.exception.BadRequestException;
 import com.easychat.exception.NotFoundException;
-import com.easychat.model.session.Session;
-import com.easychat.model.session.Token;
+import com.easychat.model.entity.User;
 import com.easychat.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -52,10 +53,9 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public String getUser(@PathVariable String name) throws NotFoundException {
-
+    public String getUser(@PathVariable String name, HttpSession httpSession) throws NotFoundException {
+        redisTemplate.opsForValue().increment("visit", 1);
         return userService.getUser(name);
-
     }
 
     /**
@@ -66,30 +66,25 @@ public class UserController {
      */
     @RequestMapping(value="/authorization", method = RequestMethod.POST)
     @ResponseBody
-    public Token authenticate(@RequestBody String json) throws BadRequestException {
-        Session session=userService.authenticate(json);
-        return session.getToken();
-
+    public void authenticate(@RequestBody String json, HttpSession httpSession) throws BadRequestException {
+        User user = userService.authenticate(json);
+        httpSession.setAttribute("id", user.getId());
     }
 
     /**
      * 用户注销接口
-     * @param token
+     * @param httpSession
      * @return
      * @throws BadRequestException
      */
     @ResponseBody
     @RequestMapping(value="/authorization",method=RequestMethod.DELETE)
-    public boolean logOff(@RequestHeader("Authorization") Token token) throws BadRequestException{
-        if(userService.logOff(token)){
-            return true;
-        }
-        else return false;
+    public void logOff(HttpSession httpSession) throws BadRequestException{
+        httpSession.invalidate();
     }
 
     /**
      * 修改用户信息接口
-     * @param token
      * @param name
      * @param json
      * @return
@@ -97,10 +92,9 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value="/{name}",method = RequestMethod.PUT)
-    public String modifyUserInfo(@RequestHeader("Authorization") Token token,
-                                  @PathVariable String name,
-                                  @RequestBody String json)throws BadRequestException {
-        userService.modifyUserInfo(token, name, json);
+    public String modifyUserInfo(@PathVariable String name,
+                                  @RequestBody String json) throws BadRequestException, NotFoundException {
+        userService.modifyUserInfo(name, json);
         return json;
     }
 

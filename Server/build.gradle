@@ -13,7 +13,6 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-web:1.2.6.RELEASE",
             "org.springframework.boot:spring-boot-starter-data-jpa:1.2.6.RELEASE",
             "org.springframework.session:spring-session:1.0.2.RELEASE",
-            "org.springframework.boot:spring-boot-starter-security",
             "org.springframework.boot:spring-boot-starter-redis",
             "mysql:mysql-connector-java:5.1.26",
             "ch.qos.logback:logback-classic:1.0.13",
