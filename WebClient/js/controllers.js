@@ -12,6 +12,10 @@ weChat.controller('weChatCtrl', function($scope){
 			"sigh_info":"我是说在座的各位" 
 		    }
 	};
+	$scope.chat= function(e){
+		console.log(e);
+	};
+
 
 })
 //注册控制模块

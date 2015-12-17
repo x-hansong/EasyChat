@@ -37,6 +37,14 @@ weChat.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $u
                 }
             }
         })
+        .state('main.settingChange',{
+            url:"/settingChange",
+            views: {
+                'rightview@main': {
+                    templateUrl: 'tpls/settingChange.html',
+                }
+            }
+        })
         .state('main.friendSetting',{
             url:"/friendSetting",
             views: {
@@ -46,17 +54,10 @@ weChat.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $u
             }
         })
         .state('main.chatpage',{
-            url:"",
+            url:"/chatpage",
             views: {
                 'rightview@main': {
                     templateUrl: 'tpls/chatpage.html',
-                    controller: function($scope, $state) {
-                        $scope.chat = function(e) {
-                            var name = $(e).children(".chatmessage-1").children(".chatmessage-1-info").children("h4").text();
-                            alert(name);
-                            $(".main-right .main-right-nav h2").text(name);
-                        }
-                    }
                 }
             }
         })
