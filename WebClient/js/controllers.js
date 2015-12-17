@@ -108,6 +108,9 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	    {"name":"吴涛宇","id":"5","img_src":"image/cong.jpg"},
 	    {"name":"杨民浩","id":"6","img_src":"image/cong.jpg"}
 	];
+	$scope.currentChat={
+		'nick':''
+	}
 	// 获取用户
 	// 注销处理
 	$scope.logoffSub=function(){
@@ -129,6 +132,10 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			})
 	}
 	//修改用户信息处理
+	$scope.changeMessage={
+		"user":{}
+	}
+	$scope.changeMessage.user=$scope.userMessage.user;
 	$scope.alterUserMessageSub=function(){
 		$http({
 			method:'put',
