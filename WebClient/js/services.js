@@ -5,7 +5,6 @@ if (!window.WebSocket && window.MozWebSocket)
     window.WebSocket=window.MozWebSocket;
 if (!window.WebSocket)
     alert("No Support ");
-  //alet1
 weChatServices.service('weChatServices_1', ['$scope',  //服务
     function($scope) {
         function newWebSocket() {                           //socket函数
