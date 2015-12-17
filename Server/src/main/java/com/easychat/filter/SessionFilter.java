@@ -4,6 +4,7 @@ package com.easychat.filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -21,23 +22,17 @@ import java.io.IOException;
     其他情况返回403
  */
 @Component
-public class SessionFilter implements Filter {
+public class SessionFilter extends OncePerRequestFilter {
     static Logger logger = LoggerFactory.getLogger(SessionFilter.class);
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpSession httpSession = httpRequest.getSession();
-        logger.debug(httpRequest.getSession().getId());
-        if (httpSession.getAttribute("id") != null | isPass(httpRequest)){
-            chain.doFilter(request,response);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        HttpSession httpSession = request.getSession();
+        logger.debug(request.getSession().getId());
+        if (httpSession.getAttribute("id") != null | isPass(request)){
+            filterChain.doFilter(request,response);
         }else {
-            HttpServletResponse httpResponse = (HttpServletResponse) response;
-            httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
 
@@ -50,11 +45,13 @@ public class SessionFilter implements Filter {
         if (uri.endsWith("authorization")) {
             return true;
         }
-        return uri.endsWith("users");
+        if (uri.endsWith("users")){
+            return true;
+        }
+        if (httpRequest.getHeader("Access-Control-Request-Method") != null && "OPTIONS".equals(httpRequest.getMethod())) {
+            return true;
+        }
+        return false;
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }
