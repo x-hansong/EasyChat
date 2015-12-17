@@ -25,6 +25,7 @@ public class SimpleCORSFilter implements Filter {
         
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Headers", "origin, content-type, accept");
+        response.setHeader("Access-Control-Expose-Headers","x-auth-token");
 
         chain.doFilter(req, resp);
     }
