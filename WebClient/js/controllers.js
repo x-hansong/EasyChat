@@ -29,7 +29,13 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	};
 	//获取用户信息处理
 	$scope.getUserMessage=function(){
-		$http.get('http://119.29.26.47:8080/v1/users/'+$scope.loginMessage.name)
+		$http({
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.loginMessage.name,
+			method:'get',
+			headers:{
+				'x-auth-token':$scope.userMessage.token
+			}
+		})
 			.success(function(data){
 				$scope.userMessage.user=data;
 			})
@@ -38,19 +44,39 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	//登陆提交处理
 	$scope.loginSub=function(){
 		 $http.post('http://119.29.26.47:8080/v1/users/authorization',$scope.loginMessage)
-	        .success(function(data) {
-	            //console.log(data);
-	            $scope.userMessage.token=data.uuid;
+	        .success(function(data, status, headers, config) {
+	            $scope.userMessage.token=headers('x-auth-token');
+	            console.log(headers('x-auth-token'));
 	            $scope.getUserMessage();
 	            $state.go('main',{},{reload:true});
 				})
-	        .error(function(data){
+	        .error(function(data, status, headers, config){
 	     		if(data.error=="invalid_grant")
 	     			alert("用户名或密码错误！");
 	     		else
 	        		alert("未知错误!");
 	        	//console.log(data);
     });
+	   //      $http({
+				// method: 'post',
+				// url: 'http://119.29.26.47:8080/v1/users/authorization',
+				// data:$scope.loginMessage
+				// }).then(function(resp) {
+				// // 读取X-Auth-ID
+				// $scope.userMessage.token=resp.headers('x-auth-token');
+	   //          console.log(resp.headers('x-auth-token'));
+	   //          $scope.getUserMessage();
+	   //          $state.go('main',{},{reload:true});
+				// });
+   		// $.ajax({
+   		// 	type:'post',
+   		// 	url:'http://119.29.26.47:8080/v1/users/authorization',
+   		// 	data:$scope.loginMessage,
+   		// 	success:function(data,request){
+   		// 		$scope.userMessage.token=request.getResponseHeader('x-auth-token');
+   		// 		console.log(request.getResponseHeader('x-auth-token'));
+   		// 	}
+   		// })
 
 	};
 	//注册提交处理
@@ -87,11 +113,12 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.logoffSub=function(){
 		$http({
 			method:'delete',
-			url:'http://119.29.26.47/v1/users/authentication/'+$scope.userMessage.token,
+			url:'http://119.29.26.47:8080/v1/users/authentication',
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
+			alert("注销成功！");
 			$state.go('main',{},{reload:true});
 			})
 		.error(function(data){
@@ -105,9 +132,9 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.alterUserMessageSub=function(){
 		$http({
 			method:'put',
-			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.user.name,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name,
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			alert("修改成功！");
@@ -129,9 +156,9 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.addFriendSub=function(){
 		$http({
 			method:'post',
-			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.addFriendName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.addFriendName,
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			alert("请求已发送！");
@@ -153,9 +180,9 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.addFriendSub=function(){
 		$http({
 			method:'delete',
-			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.delFriendName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.delFriendName,
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			alert("删除成功！");
@@ -177,9 +204,9 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.searchFriendSub=function(){
 		$http({
 			method:'get',
-			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchFriendName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchFriendName,
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			$scope.friendMessage=data;
@@ -202,9 +229,9 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.searchStrangerSub=function(){
 		$http({
 			method:'get',
-			url:'http://119.29.26.47/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchStrangerName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchStrangerName,
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			$scope.strangerMessage=data;
@@ -234,10 +261,10 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.createGroupSub=function(){
 		$http({
 			method:'post',
-			url:'http://119.29.26.47/v1/groups',
+			url:'http://119.29.26.47:8080/v1/groups',
 			data:$scope.createGroupMessage,
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			$scope.groupMessage=data;
@@ -260,9 +287,9 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.delGroupSub=function(){
 		$http({
 			method:'delete',
-			url:'http://119.29.26.47/v1/groups/'+$scope.userMessage.id+'/'+'group_id',
+			url:'http://119.29.26.47:8080/v1/groups/'+$scope.userMessage.id+'/'+'group_id',
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			// $scope.groupMessage=data;
@@ -289,10 +316,10 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.alterGroupMessageSub=function(){
 		$http({
 			method:'patch',
-			url:'http://119.29.26.47/v1/groups/'+$scope.userMessage.id+'/'+'group_id',
+			url:'http://119.29.26.47:8080/v1/groups/'+$scope.userMessage.id+'/'+'group_id',
 			data:$scope.alterGroupMessage,
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			// $scope.groupMessage=data;
@@ -315,9 +342,9 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.quitGroupSub=function(){
 		$http({
 			method:'delete',
-			url:'http://119.29.26.47/v1/groups/'+'group_id'+'/users/'+$scope.userMessage.id,
+			url:'http://119.29.26.47:8080/v1/groups/'+'group_id'+'/users/'+$scope.userMessage.id,
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			// $scope.groupMessage=data;
@@ -341,10 +368,10 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.inviteGroupSub=function(){
 		$http({
 			method:'post',
-			url:'http://119.29.26.47/v1/groups/'+'group_id'+'/users',
+			url:'http://119.29.26.47:8080/v1/groups/'+'group_id'+'/users',
 			data:{'user_ids':['uid1','uid2']},
 			headers:{
-				'Authorization':'bearer'+$scope.userMessage.token
+				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
 			$scope.groupMessage=data;
