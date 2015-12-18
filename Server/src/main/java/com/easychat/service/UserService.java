@@ -9,7 +9,7 @@ import com.easychat.model.entity.User;
  */
 public interface UserService {
     void addUser(String json)throws BadRequestException;
-    User authenticate(String json)throws BadRequestException;
+    User authenticate(String json) throws BadRequestException, NotFoundException;
     void modifyUserInfo(String name,String json) throws BadRequestException, NotFoundException;
     String getUser(String name)throws NotFoundException;
     String getFriends(String name) throws NotFoundException;

@@ -3,6 +3,7 @@ package com.easychat.controller;
 import com.easychat.exception.BadRequestException;
 import com.easychat.exception.NotFoundException;
 import com.easychat.model.entity.User;
+import com.easychat.model.error.ErrorType;
 import com.easychat.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,9 +54,14 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public String getUser(@PathVariable String name, HttpSession httpSession) throws NotFoundException {
+    public String getUser(@PathVariable String name, HttpSession httpSession) throws NotFoundException, BadRequestException {
         redisTemplate.opsForValue().increment("visit", 1);
-        return userService.getUser(name);
+        String uname = (String) httpSession.getAttribute("name");
+        if (uname.equals(name)) {
+            return userService.getUser(name);
+        }else {
+            throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT,"invalid argument");
+        }
     }
 
     /**
@@ -66,15 +72,15 @@ public class UserController {
      */
     @RequestMapping(value="/authorization", method = RequestMethod.POST)
     @ResponseBody
-    public void authenticate(@RequestBody String json, HttpSession httpSession) throws BadRequestException {
+    public void authenticate(@RequestBody String json, HttpSession httpSession) throws BadRequestException, NotFoundException {
         User user = userService.authenticate(json);
         httpSession.setAttribute("id", user.getId());
+        httpSession.setAttribute("name",user.getName());
     }
 
     /**
      * 用户注销接口
      * @param httpSession
-     * @return
      * @throws BadRequestException
      */
     @ResponseBody

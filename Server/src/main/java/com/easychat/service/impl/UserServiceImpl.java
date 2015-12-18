@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void addUser(String json) throws BadRequestException {
-        Map<String, Object> data = JsonUtils.decode(json, Map.class);
+        Map data = JsonUtils.decode(json, Map.class);
         String nameTest = (String) data.get("name");
         String passwordTest = (String) data.get("password");
 
@@ -70,16 +70,14 @@ public class UserServiceImpl implements UserService {
      * @return 用户名和密码正确，创建session并返回.
      */
     @Override
-    public User authenticate(String json) throws BadRequestException {
-        Map<String, Object> data = JsonUtils.decode(json, Map.class);
+    public User authenticate(String json) throws BadRequestException, NotFoundException {
+        Map data = JsonUtils.decode(json, Map.class);
         String name = (String) data.get("name");
         String password = CommonUtils.md5((String) data.get("password"));
-        User user = isUserValid(name, password);
-        if (user != null) {
-            return user;
-        } else {
-            throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "invalid username or password");
+        if (name == null || password  == null) {
+            throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "invalid input");
         }
+        return validateUser(name, password);
 
     }
 
@@ -90,13 +88,18 @@ public class UserServiceImpl implements UserService {
      * @param password
      * @return User
      */
-    private User isUserValid(String name, String password) {
+    private User validateUser(String name, String password) throws NotFoundException, BadRequestException {
         User user = userRepository.findByName(name);
-        if (password.equals(user.getPassword())) {
-            return user;
+        if (user != null){
+            if (password.equals(user.getPassword())) {
+                return user;
+            } else {
+                throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "invalid username or password");
+            }
         } else {
-            return null;
+            throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
         }
+
     }
 
 
@@ -163,7 +166,9 @@ public class UserServiceImpl implements UserService {
 
             String json = JsonUtils.encode(data);
             return json;
-        } else throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
+        } else{
+            throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
+        }
 
     }
 
