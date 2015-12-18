@@ -12,4 +12,5 @@ public interface UserService {
     User authenticate(String json)throws BadRequestException;
     void modifyUserInfo(String name,String json) throws BadRequestException, NotFoundException;
     String getUser(String name)throws NotFoundException;
+    String getFriends(String name) throws NotFoundException;
 }

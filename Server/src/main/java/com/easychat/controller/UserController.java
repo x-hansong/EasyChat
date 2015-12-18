@@ -104,4 +104,18 @@ public class UserController {
                              @PathVariable String name,
                              @PathVariable String friend_username)throws
                              */
+
+
+    /**
+     * 获取用户所有好友
+     * @param name
+     * @return
+     * @throws NotFoundException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/{name}/contacts/users",method = RequestMethod.GET)
+    public String getFriends(@PathVariable String name) throws NotFoundException{
+        String json = userService.getFriends(name);
+        return json;
+    }
 }
