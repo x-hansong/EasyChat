@@ -1,5 +1,7 @@
 package com.easychat.utils;
 
+import com.easychat.exception.BadRequestException;
+import com.easychat.model.error.ErrorType;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -52,7 +54,7 @@ public class JsonUtils {
      * @param valueType
      * @return
      */
-    public static <T> T decode(String json, Class<T> valueType) {
+    public static <T> T decode(String json, Class<T> valueType) throws BadRequestException {
         try {
             return objectMapper.readValue(json, valueType);
         } catch (JsonParseException e) {
@@ -62,7 +64,7 @@ public class JsonUtils {
         } catch (IOException e) {
             logger.error("decode(String, Class<T>)", e);
         }
-        return null;
+        throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "invalid json");
     }
 
     /**
@@ -73,7 +75,7 @@ public class JsonUtils {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static <T> T decode(String json, TypeReference<T> typeReference) {
+    public static <T> T decode(String json, TypeReference<T> typeReference) throws BadRequestException {
         try {
             return (T) objectMapper.readValue(json, typeReference);
         } catch (JsonParseException e) {
@@ -83,6 +85,6 @@ public class JsonUtils {
         } catch (IOException e) {
             logger.error("decode(String, JsonTypeReference<T>)", e);
         }
-        return null;
+        throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT, "invalid json");
     }
 }

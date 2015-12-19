@@ -1,5 +1,6 @@
 package com.easychat.service.impl;
 
+import com.easychat.exception.BadRequestException;
 import com.easychat.model.entity.Group;
 import com.easychat.model.entity.GroupRelationship;
 import com.easychat.model.error.ErrorType;
@@ -40,7 +41,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public String createGroup(String json) {
+    public String createGroup(String json) throws BadRequestException {
         if (json.equals("")){
             return null;
         }
@@ -101,7 +102,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public String updateGroupAvatarAndAnnouncement(long gid, long uid ,String json) {
+    public String updateGroupAvatarAndAnnouncement(long gid, long uid ,String json) throws BadRequestException {
 
         if (json.equals("")){
             return null;

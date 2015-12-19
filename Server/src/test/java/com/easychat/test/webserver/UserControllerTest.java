@@ -1,6 +1,7 @@
 package com.easychat.test.webserver;
 
 import com.easychat.Server;
+import com.easychat.exception.BadRequestException;
 import com.easychat.model.entity.User;
 import com.easychat.model.error.ErrorType;
 import com.easychat.repository.UserRepository;
@@ -39,7 +40,7 @@ public class UserControllerTest {
     private UserRepository userRepository;
 
     @Test
-    public void testAddUserApi() {
+    public void testAddUserApi() throws BadRequestException {
         String name = "testuser";
         String password = "123456";
 
@@ -86,7 +87,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testAuthenticateApi(){
+    public void testAuthenticateApi() throws BadRequestException {
         String name = "testuser";
         String password = "123456";
 
