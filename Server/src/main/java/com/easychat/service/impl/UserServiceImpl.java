@@ -11,6 +11,8 @@ import com.easychat.repository.UserRepository;
 import com.easychat.service.UserService;
 import com.easychat.utils.CommonUtils;
 import com.easychat.utils.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private FriendRelationshipRepository friendRelationshipRepository;
     private RedisTemplate redisTemplate;
+
+    static Logger logger = LoggerFactory.getLogger(UserService.class);
 
 
     @Autowired
@@ -185,6 +189,7 @@ public class UserServiceImpl implements UserService {
         //判断用户是否存在
         if (user != null){
             long uid = user.getId();
+            logger.debug(uid+"");
             List<FriendRelationship> friendRelationshipList = friendRelationshipRepository.findByAid(uid);
             //判断好友人数是否等于零
             if(friendRelationshipList.size() >0 && friendRelationshipList != null){

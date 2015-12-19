@@ -8,16 +8,15 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name="GroupRelationship")
+@IdClass(GroupRelationship.class)
 public class GroupRelationship implements Serializable{
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Long id;
 
+    @Id
     @Column(name = "uid")
     private Long uid;
 
+    @Id
     @Column(name = "gid")
     private Long gid;
 
