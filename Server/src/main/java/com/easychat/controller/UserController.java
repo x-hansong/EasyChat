@@ -127,6 +127,5 @@ public class UserController {
         }else {
             throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT,"invalid argument");
         }
-
     }
 }
