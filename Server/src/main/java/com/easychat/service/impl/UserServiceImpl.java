@@ -4,6 +4,7 @@ import com.easychat.exception.BadRequestException;
 import com.easychat.exception.NotFoundException;
 import com.easychat.model.entity.FriendRelationship;
 import com.easychat.model.entity.User;
+import com.easychat.model.entity.UserTemp;
 import com.easychat.model.error.ErrorType;
 import com.easychat.repository.FriendRelationshipRepository;
 import com.easychat.repository.UserRepository;
@@ -187,13 +188,15 @@ public class UserServiceImpl implements UserService {
             List<FriendRelationship> friendRelationshipList = friendRelationshipRepository.findByAid(uid);
             //判断好友人数是否等于零
             if(friendRelationshipList.size() >0 && friendRelationshipList != null){
-                User [] friends = new User[friendRelationshipList.size()];
+                UserTemp[] friends = new UserTemp[friendRelationshipList.size()];
                 for(int i = 0 ;i <friendRelationshipList.size() ; i++){
                     long fid = friendRelationshipList.get(i).getBid();
                     User friend = userRepository.findOne(fid);
-                    friends[i] = friend;
+                    friends[i] = new UserTemp(friend);
                 }
-                String json = JsonUtils.encode(friends);
+                Map<String,UserTemp[]> map = new HashMap<>();
+                map.put("friends",friends);
+                String json = JsonUtils.encode(map);
                 return json;
             }else {
                 throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user has no friend");

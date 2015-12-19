@@ -119,9 +119,14 @@ public class UserController {
      * @throws NotFoundException
      */
     @ResponseBody
-    @RequestMapping(value = "/{name}/contacts/users",method = RequestMethod.GET)
-    public String getFriends(@PathVariable String name) throws NotFoundException{
-        String json = userService.getFriends(name);
-        return json;
+    @RequestMapping(value = "/{name}/friends",method = RequestMethod.GET)
+    public String getFriends(@PathVariable String name ,  HttpSession httpSession) throws NotFoundException,BadRequestException{
+        String uname = (String)httpSession.getAttribute("name");
+        if (uname.equals(name)) {
+            return userService.getFriends(name);
+        }else {
+            throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT,"invalid argument");
+        }
+
     }
 }
