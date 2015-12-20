@@ -29,6 +29,14 @@ weChat.config(['$stateProvider','$urlRouterProvider',function($stateProvider, $u
                 }
             }
         })
+        .state('main.addFriend',{
+            url:"/addFriend",
+            views: {
+                'rightview@main': {
+                    templateUrl: 'tpls/addFriend.html'
+                }
+            }
+        })
         .state('main.setting',{
             url:"/setting",
             views: {

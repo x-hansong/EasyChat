@@ -6,10 +6,13 @@ weChatDirectives.directive('contextMenu', ['$window', function($window) {
         restrict: 'A',
         link: function($scope, element, attrs) {
             var menuElement = angular.element(document.getElementById(attrs.target));
+            var testDOM;
             function open(event, element) {
                 menuElement.removeClass("ng-hide");
                 menuElement.css('top', event.clientY + 'px');
                 menuElement.css('left', event.clientX + 'px');
+                testDOM = event.target;
+                console.log(testDOM);
             };
             function close(element) {
                 menuElement.addClass("ng-hide");
@@ -18,6 +21,7 @@ weChatDirectives.directive('contextMenu', ['$window', function($window) {
                 $scope.$apply(function() {
                     event.preventDefault();
                     open(event, menuElement);
+
                 });
             });
             angular.element($window).bind('click', function(event) {
