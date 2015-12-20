@@ -31,18 +31,96 @@ weChat.controller('weChatCtrl', function($scope,$http,$state){
 		"email":"15666@qq.com",
 		"avatar":"http://www.qqtn.com/up/2014-10/201410311103454469999.png",
 		"sign_info":"我是说在座的各位" 
-		},{
-		"id":3,
-		"name":"hello3",
-		"nick":"Tom",  
-		"sex":"1",
-		"phone":"18812123456",
-		"email":"15666@qq.com",
-		"avatar":"http://www.qqtn.com/up/2014-10/201410311103454469999.png",
-		"sign_info":"我是说在座的各位" 
 		}
 	]
 	}
+	// 聊天缓冲池
+	var i=0;
+	$scope.chatPools=[
+		{
+			'content':'';
+			'user':'';
+		}
+	];
+	var stompClient = null;
+
+function connect() {
+    var socket = new SockJS('http://119.29.26.47:8080/chat');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+        console.log('Connected: ' + frame);
+        var user = $scope.userMessage.user.name;
+        stompClient.subscribe("/queue/channel/"+user, function(msg) {
+            // handle position update
+            console.log(msg);
+            var message=JSON.parse(msg.body);
+            var label =$("<div class='content'>"
+            +"<div class='chatmessage-1-image' style='float:right;'>"
+            +"<img src='image/cong.jpg' width='40px' height='40px'/>"
+            +"</div>"
+            +"<div class='bubble'>"
+            +"<div class='bubble_cont'>"
+            +"<div class='plain'>"
+            +"<pre class='js_message_plain ng-binding'>"+message.content+"</pre>"
+            +"</div>"
+            +"</div>"
+            +"</div>"
+            +"</div>");
+        $(".main-right-chatmessage").append(label);
+        });
+    });
+}
+
+function disconnect() {
+    if (stompClient != null) {
+        stompClient.disconnect();
+    }
+    console.log("Disconnected");
+}
+$scope.sendMessageSub=function(){
+	sendMessage();
+}
+//发送消息函数
+function sendMessage()
+{
+    if($(".main-right-writemessage").val()==""){
+        alert("内容不能为空！");
+    }
+    else {
+        var msg = {
+            "fromUser": $(".my-name").text(),
+            "content": $(".main-right-writemessage").val(),
+            "toUser": $(".you-name").text()
+        };
+         var label =$("<div class='content'>"
+            +"<div class='chatmessage-1-image' style='float:left;'>"
+            +"<img src='image/cong.jpg' width='40px' height='40px'/>"
+            +"</div>"
+            +"<div class='bubble_1'>"
+            +"<div class='bubble_cont'>"
+            +"<div class='plain'>"
+            +"<pre class='js_message_plain ng-binding'>"+msg.content+"</pre>"
+            +"</div>"
+            +"</div>"
+            +"</div>"
+            +"</div>");
+        $(".main-right-chatmessage").append(label);
+        var msg_str = JSON.stringify(msg);
+        send(msg_str);
+        $(".main-right-writemessage").val("");
+    }
+}
+
+
+
+
+//子发送消息函数
+function send(data)
+{
+    console.log("Send:"+data);
+    stompClient.send("/app/chat",{},data);
+}
+	// 
 	//注册信息
 	$scope.registerMessage={
 		name:"",
@@ -64,6 +142,7 @@ weChat.controller('weChatCtrl', function($scope,$http,$state){
 		})
 			.success(function(data){
 				$scope.userMessage.user=data;
+				connect();
 				$scope.getChatListSub();
 			})
 	}
@@ -82,6 +161,7 @@ weChat.controller('weChatCtrl', function($scope,$http,$state){
 	        	alert("未知错误!");
 			})
 	}
+	// 聊天信息提交处理
 })
 //注册控制模块
 var registerCtrls=angular.module('registerCtrls', []);
@@ -206,7 +286,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.addFriendSub=function(){
 		$http({
 			method:'post',
-			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.addFriendName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.addFriendName,
 			headers:{
 				'x-auth-token':$scope.userMessage.token
 			}
@@ -230,7 +310,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.addFriendSub=function(){
 		$http({
 			method:'delete',
-			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.delFriendName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.delFriendName,
 			headers:{
 				'x-auth-token':$scope.userMessage.token
 			}
@@ -254,7 +334,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.searchFriendSub=function(){
 		$http({
 			method:'get',
-			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchFriendName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.searchFriendName,
 			headers:{
 				'x-auth-token':$scope.userMessage.token
 			}
@@ -279,7 +359,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	$scope.searchStrangerSub=function(){
 		$http({
 			method:'get',
-			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.name+'/contacts/users/'+$scope.searchStrangerName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.searchStrangerName,
 			headers:{
 				'x-auth-token':$scope.userMessage.token
 			}
