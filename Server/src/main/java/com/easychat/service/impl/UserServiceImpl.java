@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
 
 
     /**
-     * 修改用户信息接口
+     * 修改用户信息接口.
      *
      * @param name
      * @param json

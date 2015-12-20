@@ -5,7 +5,7 @@ import com.easychat.exception.NotFoundException;
 import com.easychat.model.entity.User;
 
 /**
- * Created by yonah on 15-10-18.
+ * Created by yonah on 15-10-18
  */
 public interface UserService {
     void addUser(String json)throws BadRequestException;
