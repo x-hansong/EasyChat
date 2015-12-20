@@ -9,16 +9,15 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name="FriendRelationship")
+@IdClass(FriendRelationship.class)
 public class FriendRelationship implements Serializable{
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Long id;
 
+    @Id
     @Column(name = "aid")
     private Long aid;
 
+    @Id
     @Column(name = "bid")
     private Long bid;
 

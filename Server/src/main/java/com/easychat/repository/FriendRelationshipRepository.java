@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface FriendRelationshipRepository extends JpaRepository<FriendRelationship, Long>, FriendRelationshipRepositoryCustom {
     List<FriendRelationship> findByAid(Long aid);
+    FriendRelationship findByAidAndBid(Long aid,Long bid);
 }

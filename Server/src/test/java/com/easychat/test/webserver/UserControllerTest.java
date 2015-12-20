@@ -119,6 +119,4 @@ public class UserControllerTest {
         //删除测试用户
         userRepository.delete(user);
     }
-
-
 }
