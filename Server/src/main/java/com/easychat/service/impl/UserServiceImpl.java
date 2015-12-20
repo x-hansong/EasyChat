@@ -318,4 +318,20 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
         }
     }
+
+    /**
+     * 添加好友关系
+     */
+    @Override
+    public boolean setFriendRelationship(String aName, String bName){
+        User aUser = userRepository.findByName(aName);
+        User bUser = userRepository.findByName(bName);
+        FriendRelationship relationship = new FriendRelationship(aUser.getId(), bUser.getId());
+        friendRelationshipRepository.save(relationship);
+        relationship.setAid(bUser.getId());
+        relationship.setBid(aUser.getId());
+        friendRelationshipRepository.save(relationship);
+        return true;
+    }
+
 }

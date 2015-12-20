@@ -4,14 +4,18 @@ import com.easychat.exception.BadRequestException;
 import com.easychat.exception.NotFoundException;
 import com.easychat.model.entity.User;
 import com.easychat.model.error.ErrorType;
+import com.easychat.model.msg.FriendInviteMsg;
 import com.easychat.service.UserService;
+import com.easychat.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -25,12 +29,15 @@ public class UserController {
     private UserService userService;
     private RedisTemplate redisTemplate;
 
+    private SimpMessagingTemplate simpMessagingTemplate;
+
     static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public UserController(UserService userService,  RedisTemplate redisTemplate) {
+    public UserController(UserService userService, RedisTemplate redisTemplate, SimpMessagingTemplate simpMessagingTemplate) {
         this.userService = userService;
         this.redisTemplate = redisTemplate;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     /**
@@ -173,4 +180,16 @@ public class UserController {
             throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT,"invalid argument");
         }
     }
+
+    /**
+     *请求添加好友
+     */
+    @ResponseBody
+    @RequestMapping(value = "/{name}/contract/users/{friendName}", method = RequestMethod.POST,produces = APPLICATION_JSON_VALUE)
+    public void sendFriendInvite(@PathVariable String name, @PathVariable String friendName, @RequestBody String json) throws BadRequestException {
+        Map data = JsonUtils.decode(json, Map.class);
+        FriendInviteMsg friendInviteMsg = new FriendInviteMsg(name, friendName, (String) data.get("content"));
+        simpMessagingTemplate.convertAndSend("/queue/system/" + friendName, friendInviteMsg);
+    }
+
 }
