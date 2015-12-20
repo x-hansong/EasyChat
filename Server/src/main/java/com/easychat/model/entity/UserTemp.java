@@ -11,7 +11,7 @@ public class UserTemp {
     private long  id;
     private String name;
     private String nick;
-    private int sex;
+    private String sex;
     private String phone;
     private String email;
     private String avatar;
@@ -56,11 +56,11 @@ public class UserTemp {
         this.nick = nick;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

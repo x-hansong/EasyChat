@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name="User")
 public class User implements Serializable{
     public User() {
-        this.sex = 0;
+        this.sex = "0";
         this.name = "";
         this.nick = "";
         this.password = "";
@@ -26,7 +26,7 @@ public class User implements Serializable{
     private Long id;
 
     @Column(name="sex")
-    private int sex;
+    private String sex;
 
     @Column(name="name")
     private String name;
@@ -59,11 +59,11 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

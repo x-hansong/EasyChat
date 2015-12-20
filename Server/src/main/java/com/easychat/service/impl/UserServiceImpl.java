@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void modifyUserInfo(String name, String json) throws BadRequestException ,NotFoundException{
         Map<String, Object> data = JsonUtils.decode(json, Map.class);
-        int sex = Integer.parseInt((String) data.get("sex"));
+        String sex = (String)data.get("sex");
         String nick = (String) data.get("nick");
         String phone = (String) data.get("phone");
         String email = (String) data.get("email");

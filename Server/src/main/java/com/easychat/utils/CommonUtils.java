@@ -79,8 +79,8 @@ public class CommonUtils {
     /**
      * 验证性别
      */
-    public static boolean checkSex(int sex){
-        return !(sex != 1 && sex != 0);
+    public static boolean checkSex(String sex) {
+        return true;
     }
     /**
      * 验证昵称
