@@ -441,4 +441,5 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			})
 	}
 	// 
-})
+});
+
