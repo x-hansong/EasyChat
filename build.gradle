@@ -16,8 +16,8 @@ subprojects {
 
     repositories {
 //            使用开源中国的maven仓库
-        maven { url 'http://maven.oschina.net/content/groups/public/' }
-        //       mavenCentral()
+//        maven { url 'http://maven.oschina.net/content/groups/public/' }
+               mavenCentral()
     }
 //
 //    jar {
@@ -48,7 +48,6 @@ subprojects {
 
         // 测试依赖
         testCompile(
-                "junit:junit:4.11",
                 "org.springframework.boot:spring-boot-starter-test:1.2.6.RELEASE",
         )
     }
