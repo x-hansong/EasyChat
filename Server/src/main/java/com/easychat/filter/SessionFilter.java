@@ -48,6 +48,9 @@ public class SessionFilter extends OncePerRequestFilter {
         if (uri.endsWith("users")){
             return true;
         }
+        if (uri.startsWith("/chat")){
+            return true;
+        }
         if (httpRequest.getHeader("Access-Control-Request-Method") != null && "OPTIONS".equals(httpRequest.getMethod())) {
             return true;
         }

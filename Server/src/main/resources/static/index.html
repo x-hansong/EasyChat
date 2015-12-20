@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello WebSocket</title>
+    <script src="sockjs-0.3.4.js"></script>
+    <script src="stomp.js"></script>
+    <script type="text/javascript">
+        var stompClient = null;
+
+        function connect() {
+            var socket = new SockJS('http://localhost:8080/chat');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                var user = 'test';
+                stompClient.subscribe("/queue/channel/"+user, function(msg) {
+                    // handle position update
+                    console.log(msg)
+                });
+            stompClient.send("/app/chat",{},JSON.stringify({ 'toUser': 'test','fromUser':'test', 'content':'hello' }));
+            });
+        }
+
+        function disconnect() {
+            if (stompClient != null) {
+                stompClient.disconnect();
+            }
+            console.log("Disconnected");
+        }
+
+        connect();
+
+
+    </script>
+</head>
+<body >
+
+</body>
+</html>
