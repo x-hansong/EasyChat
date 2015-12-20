@@ -1,4 +1,4 @@
-weChat.controller('weChatCtrl', function($scope){
+weChat.controller('weChatCtrl', function($scope,$http,$state){
 	$scope.userMessage={
 		"token" : '4d7e4ba0-dc4a-11e3-90d5-e1ffbaacdaf5',
 		"user":{
@@ -9,7 +9,7 @@ weChat.controller('weChatCtrl', function($scope){
 			"phone":"18812123456",
 			"email":"15666@qq.com",
 			"avatar":"image/cong.jpg",
-			"sigh_info":"我是说在座的各位" 
+			"sign_info":"我是说在座的各位" 
 		    }
 	};
 	$scope.chatList={
@@ -43,10 +43,6 @@ weChat.controller('weChatCtrl', function($scope){
 		}
 	]
 	}
-})
-//注册控制模块
-var registerCtrls=angular.module('registerCtrls', []);
-registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope){
 	//注册信息
 	$scope.registerMessage={
 		name:"",
@@ -54,8 +50,8 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	};
 	//登陆信息
 	$scope.loginMessage={
-		name:"",
-		password:""
+		name:"zl123456",
+		password:"zl123456"
 	};
 	//获取用户信息处理
 	$scope.getUserMessage=function(){
@@ -86,6 +82,10 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	        	alert("未知错误!");
 			})
 	}
+})
+//注册控制模块
+var registerCtrls=angular.module('registerCtrls', []);
+registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope){
 	//登陆提交处理
 	$scope.loginSub=function(){
 		 $http.post('http://119.29.26.47:8080/v1/users/authorization',$scope.loginMessage)
@@ -145,35 +145,6 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 //主页控制模块
 var mainCtrls=angular.module('mainCtrls',[]);
 mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
-	$scope.chatLists=[{
-		"id":1,
-		"name":"hello1",
-		"nick":"Tom",  
-		"sex":"1",
-		"phone":"18812123456",
-		"email":"15666@qq.com",
-		"avatar":"http://www.qqtn.com/up/2014-10/201410311103454469999.png",
-		"sign_info":"我是说在座的各位" 
-		},{
-		"id":2,
-		"name":"hello2",
-		"nick":"Tom",  
-		"sex":"1",
-		"phone":"18812123456",
-		"email":"15666@qq.com",
-		"avatar":"http://www.qqtn.com/up/2014-10/201410311103454469999.png",
-		"sign_info":"我是说在座的各位" 
-		},{
-		"id":3,
-		"name":"hello3",
-		"nick":"Tom",  
-		"sex":"1",
-		"phone":"18812123456",
-		"email":"15666@qq.com",
-		"avatar":"http://www.qqtn.com/up/2014-10/201410311103454469999.png",
-		"sign_info":"我是说在座的各位" 
-		}
-	];
 	$scope.currentChat={
 		'nick':''
 	}
@@ -196,32 +167,29 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	        	alert("未知错误!");
 			})
 	}
-	//修改用户信息处理
-	$scope.changeMessage={
-		"user":{
-			"nick":"",  
-			"sex":"",
-			"phone":"",
-			"email":"",
-			"avatar":"",
-			"sigh_info":"" 
-		}
+	// 跳转至修改信息页面函数
+	$scope.goAlterMessageSub=function(){
+		// $scope.changeMessage.user=$scope.userMessage.user;
+		$state.go('main.settingChange',{},{});
 	}
-	$scope.changeMessage.user=$scope.userMessage.user;
+	//修改用户信息处理
 	$scope.alterUserMessageSub=function(){
 		$http({
 			method:'put',
 			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name,
+			data:$scope.userMessage.user,
 			headers:{
 				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data, status, headers, config){
-			$scope.userMessage.user=$scope.changeMessage.user;
 			alert("修改成功！");
-			$state.go('setting',{},{reload:true});
+			$state.go('main.setting',{},{reload:false});
 			})
 		.error(function(data, status, headers, config){
-			$scope.changeMessage.user=$scope.userMessage.user;
+			// $scope.userMessage.user=$scope.changeMessage.user;
+			// console.log($scope.changeMessage.user);
+			$scope.getUserMessage();
+			console.log($scope.userMessage.user);
 			if(status==400)
 				alert("服务器无法解析！");
 			if(status==401)
@@ -230,7 +198,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 				alert("请求过大！");
 			if(status>=500)
 				alert("未知错误！");
-			$state.go('setting',{},{reload:true});
+			$state.go('main.setting',{},{reload:false});
 			})
 	}
 	// 添加好友处理
@@ -292,7 +260,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			}
 		}).success(function(data){
 			$scope.friendMessage=data;
-			$state.go('friendMsg',{},{reload:true});
+			$state.go('friendMsg',{},{reload:false});
 			})
 		.error(function(status){
 			if(status==400)
@@ -317,7 +285,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			}
 		}).success(function(data){
 			$scope.strangerMessage=data;
-			$state.go('strangerMsg',{},{reload:true});
+			$state.go('strangerMsg',{},{reload:false});
 			})
 		.error(function(status){
 			if(status==400)

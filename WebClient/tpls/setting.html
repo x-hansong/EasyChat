@@ -4,13 +4,13 @@
     </div>
     <div class="main-right-change" >
         <ul>
-            <li>昵称<span ng-bind="userMessage.user.nick" >小聪明</span></li>
+            <li>昵称<span ng-bind="userMessage.user.nick" ></span></li>
             <li>性别<span ng-bind="userMessage.user.sex"></span></li>
             <li>电话<span ng-bind="userMessage.user.phone"></span></li>
             <li>邮箱<span ng-bind="userMessage.user.email"></span></li>
-            <li>头像路径<span>小聪明5</span></li>
-            <li>个性签名<span ng-bind="userMessage.user.sigh_info"></span></li>
+            <li>头像路径<span></span></li>
+            <li>个性签名<span ng-bind="userMessage.user.sign_info"></span></li>
         </ul>
-        <button ui-sref="main.settingChange">修改个人设置</button>
+        <button ng-click="goAlterMessageSub()">修改个人设置</button>
     </div>
 </div>
