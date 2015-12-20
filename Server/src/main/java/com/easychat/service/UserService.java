@@ -14,4 +14,6 @@ public interface UserService {
     String getUser(String name)throws NotFoundException;
     String getFriends(String name) throws NotFoundException;
     void deleteFriend(String userName,String friendName) throws NotFoundException;
+    String getFriendInfo(String name,String friend_name)throws NotFoundException;
+    String getStrangerInfo(String name,String stranger_name)throws NotFoundException;
 }

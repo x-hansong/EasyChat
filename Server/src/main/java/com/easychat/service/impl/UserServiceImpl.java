@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 处理UserController提交过来的数据
+     * 注册处理
      * @param json
      */
     @Override
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
         int sex = Integer.parseInt((String) data.get("sex"));
         String nick = (String) data.get("nick");
         String phone = (String) data.get("phone");
-        String email = (String) data.get("phone");
+        String email = (String) data.get("email");
         String avatar = (String) data.get("avatar");
         String signInfo = (String) data.get("sign_info");
 
@@ -189,7 +189,7 @@ public class UserServiceImpl implements UserService {
         //判断用户是否存在
         if (user != null){
             long uid = user.getId();
-            logger.debug(uid+"");
+            logger.debug(uid + "");
             List<FriendRelationship> friendRelationshipList = friendRelationshipRepository.findByAid(uid);
             //判断好友人数是否等于零
             if(friendRelationshipList.size() >0 && friendRelationshipList != null){
@@ -229,7 +229,7 @@ public class UserServiceImpl implements UserService {
                 long uid = user.getId();
                 long fid = friend.getId();
                 FriendRelationship uTofFriendRelationship = friendRelationshipRepository.findByAidAndBid(uid,fid);
-                FriendRelationship fTouFriendRelationship = friendRelationshipRepository.findByAidAndBid(fid,uid);
+                FriendRelationship fTouFriendRelationship = friendRelationshipRepository.findByAidAndBid(fid, uid);
                 //判断双方的好友关系是否存在
                 if((uTofFriendRelationship != null) && (fTouFriendRelationship !=null)){
                     friendRelationshipRepository.delete(uTofFriendRelationship);
@@ -241,6 +241,80 @@ public class UserServiceImpl implements UserService {
                 throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the friend is not exists");
             }
         }else{
+            throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
+        }
+    }
+    /**
+     * 获取好友信息
+     *
+     * @param name
+     * @return
+     * @throws NotFoundException
+     */
+    public String getFriendInfo(String name,String friend_name) throws NotFoundException {
+        User user = userRepository.findByName(name);
+        if (user != null) {
+            User friend = userRepository.findByName(friend_name);
+            //判断好友是否存在
+            if (friend != null) {
+                long uid = user.getId();
+                long fid = friend.getId();
+                FriendRelationship uTofFriendRelationship = friendRelationshipRepository.findByAidAndBid(uid, fid);
+                FriendRelationship fTouFriendRelationship = friendRelationshipRepository.findByAidAndBid(fid, uid);
+                //判断双方的好友关系是否存在
+                if ((uTofFriendRelationship != null) && (fTouFriendRelationship != null)) {
+                    UserTemp friendTemp = new UserTemp(friend);
+                    String json = JsonUtils.encode(friendTemp);
+                    return json;
+                } else
+                    throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "they are not friends");
+            } else
+                throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the friend is not exists");
+        } else{
+            throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
+        }
+
+    }    /**
+     * 获取陌生人信息
+     *
+     * @param name
+     * @return
+     * @throws NotFoundException
+     */
+    public String getStrangerInfo(String name,String stranger_name) throws NotFoundException {
+        User user = userRepository.findByName(name);
+        if (user != null) {
+            User person = userRepository.findByName(stranger_name);
+            //判断好友是否存在
+            if (person != null) {
+                long uid = user.getId();
+                long fid = person.getId();
+                FriendRelationship uTofFriendRelationship = friendRelationshipRepository.findByAidAndBid(uid, fid);
+                FriendRelationship fTouFriendRelationship = friendRelationshipRepository.findByAidAndBid(fid, uid);
+                //判断双方的好友关系是否存在
+                //如果两个人是好友,返回基于好友身份的信息
+                if ((uTofFriendRelationship != null) && (fTouFriendRelationship != null)) {
+                    UserTemp friendTemp = new UserTemp(person);
+                    String json = JsonUtils.encode(friendTemp);
+                    return json;
+                }
+                //如果两个人不是好友，返回基于陌生人身份的信息
+                else
+                {
+                    Map<String, Object> data = new HashMap<String, Object>();
+
+                    data.put("name", stranger_name);
+                    data.put("nick", person.getNick());
+                    data.put("sex", person.getSex());
+                    data.put("avatar", person.getAvatar());
+                    data.put("sign_info", person.getSignInfo());
+
+                    String json = JsonUtils.encode(data);
+                    return json;
+                }
+            } else
+                throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the stranger is not exists");
+        } else {
             throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
         }
     }

@@ -104,14 +104,6 @@ public class UserController {
         return json;
     }
 
-   /* @ResponseBody
-    @RequestMapping(value="/{name}/contacts/users/{friend_username}",method = RequestMethod.POST)
-    public boolean addFriend(@RequestHeader ("Authorization") Token token,
-                             @PathVariable String name,
-                             @PathVariable String friend_username)throws
-                             */
-
-
     /**
      * 获取用户所有好友
      * @param name
@@ -144,6 +136,39 @@ public class UserController {
         String uname = (String)httpSession.getAttribute("name");
         if (uname.equals(name)) {
             userService.deleteFriend(name,friendname);
+        }else {
+            throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT,"invalid argument");
+        }
+    }
+
+    /**获取好友信息接口
+     *
+     * @param name
+     * @return
+     * @throws NotFoundException
+     */
+    @ResponseBody
+         @RequestMapping(value = "/{name}/friend/{friend_name}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+         public String getFriendInfo(@PathVariable String name,@PathVariable String friend_name , HttpSession httpSession) throws NotFoundException, BadRequestException {
+        String uname = (String) httpSession.getAttribute("name");
+        if (uname.equals(name)) {
+            return userService.getFriendInfo(name,friend_name);
+        }else {
+            throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT,"invalid argument");
+        }
+    }
+    /**获取陌生人信息接口
+     *
+     * @param name
+     * @return
+     * @throws NotFoundException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/{name}/stranger/{stranger_name}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public String getStrangerInfo(@PathVariable String name,@PathVariable String stranger_name , HttpSession httpSession) throws NotFoundException, BadRequestException {
+        String uname = (String) httpSession.getAttribute("name");
+        if (uname.equals(name)) {
+            return userService.getStrangerInfo(name,stranger_name);
         }else {
             throw new BadRequestException(ErrorType.ILLEGAL_ARGUMENT,"invalid argument");
         }
