@@ -210,4 +210,38 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
         }
     }
+
+
+    /**
+     * 删除好友
+     * @param userName
+     * @param friendName
+     * @throws NotFoundException
+     */
+    @Override
+    public void deleteFriend(String userName, String friendName) throws NotFoundException{
+        User user = userRepository.findByName(userName);
+        //判断用户是否存在
+        if(user != null){
+            User friend = userRepository.findByName(friendName);
+            //判断好友是否存在
+            if(friend !=null){
+                long uid = user.getId();
+                long fid = friend.getId();
+                FriendRelationship uTofFriendRelationship = friendRelationshipRepository.findByAidAndBid(uid,fid);
+                FriendRelationship fTouFriendRelationship = friendRelationshipRepository.findByAidAndBid(fid,uid);
+                //判断双方的好友关系是否存在
+                if((uTofFriendRelationship != null) && (fTouFriendRelationship !=null)){
+                    friendRelationshipRepository.delete(uTofFriendRelationship);
+                    friendRelationshipRepository.delete(fTouFriendRelationship);
+                }else{
+                    throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "they are not friends");
+                }
+            }else{
+                throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the friend is not exists");
+            }
+        }else{
+            throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");
+        }
+    }
 }
