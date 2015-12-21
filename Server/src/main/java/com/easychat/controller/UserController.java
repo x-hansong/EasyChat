@@ -91,7 +91,7 @@ public class UserController {
      * @throws BadRequestException
      */
     @ResponseBody
-    @RequestMapping(value="/authorization",method=RequestMethod.DELETE)
+    @RequestMapping(value="/authentication",method=RequestMethod.DELETE)
     public void logOff(HttpSession httpSession) throws BadRequestException{
         httpSession.invalidate();
     }
