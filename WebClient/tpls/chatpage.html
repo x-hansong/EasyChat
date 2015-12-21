@@ -8,7 +8,7 @@
         <div  ng-repeat="message in currentChat.message">
          <div class="content" ng-if='!message.from' >
             <div class="chatmessage-1-image" style="float:right;">
-                <img src="image/cong.jpg" width="40px" height="40px"/>
+                <img src="{{userMessage.user.avatar}}" width="40px" height="40px"/>
             </div>
             <div class="bubble">
                 <div class="bubble_cont">
@@ -20,7 +20,7 @@
         </div>
        <div class="content" ng-if="message.from" >
             <div class="chatmessage-1-image" style="float:left;">
-                <img src="image/cong.jpg" width="40px" height="40px"/>
+                <img src="{{userMessage.user.avatar}}" width="40px" height="40px"/>
             </div>
             <div class="bubble_1">
                 <div class="bubble_cont">

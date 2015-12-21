@@ -33,6 +33,7 @@ weChat.controller('weChatCtrl', function($scope,$http,$state){
 
 function connect() {
     var socket = new SockJS('http://119.29.26.47:8080/chat');
+    if(socket==null)socket = new SockJS('http://119.29.26.47:8080/chat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function(frame) {
         console.log('Connected: ' + frame);
@@ -47,7 +48,8 @@ function connect() {
             $scope.chatPools[i].message.push({
             	'from':true,
             	'content':message.content
-            });		
+            });	
+        	isHave(message.fromUser);
       //       if(message.fromUser==$scope.currentChat.name){
 	     //        var label =$("<div class='content'>"
 	     //        +"<div class='chatmessage-1-image' style='float:left;'>"
@@ -83,23 +85,20 @@ function connect() {
     				stompClient.send("/app/accept",{},JSON.stringify(sendMsg));
             	}
             }
-            if(message.type=="REFRESH_FRIENDLIST"){
-            	$http({
-					method:'get',
-					url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/friends',
-					headers:{
-						'x-auth-token':$scope.userMessage.token
-					}
-				}).success(function(data, status, headers, config){
-					$scope.chatList.friends=data.friends;
-					state.go('main.chatlist',{},{reload:true});
-					});
+            if(message.type=="COMMAND"){
+            	$scope.getChatListSub();
+            	$state.go('main.chatlist',{},{reload:true});
             }
             
         });
     });
 }
-
+function isHave(name){
+	$('#'+name).css("display","block");
+}
+function isntHave(name){
+	$('#'+name).css("display","none");
+}
 function disconnect() {
     console.log("Disconnected");
 }
@@ -135,6 +134,7 @@ function sendMessage()
 		var i=0;
 		for(;$scope.chatPools[i].name!=$scope.currentChat.name;i++);
 		$scope.currentChat.message=$scope.chatPools[i].message;	
+		isntHave($scope.currentChat.name);
 		// for(var j=0;$scope.curre)
 		// $state.go('main.chatpage',{},{reload:false});
 	};
