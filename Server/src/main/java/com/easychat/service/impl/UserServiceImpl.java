@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
                 userTest.setPassword(CommonUtils.md5(passwordTest));
                 String avatar="http://img4q.duitang.com/uploads/item/201503/05/20150305192855_iAFTs.thumb.224_0.jpeg";
                 userTest.setAvatar(avatar);
+                userTest.setNick(nameTest);
                 userRepository.save(userTest);
             } else {
                 throw new BadRequestException(ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS,
