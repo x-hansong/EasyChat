@@ -21,27 +21,23 @@ weChat.controller('weChatCtrl', function($scope,$http,$state){
 		"phone":"18812123456",
 		"email":"15666@qq.com",
 		"avatar":"http://www.qqtn.com/up/2014-10/201410311103454469999.png",
-		"sign_info":"我是说在座的各位" 
-		},{
-		"id":2,
-		"name":"hello2",
-		"nick":"Tom",  
-		"sex":"1",
-		"phone":"18812123456",
-		"email":"15666@qq.com",
-		"avatar":"http://www.qqtn.com/up/2014-10/201410311103454469999.png",
-		"sign_info":"我是说在座的各位" 
+		"sign_info":"我是说在座的各位"
 		}
 	]
-	}
-	// 聊天缓冲池
-	var i=0;
-	$scope.chatPools=[
-		{
-			'content':'';
-			'user':'';
+	};
+	$scope.chatPools=[{
+			"name":"",
+			"message":[
+				{
+					'from':true,
+					'content':""
+				}
+			]
 		}
 	];
+		$scope.currentChat={
+		'name':''
+	};
 	var stompClient = null;
 
 function connect() {
@@ -54,19 +50,31 @@ function connect() {
             // handle position update
             console.log(msg);
             var message=JSON.parse(msg.body);
-            var label =$("<div class='content'>"
-            +"<div class='chatmessage-1-image' style='float:right;'>"
-            +"<img src='image/cong.jpg' width='40px' height='40px'/>"
-            +"</div>"
-            +"<div class='bubble'>"
-            +"<div class='bubble_cont'>"
-            +"<div class='plain'>"
-            +"<pre class='js_message_plain ng-binding'>"+message.content+"</pre>"
-            +"</div>"
-            +"</div>"
-            +"</div>"
-            +"</div>");
-        $(".main-right-chatmessage").append(label);
+            // var i=0;
+            // for(;$scope.chatPools[i].name!=message.fromUser;i++);
+
+            // $scope.chatPools[i].message.push({
+            // 	'from':true,
+            // 	'content':message.content
+            // });		
+            // if(message.fromUser==$scope.currentChat.name){
+	            var label =$("<div class='content'>"
+	            +"<div class='chatmessage-1-image' style='float:left;'>"
+	            +"<img src='image/cong.jpg' width='40px' height='40px'/>"
+	            +"</div>"
+	            +"<div class='bubble_1'>"
+	            +"<div class='bubble_cont'>"
+	            +"<div class='plain'>"
+	            +"<pre class='js_message_plain ng-binding'>"+message.content+"</pre>"
+	            +"</div>"
+	            +"</div>"
+	            +"</div>"
+	            +"</div>");
+	        	$(".main-right-chatmessage").append(label);
+    		// }
+    		// else{
+
+    		// }
         });
     });
 }
@@ -79,7 +87,7 @@ function disconnect() {
 }
 $scope.sendMessageSub=function(){
 	sendMessage();
-}
+};
 //发送消息函数
 function sendMessage()
 {
@@ -92,11 +100,18 @@ function sendMessage()
             "content": $(".main-right-writemessage").val(),
             "toUser": $(".you-name").text()
         };
+        // var i=0;
+        // for(;$scope.chatPools[i].name!=msg.fromUser;i++);
+        // $scope.chatPools[i].message.push({
+        //     	'from':true,
+        //     	'content':msg.content
+        //     });		
+        // console.log($scope.chatPools);		
          var label =$("<div class='content'>"
-            +"<div class='chatmessage-1-image' style='float:left;'>"
+            +"<div class='chatmessage-1-image' style='float:right;'>"
             +"<img src='image/cong.jpg' width='40px' height='40px'/>"
             +"</div>"
-            +"<div class='bubble_1'>"
+            +"<div class='bubble'>"
             +"<div class='bubble_cont'>"
             +"<div class='plain'>"
             +"<pre class='js_message_plain ng-binding'>"+msg.content+"</pre>"
@@ -145,7 +160,7 @@ function send(data)
 				connect();
 				$scope.getChatListSub();
 			})
-	}
+	};
 	//获取聊天列表处理
 	$scope.getChatListSub=function(){
 		$http({
@@ -156,13 +171,24 @@ function send(data)
 			}
 		}).success(function(data, status, headers, config){
 			$scope.chatList.friends=data.friends;
+			// for(var i=0;data.friends[i]!=null;i++){
+			// 	$scope.chatPools[i]={
+			// 		"name":data.friends[i].name,
+			// 		"message":[
+			// 			{
+			// 			'from':true,
+			// 			'content':""
+			// 			}
+			// 		]
+			// 	};
+			// }
+			// console.log($scope.chatPools);
 			})
 		.error(function(data, status, headers, config){
 	        	alert("未知错误!");
 			})
 	}
-	// 聊天信息提交处理
-})
+});
 //注册控制模块
 var registerCtrls=angular.module('registerCtrls', []);
 registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope){
@@ -221,13 +247,10 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	        	//console.log(data);
     });
 	};
-})
+});
 //主页控制模块
 var mainCtrls=angular.module('mainCtrls',[]);
 mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
-	$scope.currentChat={
-		'nick':''
-	}
 	// 注销处理
 	$scope.logoffSub=function(){
 		$http({
@@ -238,7 +261,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			}
 		}).success(function(data, status, headers, config){
 			alert("注销成功！");
-			$state.go('main',{},{reload:true});
+			$state.go('login',{},{reload:true});
 			})
 		.error(function(data, status, headers, config){
 			if(data.error=="auth_bad_access_token")
@@ -315,7 +338,6 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
-			$scope.friendl
 			alert("删除成功！");
 			})
 		.error(function(status){
@@ -521,6 +543,5 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 				
 			})
 	}
-	// 
 });
 
