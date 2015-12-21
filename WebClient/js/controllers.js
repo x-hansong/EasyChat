@@ -291,18 +291,28 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			})
 	}
 	// 添加好友处理
-	$scope.addFriendName="zl36192031";
+	$scope.addFriendName={
+		'name':"zl36192031"
+	}
+	$scope.message={
+		'message':""
+	}
 	$scope.addFriendSub=function(){
 		$http({
 			method:'post',
-			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.addFriendName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.searchStrangerName.name,
 			headers:{
 				'x-auth-token':$scope.userMessage.token
+			},
+		    data:{
+                 'content':$scope.message.message
 			}
 		}).success(function(data){
-			alert("请求已发送！");
+			$state.go('main.friend',{},{reload:false});
+		    alert("请求已发送！");
+
 			})
-		.error(function(status){
+		.error(function(data, status, headers, config){
 			if(status==400)
 				alert("服务器无法解析！");
 			if(status==401)
@@ -316,7 +326,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 	}
 	// 删除好友处理
 	$scope.delFriendName="";
-	$scope.addFriendSub=function(){
+	$scope.delFriendSub=function(){
 		$http({
 			method:'delete',
 			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.delFriendName,
@@ -364,19 +374,22 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			})
 	}
 	// 查看陌生人信息处理
-	$scope.searchStrangerName="";
+	$scope.searchStrangerName={
+		'name':""
+	},
 	$scope.searchStrangerSub=function(){
 		$http({
 			method:'get',
-			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.searchStrangerName,
-			headers:{
-				'x-auth-token':$scope.userMessage.token
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/stranger/'+$scope.searchStrangerName.name,
+			headers:{			
+				'x-auth-token':$scope.userMessage.token,
+				// 'name':$scope.userMessage.user.name
 			}
 		}).success(function(data){
 			$scope.strangerMessage=data;
-			$state.go('strangerMsg',{},{reload:false});
+			$state.go('main.addFriend',{},{reload:false});
 			})
-		.error(function(status){
+		.error(function(data, status, headers, config){
 			if(status==400)
 				alert("服务器无法解析！");
 			if(status==401)
