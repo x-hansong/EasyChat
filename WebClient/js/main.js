@@ -70,3 +70,6 @@ function information(e){
 		});
 	}
 }
+function isHave(){
+	$('.littleSign').css("display","block");
+}

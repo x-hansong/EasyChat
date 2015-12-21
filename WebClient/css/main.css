@@ -437,9 +437,11 @@ pre {
 	text-decoration:none;
 }
 .littleSign{
+	display:none;
 	width:10px;
 	height:10px;
 	background:#ffff00;
-	top:0;
-	right:0;
+	margin-top:-48px;
+	margin-left:255px;
+	border-radius: 5px;
 }
