@@ -185,7 +185,7 @@ public class UserController {
      *请求添加好友
      */
     @ResponseBody
-    @RequestMapping(value = "/{name}/contract/users/{friendName}", method = RequestMethod.POST,produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{name}/contacts/users/{friendName}", method = RequestMethod.POST,produces = APPLICATION_JSON_VALUE)
     public void sendFriendInvite(@PathVariable String name, @PathVariable String friendName, @RequestBody String json) throws BadRequestException {
         Map data = JsonUtils.decode(json, Map.class);
         FriendInviteMsg friendInviteMsg = new FriendInviteMsg(name, friendName, (String) data.get("content"));
