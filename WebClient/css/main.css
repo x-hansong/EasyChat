@@ -413,7 +413,7 @@ pre {
 #rightmenu{
 	background: #FFF;
 	width:140px;
-	height:120px;
+	height:80px;
 	border: 1px solid #a4a4a4;
 	border-radius: 5px;
 }
@@ -435,4 +435,13 @@ pre {
 	width:140px;
 	margin-left: 20px;
 	text-decoration:none;
+}
+.littleSign{
+	display:none;
+	width:10px;
+	height:10px;
+	background:#ffff00;
+	margin-top:-48px;
+	margin-left:255px;
+	border-radius: 5px;
 }

@@ -207,7 +207,7 @@ public class UserServiceImpl implements UserService {
                 String json = JsonUtils.encode(map);
                 return json;
             }else {
-                throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user has no friend");
+                return null;
             }
         }else{
             throw new NotFoundException(ErrorType.SERVICE_RESOURCE_NOT_FOUND, "the user is not exists");

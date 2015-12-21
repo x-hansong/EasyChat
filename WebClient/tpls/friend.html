@@ -3,7 +3,7 @@
         <h2 class="you-name">查找好友</h2>
     </div>
     <div class="main-right-friend">
-        <input type="text"  placeholder=" Please Enter Your Friend Name" />
-        <button ui-sref="main.addFriend" type="submit">查找好友</button>
+        <input type="text"  placeholder=" Please Enter Your Friend Name"  ng-model='searchStrangerName.name'  />
+        <button  type="submit" ng-click="searchStrangerSub()">查找好友</button>
     </div>
 </div>
