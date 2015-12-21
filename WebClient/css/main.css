@@ -436,3 +436,10 @@ pre {
 	margin-left: 20px;
 	text-decoration:none;
 }
+.littleSign{
+	width:10px;
+	height:10px;
+	background:#ffff00;
+	top:0;
+	right:0;
+}
