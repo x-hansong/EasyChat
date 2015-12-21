@@ -12,7 +12,6 @@ public class CommandMsg {
 
     public CommandMsg(String command) {
         this.type = "COMMAND";
-        this.type = "COMMAND";
         this.command = command;
     }
 

@@ -39,5 +39,6 @@ public class WSController {
     public void accept(AcceptInvitationMsg msg){
         userService.setFriendRelationship(msg.getToUser(), msg.getFromUser());
         simpMessagingTemplate.convertAndSend("/queue/system/" + msg.getFromUser(), new CommandMsg("REFRESH_FRIENDLIST"));
+        simpMessagingTemplate.convertAndSend("/queue/system/" + msg.getToUser(), new CommandMsg("REFRESH_FRIENDLIST"));
     }
 }
