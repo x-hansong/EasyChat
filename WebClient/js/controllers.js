@@ -36,7 +36,8 @@ weChat.controller('weChatCtrl', function($scope,$http,$state){
 		}
 	];
 		$scope.currentChat={
-		'name':''
+		'name':'',
+		'message':[],
 	};
 	var stompClient = null;
 
@@ -50,14 +51,14 @@ function connect() {
             // handle position update
             console.log(msg);
             var message=JSON.parse(msg.body);
-            // var i=0;
-            // for(;$scope.chatPools[i].name!=message.fromUser;i++);
+            var i=0;
+            for(;$scope.chatPools[i].name!=message.fromUser;i++);
 
-            // $scope.chatPools[i].message.push({
-            // 	'from':true,
-            // 	'content':message.content
-            // });		
-            // if(message.fromUser==$scope.currentChat.name){
+            $scope.chatPools[i].message.push({
+            	'from':true,
+            	'content':message.content
+            });		
+            if(message.fromUser==$scope.currentChat.name){
 	            var label =$("<div class='content'>"
 	            +"<div class='chatmessage-1-image' style='float:left;'>"
 	            +"<img src='image/cong.jpg' width='40px' height='40px'/>"
@@ -71,10 +72,10 @@ function connect() {
 	            +"</div>"
 	            +"</div>");
 	        	$(".main-right-chatmessage").append(label);
-    		// }
-    		// else{
+    		}
+    		else{
 
-    		// }
+    		}
         });
     });
 }
@@ -100,35 +101,25 @@ function sendMessage()
             "content": $(".main-right-writemessage").val(),
             "toUser": $(".you-name").text()
         };
-        // var i=0;
-        // for(;$scope.chatPools[i].name!=msg.fromUser;i++);
-        // $scope.chatPools[i].message.push({
-        //     	'from':true,
-        //     	'content':msg.content
-        //     });		
-        // console.log($scope.chatPools);		
-         var label =$("<div class='content'>"
-            +"<div class='chatmessage-1-image' style='float:right;'>"
-            +"<img src='image/cong.jpg' width='40px' height='40px'/>"
-            +"</div>"
-            +"<div class='bubble'>"
-            +"<div class='bubble_cont'>"
-            +"<div class='plain'>"
-            +"<pre class='js_message_plain ng-binding'>"+msg.content+"</pre>"
-            +"</div>"
-            +"</div>"
-            +"</div>"
-            +"</div>");
-        $(".main-right-chatmessage").append(label);
+        
+        for(var i=0;$scope.chatPools[i]!=null&&$scope.chatPools[i].name!=msg.toUser;i++);
+        $scope.chatPools[i].message.push({
+            	'from':false,
+            	'content':msg.content
+            });		
+        console.log($scope.chatPools);		
         var msg_str = JSON.stringify(msg);
         send(msg_str);
         $(".main-right-writemessage").val("");
     }
 }
-
-
-
-
+	// 寻找聊天缓冲内容
+	$scope.findCurrentChat=function(){
+		var i=0;
+		for(;$scope.chatPools[i].name!=$scope.currentChat.name;i++);
+		$scope.currentChat.message=$scope.chatPools[i].message;	
+		$state.go('main.chatpage',{},{reload:true});
+	};
 //子发送消息函数
 function send(data)
 {
@@ -171,18 +162,13 @@ function send(data)
 			}
 		}).success(function(data, status, headers, config){
 			$scope.chatList.friends=data.friends;
-			// for(var i=0;data.friends[i]!=null;i++){
-			// 	$scope.chatPools[i]={
-			// 		"name":data.friends[i].name,
-			// 		"message":[
-			// 			{
-			// 			'from':true,
-			// 			'content':""
-			// 			}
-			// 		]
-			// 	};
-			// }
-			// console.log($scope.chatPools);
+			for(var i=0;data.friends[i]!=null;i++){
+				$scope.chatPools[i]={
+					"name":data.friends[i].name,
+					"message":[]
+				};
+			}
+			console.log($scope.chatPools);
 			})
 		.error(function(data, status, headers, config){
 	        	alert("未知错误!");

@@ -5,21 +5,33 @@
     </div>
     <!-- 显示信息区域 -->
     <div class="main-right-chatmessage">
-
-        <!-- 信息显示样式 -->
-       <!--  <div class="content" >
+        <div  ng-repeat="message in currentChat.message">
+         <div class="content" ng-if='!message.from' >
+            <div class="chatmessage-1-image" style="float:right;">
+                <img src="image/cong.jpg" width="40px" height="40px"/>
+            </div>
+            <div class="bubble">
+                <div class="bubble_cont">
+                    <div class="plain">
+                        <pre class="js_message_plain ng-binding" >{{message.content}}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="content" ng-if="message.from" >
             <div class="chatmessage-1-image" style="float:left;">
                 <img src="image/cong.jpg" width="40px" height="40px"/>
             </div>
             <div class="bubble_1">
                 <div class="bubble_cont">
                     <div class="plain">
-                        <pre class="js_message_plain ng-binding" >张力是一个刷币</pre>
+                        <pre class="js_message_plain ng-binding" >{{message.content}}</pre>
                     </div>
                 </div>
             </div>
         </div>
-    </div> -->
+        </div>
+    </div>
     <!-- 发送信息区域 -->
     <div class="main-right-sendmessage">
         <!-- 书写信息区域 -->

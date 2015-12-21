@@ -1,7 +1,7 @@
 <div class="allchatmessage" >
     <!-- 生成左侧列表 -->
     <div class="chatmessage"   ng-repeat="friend in chatList.friends|filter:searchText" context-menu target='rightmenu'>
-        <a id="1" href="#"  ng-click="currentChat.name=friend.name" ui-sref="main.chatpage">
+        <a id="1" href="#"  ng-click="currentChat.name=friend.name;findCurrentChat()">
             <div class="chatmessage-1">
                 <div class="chatmessage-1-image">
                     <img src="{{friend.img_src}}" alt="" class="chat-1-image" width="40px" height="40px">
