@@ -13,17 +13,7 @@ weChat.controller('weChatCtrl', function($scope,$http,$state){
 		    }
 	};
 	$scope.chatList={
-		"friends":[{
-		"id":1,
-		"name":"hello1",
-		"nick":"Tom",  
-		"sex":"1",
-		"phone":"18812123456",
-		"email":"15666@qq.com",
-		"avatar":"http://www.qqtn.com/up/2014-10/201410311103454469999.png",
-		"sign_info":"我是说在座的各位"
-		}
-	]
+		"friends":[]
 	};
 	$scope.chatPools=[{
 			"name":"",
@@ -58,32 +48,59 @@ function connect() {
             	'from':true,
             	'content':message.content
             });		
-            if(message.fromUser==$scope.currentChat.name){
-	            var label =$("<div class='content'>"
-	            +"<div class='chatmessage-1-image' style='float:left;'>"
-	            +"<img src='image/cong.jpg' width='40px' height='40px'/>"
-	            +"</div>"
-	            +"<div class='bubble_1'>"
-	            +"<div class='bubble_cont'>"
-	            +"<div class='plain'>"
-	            +"<pre class='js_message_plain ng-binding'>"+message.content+"</pre>"
-	            +"</div>"
-	            +"</div>"
-	            +"</div>"
-	            +"</div>");
-	        	$(".main-right-chatmessage").append(label);
-    		}
-    		else{
+      //       if(message.fromUser==$scope.currentChat.name){
+	     //        var label =$("<div class='content'>"
+	     //        +"<div class='chatmessage-1-image' style='float:left;'>"
+	     //        +"<img src='image/cong.jpg' width='40px' height='40px'/>"
+	     //        +"</div>"
+	     //        +"<div class='bubble_1'>"
+	     //        +"<div class='bubble_cont'>"
+	     //        +"<div class='plain'>"
+	     //        +"<pre class='js_message_plain ng-binding'>"+message.content+"</pre>"
+	     //        +"</div>"
+	     //        +"</div>"
+	     //        +"</div>"
+	     //        +"</div>");
+	     //    	$(".main-right-chatmessage").append(label);
+    		// }
+    		// else{
 
-    		}
+    		// }
+        });
+         stompClient.subscribe("/queue/system/"+user, function(msg) {
+            // handle position update
+            console.log(msg);
+            var message=JSON.parse(msg.body);
+            if(message.type=="FRIEND_INVITE"){
+            	if(confirm(message.fromUser+"请求加你为好友！/n"+"验证信息："+message.content)){
+            		var sendMsg={
+            			'fromUser':message.toUser,
+            			'toUser':message.fromUser,
+            			'content':message.content,
+            			'type':message.type
+            		};
+            		console.log("Send:"+sendMsg);
+    				stompClient.send("/app/accept",{},JSON.stringify(sendMsg));
+            	}
+            }
+            if(message.type=="REFRESH_FRIENDLIST"){
+            	$http({
+					method:'get',
+					url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/friends',
+					headers:{
+						'x-auth-token':$scope.userMessage.token
+					}
+				}).success(function(data, status, headers, config){
+					$scope.chatList.friends=data.friends;
+					state.go('main.chatlist',{},{reload:true});
+					});
+            }
+            
         });
     });
 }
 
 function disconnect() {
-    if (stompClient != null) {
-        stompClient.disconnect();
-    }
     console.log("Disconnected");
 }
 $scope.sendMessageSub=function(){
@@ -118,7 +135,8 @@ function sendMessage()
 		var i=0;
 		for(;$scope.chatPools[i].name!=$scope.currentChat.name;i++);
 		$scope.currentChat.message=$scope.chatPools[i].message;	
-		$state.go('main.chatpage',{},{reload:true});
+		// for(var j=0;$scope.curre)
+		// $state.go('main.chatpage',{},{reload:false});
 	};
 //子发送消息函数
 function send(data)
@@ -128,19 +146,13 @@ function send(data)
 }
 	// 
 	//注册信息
-	$scope.registerMessage={
-		name:"",
-		password:""
-	};
+	$scope.registerMessage={'message':{}};
 	//登陆信息
-	$scope.loginMessage={
-		name:"zl123456",
-		password:"zl123456"
-	};
+	$scope.loginMessage={'message':{}};
 	//获取用户信息处理
 	$scope.getUserMessage=function(){
 		$http({
-			url:'http://119.29.26.47:8080/v1/users/'+$scope.loginMessage.name,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.loginMessage.message.name,
 			method:'get',
 			headers:{
 				'x-auth-token':$scope.userMessage.token
@@ -171,7 +183,7 @@ function send(data)
 			console.log($scope.chatPools);
 			})
 		.error(function(data, status, headers, config){
-	        	alert("未知错误!");
+	        	alert("没有好友!");
 			})
 	}
 });
@@ -180,11 +192,13 @@ var registerCtrls=angular.module('registerCtrls', []);
 registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope){
 	//登陆提交处理
 	$scope.loginSub=function(){
-		 $http.post('http://119.29.26.47:8080/v1/users/authorization',$scope.loginMessage)
+		 $http.post('http://119.29.26.47:8080/v1/users/authorization',$scope.loginMessage.message)
 	        .success(function(data, status, headers, config) {
 	            $scope.userMessage.token=headers('x-auth-token');
+	            $
 	            // console.log(headers('x-auth-token'));
 	            $scope.getUserMessage();
+	            // while($scope.chatList.friends==null);
 	            $state.go('main',{},{reload:true});
 				})
 	        .error(function(data, status, headers, config){
@@ -218,11 +232,11 @@ registerCtrls.controller('registerCtrl1',function($scope,$http,$state,$rootScope
 	};
 	//注册提交处理
 	$scope.registerSub=function(){
-		 $http.post('http://119.29.26.47:8080/v1/users',$scope.registerMessage)
+		 $http.post('http://119.29.26.47:8080/v1/users',$scope.registerMessage.message)
 	        .success(function(data) {
 	            // console.log(data);
 	            // $state.go('main',{},{reload:true});
-	            $scope.loginMessage=data;
+	            $scope.loginMessage.message=data;
 	            $scope.loginSub();
 				})
 	        .error(function(data){
