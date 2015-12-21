@@ -352,16 +352,18 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			})
 	}
 	// 查看好友信息处理
-	$scope.searchFriendName="";
+	$scope.searchFriendName={
+		name:""
+	};
 	$scope.searchFriendSub=function(){
 		$http({
 			method:'get',
-			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.searchFriendName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/friend/'+$scope.searchFriendName.name,
 			headers:{
 				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
-			$scope.friendMessage=data;
+			$scope.friendMessage = data;
 			$state.go('friendMsg',{},{reload:false});
 			})
 		.error(function(status){

@@ -11,7 +11,7 @@ weChatDirectives.directive('contextMenu', ['$window', function($window) {
                 menuElement.css('top', event.clientY + 'px');
                 menuElement.css('left', event.clientX + 'px');
                 $scope.delFriendName.name = event.target.textContent;
-                $scope.searchFriendName = event.target.textContent;
+                $scope.searchFriendName.name = event.target.textContent;
             };
 
             function close(element) {
