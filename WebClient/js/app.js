@@ -1,4 +1,4 @@
-var weChat = angular.module('weChat', ['ui.router', 'ngAnimate','registerCtrls','mainCtrls','weChatDirectives']);
+var weChat = angular.module('weChat', ['ui.router','registerCtrls','mainCtrls','weChatDirectives']);
 weChat.run(function($rootScope, $state, $stateParams) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
