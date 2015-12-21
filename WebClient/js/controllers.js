@@ -315,6 +315,7 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
+			$scope.friendl
 			alert("删除成功！");
 			})
 		.error(function(status){

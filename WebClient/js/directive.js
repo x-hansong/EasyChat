@@ -11,9 +11,13 @@ weChatDirectives.directive('contextMenu', ['$window', function($window) {
                 menuElement.removeClass("ng-hide");
                 menuElement.css('top', event.clientY + 'px');
                 menuElement.css('left', event.clientX + 'px');
-                testDOM = event.target;
-                console.log(testDOM);
+                testDOM = event.target.textContent;
             };
+
+            $scope.qwe = function(){
+                alert("hello");
+            };
+
             function close(element) {
                 menuElement.addClass("ng-hide");
             };
@@ -21,9 +25,9 @@ weChatDirectives.directive('contextMenu', ['$window', function($window) {
                 $scope.$apply(function() {
                     event.preventDefault();
                     open(event, menuElement);
-
                 });
             });
+
             angular.element($window).bind('click', function(event) {
                 if (menuElement.className!="ng-hide") {
                     $scope.$apply(function() {

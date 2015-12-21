@@ -60,20 +60,16 @@
 
 
 
-    <div id='rightmenu' style="position:fixed;z-index:1000" class="ng-hide">
+    <div id='rightmenu' style="position:fixed;z-index:1000" class="ng-hide" context-menu>
         <ul>
-            <li>
-                <a>删除好友</a>
+            <li >
+                <a ng-click="qwe()">删除好友</a>
             </li>
             <li>
-                <a ui-sref="main.friendSetting">查看好友信息</a>
-            </li>
-            <li>
-                <a>创建群</a>
+                <a ui-sref="main.friendSetting" ng-click="fns()">查看好友信息</a>
             </li>
         </ul>
 
     </div>
-
 
 </div>
