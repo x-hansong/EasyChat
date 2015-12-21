@@ -6,16 +6,12 @@ weChatDirectives.directive('contextMenu', ['$window', function($window) {
         restrict: 'A',
         link: function($scope, element, attrs) {
             var menuElement = angular.element(document.getElementById(attrs.target));
-            var testDOM;
             function open(event, element) {
                 menuElement.removeClass("ng-hide");
                 menuElement.css('top', event.clientY + 'px');
                 menuElement.css('left', event.clientX + 'px');
-                testDOM = event.target.textContent;
-            };
-
-            $scope.qwe = function(){
-                alert("hello");
+                $scope.delFriendName.name = event.target.textContent;
+                $scope.searchFriendName = event.target.textContent;
             };
 
             function close(element) {

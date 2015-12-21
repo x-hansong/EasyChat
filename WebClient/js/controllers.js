@@ -325,15 +325,18 @@ mainCtrls.controller('mainCtrl1',function($scope,$http,$state){
 			})
 	}
 	// 删除好友处理
-	$scope.delFriendName="";
+	$scope.delFriendName={
+		name:$scope.testDOM
+	};
 	$scope.delFriendSub=function(){
 		$http({
 			method:'delete',
-			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.delFriendName,
+			url:'http://119.29.26.47:8080/v1/users/'+$scope.userMessage.user.name+'/contacts/users/'+$scope.delFriendName.name,
 			headers:{
 				'x-auth-token':$scope.userMessage.token
 			}
 		}).success(function(data){
+			$scope.getChatListSub();
 			alert("删除成功！");
 			})
 		.error(function(status){
