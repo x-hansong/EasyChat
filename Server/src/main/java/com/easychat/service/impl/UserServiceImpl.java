@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
      * @param json
      */
     @Override
-    public void addUser(String json) throws BadRequestException {
+    public void addUser(String json) {
         Map data = JsonUtils.decode(json, Map.class);
         String nameTest = (String) data.get("name");
         String passwordTest = (String) data.get("password");
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
      * @return 用户名和密码正确，创建session并返回.
      */
     @Override
-    public User authenticate(String json) throws BadRequestException, NotFoundException {
+    public User authenticate(String json) {
         Map data = JsonUtils.decode(json, Map.class);
         String name = (String) data.get("name");
         String password = CommonUtils.md5((String) data.get("password"));
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
      * @param password
      * @return User
      */
-    private User validateUser(String name, String password) throws NotFoundException, BadRequestException {
+    private User validateUser(String name, String password) {
         User user = userRepository.findByName(name);
         if (user != null){
             if (password.equals(user.getPassword())) {
@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
      * @throws BadRequestException
      */
     @Override
-    public void modifyUserInfo(String name, String json) throws BadRequestException ,NotFoundException{
+    public void modifyUserInfo(String name, String json){
         Map<String, Object> data = JsonUtils.decode(json, Map.class);
         String sex = (String)data.get("sex");
         String nick = (String) data.get("nick");
@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
      * @return
      * @throws NotFoundException
      */
-    public String getUser(String name) throws NotFoundException {
+    public String getUser(String name){
         User user = userRepository.findByName(name);
         if (user != null) {
 
@@ -187,7 +187,7 @@ public class UserServiceImpl implements UserService {
      * @throws NotFoundException
      */
     @Override
-    public String getFriends(String name) throws NotFoundException {
+    public String getFriends(String name){
         User user = userRepository.findByName(name);
         //判断用户是否存在
         if (user != null){
@@ -222,7 +222,7 @@ public class UserServiceImpl implements UserService {
      * @throws NotFoundException
      */
     @Override
-    public void deleteFriend(String userName, String friendName) throws NotFoundException{
+    public void deleteFriend(String userName, String friendName){
         User user = userRepository.findByName(userName);
         //判断用户是否存在
         if(user != null){
@@ -254,7 +254,7 @@ public class UserServiceImpl implements UserService {
      * @return
      * @throws NotFoundException
      */
-    public String getFriendInfo(String name,String friend_name) throws NotFoundException {
+    public String getFriendInfo(String name,String friend_name) {
         User user = userRepository.findByName(name);
         if (user != null) {
             User friend = userRepository.findByName(friend_name);
@@ -284,7 +284,7 @@ public class UserServiceImpl implements UserService {
      * @return
      * @throws NotFoundException
      */
-    public String getStrangerInfo(String name,String stranger_name) throws NotFoundException {
+    public String getStrangerInfo(String name,String stranger_name){
         User user = userRepository.findByName(name);
         if (user != null) {
             User person = userRepository.findByName(stranger_name);

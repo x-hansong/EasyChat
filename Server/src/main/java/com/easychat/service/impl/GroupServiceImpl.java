@@ -1,21 +1,13 @@
 package com.easychat.service.impl;
 
 import com.easychat.exception.BadRequestException;
-import com.easychat.model.entity.Group;
-import com.easychat.model.entity.GroupRelationship;
-import com.easychat.model.error.ErrorType;
 import com.easychat.repository.GroupRelationshipRepository;
 import com.easychat.repository.GroupRepository;
 import com.easychat.service.GroupService;
-import com.easychat.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by king on 2015/12/7.
@@ -104,7 +96,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public String updateGroupAvatarAndAnnouncement(long gid, long uid ,String json) throws BadRequestException {
+    public String updateGroupAvatarAndAnnouncement(long gid, long uid ,String json){
 
 //        if (json.equals("")){
 //            return null;

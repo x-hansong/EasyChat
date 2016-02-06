@@ -3,7 +3,7 @@ package com.easychat.exception;
 /**
  * Created by yonah on 15-11-6.
  */
-public class BasicException extends Exception{
+public class BasicException extends RuntimeException{
     private String error;
     private String description;
 
