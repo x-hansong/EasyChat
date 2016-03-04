@@ -1,20 +1,23 @@
 package com.easychat.controller;
 
 import com.easychat.exception.BadRequestException;
-import com.easychat.exception.NotFoundException;
+import com.easychat.model.dto.input.UserDTO;
+import com.easychat.model.dto.output.UserDetailDTO;
 import com.easychat.model.entity.User;
 import com.easychat.model.error.ErrorType;
 import com.easychat.model.msg.FriendInviteMsg;
 import com.easychat.service.UserService;
 import com.easychat.utils.JsonUtils;
+import com.easychat.validator.UserDTOValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -27,42 +30,41 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/v1/users")
 public class UserController {
     private UserService userService;
-    private RedisTemplate redisTemplate;
 
     private SimpMessagingTemplate simpMessagingTemplate;
+    @InitBinder("userDTO")//这里要填需要校验的变量名
+    protected void initBinder(WebDataBinder binder){
+        binder.setValidator(new UserDTOValidator());
+    }
 
     static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public UserController(UserService userService, RedisTemplate redisTemplate, SimpMessagingTemplate simpMessagingTemplate) {
+    public UserController(UserService userService, SimpMessagingTemplate simpMessagingTemplate) {
         this.userService = userService;
-        this.redisTemplate = redisTemplate;
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     /**
      * 用户注册接口
-     * @param json
-     * @return
-     * @throws BadRequestException
+     * @param userDTO 从RequestBody中json解析出来的UserDTO
+     * @return UserDTO 返回注册成功的用户名密码
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String addUser(@RequestBody String json) throws BadRequestException {
-        userService.addUser(json);
-        return json;
+    public UserDTO addUser(@RequestBody @Valid UserDTO userDTO)  {
+        userService.addUser(userDTO);
+        return userDTO;
     }
 
-    /**获取用户信息接口
+    /**获取当前登陆用户信息接口
      *
-     * @param name
+     * @param name 用户名
      * @return
-     * @throws NotFoundException
      */
     @ResponseBody
     @RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public String getUser(@PathVariable String name, HttpSession httpSession) throws NotFoundException, BadRequestException {
-        redisTemplate.opsForValue().increment("visit", 1);
+    public UserDetailDTO getUser(@PathVariable String name, HttpSession httpSession)  {
         String uname = (String) httpSession.getAttribute("name");
         if (uname.equals(name)) {
             return userService.getUser(name);
@@ -73,14 +75,11 @@ public class UserController {
 
     /**
      * 用户登录接口
-     * @param json
-     * @return token
-     * @throws BadRequestException
      */
     @RequestMapping(value="/authorization", method = RequestMethod.POST)
     @ResponseBody
-    public void authenticate(@RequestBody String json, HttpSession httpSession) throws BadRequestException, NotFoundException {
-        User user = userService.authenticate(json);
+    public void authenticate(@RequestBody @Valid UserDTO userDTO, HttpSession httpSession) {
+        User user = userService.authenticate(userDTO);
         httpSession.setAttribute("id", user.getId());
         httpSession.setAttribute("name",user.getName());
     }
@@ -88,38 +87,38 @@ public class UserController {
     /**
      * 用户注销接口
      * @param httpSession
-     * @throws BadRequestException
      */
     @ResponseBody
     @RequestMapping(value="/authentication",method=RequestMethod.DELETE)
-    public void logOff(HttpSession httpSession) throws BadRequestException{
+    public void logOff(HttpSession httpSession) {
         httpSession.invalidate();
     }
 
     /**
      * 修改用户信息接口.
-     * @param name
-     * @param json
-     * @return
-     * @throws BadRequestException
      */
     @ResponseBody
     @RequestMapping(value="/{name}",method = RequestMethod.PUT)
-    public String modifyUserInfo(@PathVariable String name,
-                                  @RequestBody String json) throws BadRequestException, NotFoundException {
-        userService.modifyUserInfo(name, json);
-        return json;
+    public UserDetailDTO modifyUserInfo(@PathVariable String name,
+                                  @RequestBody UserDetailDTO userDetailDTO, HttpSession httpSession)  {
+        if (name.equals(httpSession.getAttribute("name"))){
+
+        }else {
+            throw new BadRequestException(ErrorType.INVALID_GRANT, "you can't modify other's information");
+        }
+        return userDetailDTO;
+//        userService.modifyUserInfo(name, json);
+//        return json;
     }
 
     /**
      * 获取用户所有好友
      * @param name
      * @return
-     * @throws NotFoundException
      */
     @ResponseBody
     @RequestMapping(value = "/{name}/friends",method = RequestMethod.GET)
-    public String getFriends(@PathVariable String name ,  HttpSession httpSession) throws NotFoundException,BadRequestException{
+    public String getFriends(@PathVariable String name ,  HttpSession httpSession) {
         String uname = (String)httpSession.getAttribute("name");
         if (uname.equals(name)) {
             return userService.getFriends(name);
@@ -134,12 +133,10 @@ public class UserController {
      * @param name
      * @param friendname
      * @param httpSession
-     * @throws NotFoundException
-     * @throws BadRequestException
      */
     @ResponseBody
     @RequestMapping(value = "/{name}/contacts/users/{friendname}",method = RequestMethod.DELETE)
-    public void deleteFriend(@PathVariable String name,@PathVariable String friendname ,HttpSession httpSession)throws NotFoundException,BadRequestException{
+    public void deleteFriend(@PathVariable String name,@PathVariable String friendname ,HttpSession httpSession){
         String uname = (String)httpSession.getAttribute("name");
         if (uname.equals(name)) {
             userService.deleteFriend(name,friendname);
@@ -152,11 +149,10 @@ public class UserController {
      *
      * @param name
      * @return
-     * @throws NotFoundException
      */
     @ResponseBody
          @RequestMapping(value = "/{name}/friend/{friend_name}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-         public String getFriendInfo(@PathVariable String name,@PathVariable String friend_name , HttpSession httpSession) throws NotFoundException, BadRequestException {
+         public String getFriendInfo(@PathVariable String name,@PathVariable String friend_name , HttpSession httpSession) {
         String uname = (String) httpSession.getAttribute("name");
         if (uname.equals(name)) {
             return userService.getFriendInfo(name,friend_name);
@@ -168,11 +164,10 @@ public class UserController {
      *
      * @param name
      * @return
-     * @throws NotFoundException
      */
     @ResponseBody
     @RequestMapping(value = "/{name}/stranger/{stranger_name}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public String getStrangerInfo(@PathVariable String name,@PathVariable String stranger_name , HttpSession httpSession) throws NotFoundException, BadRequestException {
+    public String getStrangerInfo(@PathVariable String name,@PathVariable String stranger_name , HttpSession httpSession) {
         String uname = (String) httpSession.getAttribute("name");
         if (uname.equals(name)) {
             return userService.getStrangerInfo(name,stranger_name);
@@ -186,7 +181,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/{name}/contacts/users/{friendName}", method = RequestMethod.POST,produces = APPLICATION_JSON_VALUE)
-    public void sendFriendInvite(@PathVariable String name, @PathVariable String friendName, @RequestBody String json) throws BadRequestException {
+    public void sendFriendInvite(@PathVariable String name, @PathVariable String friendName, @RequestBody String json){
         Map data = JsonUtils.decode(json, Map.class);
         FriendInviteMsg friendInviteMsg = new FriendInviteMsg(name, friendName, (String) data.get("content"));
         simpMessagingTemplate.convertAndSend("/queue/system/" + friendName, friendInviteMsg);

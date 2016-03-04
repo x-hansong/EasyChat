@@ -3,10 +3,10 @@ package com.easychat.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +21,7 @@ import java.io.IOException;
     2.求注册登录接口。
     其他情况返回403
  */
-@Component
+//@Component
 public class SessionFilter extends OncePerRequestFilter {
     static Logger logger = LoggerFactory.getLogger(SessionFilter.class);
 
