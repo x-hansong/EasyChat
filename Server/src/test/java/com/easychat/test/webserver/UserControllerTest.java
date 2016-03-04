@@ -15,10 +15,12 @@ import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,6 +42,13 @@ public class UserControllerTest {
     private UserRepository userRepository;
 
     @Test
+    @Transactional
+    public void testUser(){
+        User user = userRepository.findByName("hansong");
+        Set<User> users = user.getFriendList();
+    }
+
+//    @Test
     public void testAddUserApi() throws BadRequestException {
         String name = "testuser";
         String password = "123456";
@@ -86,7 +95,7 @@ public class UserControllerTest {
         userRepository.delete(user);
     }
 
-    @Test
+//    @Test
     public void testAuthenticateApi() throws BadRequestException {
         String name = "testuser";
         String password = "123456";

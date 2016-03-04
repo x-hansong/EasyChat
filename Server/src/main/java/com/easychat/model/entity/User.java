@@ -2,6 +2,8 @@ package com.easychat.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by yonah on 15-10-18.
@@ -50,6 +52,22 @@ public class User implements Serializable{
 
     @Column(name="sign_info")
     private String signInfo;
+
+    @OneToMany
+    @JoinTable(
+            name = "FriendRelationship",
+            joinColumns = @JoinColumn(name = "aid"),
+            inverseJoinColumns = @JoinColumn(name = "bid")
+    )
+    private Set<User> friendList = new HashSet<>();
+
+    public Set<User> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(Set<User> friendList) {
+        this.friendList = friendList;
+    }
 
     public Long getId() {
         return id;
