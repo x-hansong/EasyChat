@@ -91,6 +91,9 @@ public class UserControllerTest {
         responseBody = JsonUtils.decode(response.getBody(), Map.class);
         assertEquals(ErrorType.DUPLICATE_UNIQUE_PROPERTY_EXISTS, responseBody.get("error"));
 
+        //测试登陆
+
+
         //删除测试用户
         userRepository.delete(user);
     }

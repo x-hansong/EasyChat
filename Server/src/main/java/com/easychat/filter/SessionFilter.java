@@ -3,6 +3,7 @@ package com.easychat.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -18,20 +19,23 @@ import java.io.IOException;
 /*
     对session进行检查，两种情况可以继续请求：
     1.如果session已经存在id字段，说明已经登录
-    2.求注册登录接口。
+    2.请求注册登录接口。
     其他情况返回403
  */
-//@Component
+@Component
 public class SessionFilter extends OncePerRequestFilter {
     static Logger logger = LoggerFactory.getLogger(SessionFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
-        logger.debug(request.getSession().getId());
-        if (httpSession.getAttribute("id") != null | isPass(request)){
+        String ip = (String) httpSession.getAttribute("ip");
+        logger.debug(request.getSession().getId() + request.getRemoteAddr());
+        if (isPass(request)){//判断用户未登陆的合法请求
             filterChain.doFilter(request,response);
-        }else {
+        }else if (ip != null && ip.equals(request.getRemoteAddr())){//判断已登录用户的请求ip是否相同
+            filterChain.doFilter(request,response);
+        } else{
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }

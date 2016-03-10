@@ -16,6 +16,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Map;
@@ -78,10 +79,11 @@ public class UserController {
      */
     @RequestMapping(value="/authorization", method = RequestMethod.POST)
     @ResponseBody
-    public void authenticate(@RequestBody @Valid UserDTO userDTO, HttpSession httpSession) {
+    public void authenticate(@RequestBody @Valid UserDTO userDTO, HttpSession httpSession, HttpServletRequest httpServletRequest) {
         User user = userService.authenticate(userDTO);
         httpSession.setAttribute("id", user.getId());
         httpSession.setAttribute("name",user.getName());
+        httpSession.setAttribute("ip", httpServletRequest.getRemoteAddr());
     }
 
     /**
